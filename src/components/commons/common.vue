@@ -1,0 +1,148 @@
+<template>
+  <div class="view-footer">
+    <router-link to="/">
+      <strong class="view-li-first" @click="tagToggle(1)">
+        <span class="view-font-default">首页</span>
+      </strong>
+    </router-link>
+    <router-link to="/project">
+      <strong class="view-li-project" @click="tagToggle(2)">
+        <span class="view-font-default">项目池</span>
+      </strong>
+    </router-link>
+    <router-link to="/FA">
+      <strong class="view-li-FA" @click="tagToggle(3)">
+        <span class="view-font-default">FA大联盟</span>
+      </strong>
+    </router-link>
+    <router-link to="/userCenter">
+      <strong class="view-li-user" @click="tagToggle(4)">
+        <span class="view-font-default">个人中心</span>
+      </strong>
+    </router-link>
+  </div>
+</template>
+<script>
+export default {
+  name: "foote",
+  data() {
+    return {
+      Ind: 1
+    };
+  },
+  methods: {
+    tagToggle(num) {
+      this.Ind  = num
+      // if (this.Ind == 1) {
+      //   this.tab($(".view-li-first"));
+      // }
+      // if (this.Ind == 2) {
+      //   this.tab($(".view-li-project"));
+      // }
+      // if (this.Ind == 3) {
+      //   this.tab($(".view-li-FA"));
+      // }
+      // if (this.Ind == 4) {
+      //   this.tab($(".view-li-user"));
+      // }
+    },
+    tab(el) {
+      // el.addClass("on")
+      //   .parent()
+      //   .siblings()
+      //   .children()
+      //   .removeClass("on");
+      // el.children("span")
+      //   .addClass("on")
+      //   .end()
+      //   .parent()
+      //   .siblings()
+      //   .children()
+      //   .find("span")
+      //   .removeClass("on")
+    }
+  },
+  created() {
+    this.Ind = sessionStorage.getItem('routeInd')
+  },
+  watch: {
+    $route(n, o) {
+      // if (n.name == 'user') {
+      //   sessionStorage.setItem('routeInd', 4)
+      //   this.tab($(".view-li-user"));
+      // } else if (n.name == 'FA') {
+      //   sessionStorage.setItem('routeInd', 3)
+      //    this.tab($(".view-li-FA"));
+      // } else if (n.name == 'project') {
+      //   sessionStorage.setItem('routeInd', 2)
+      //   this.tab($(".view-li-project"));
+      // } else if (n.name == 'home') {
+      //   sessionStorage.setItem('routeInd', 1)
+      //   this.tab($(".view-li-first"));
+      // }
+    }
+  }
+};
+</script>
+
+<style lang="less">
+.view-footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid #ececec;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: #fff;
+  // position: absolute;
+  strong {
+    flex: 1;
+    padding-top: 30px;
+    font-size: 12px;
+    display: inherit;
+    span.view-font-default {
+      color: #333;
+    }
+    span.view-font-default.on {
+      color: orangered;
+    }
+  }
+  strong.view-li-first {
+    background: url("../../assets/image/home_default.png") no-repeat center 5px;
+    background-size: 20px;
+  }
+  strong.view-li-first.on {
+    background: url("../../assets/image/home.png") no-repeat center 5px;
+    background-size: 34px;
+  }
+  strong.view-li-project {
+    background: url("../../assets/image/file_default.png") no-repeat center 6px;
+    background-size: 20px;
+  }
+  strong.view-li-project.on {
+    background: url("../../assets/image/file.png") no-repeat center 3px;
+    background-size: 32px;
+  }
+  strong.view-li-FA {
+    background: url("../../assets/image/FA_default.png") no-repeat center 5px;
+    background-size: 22px;
+  }
+  strong.view-li-FA.on {
+    background: url("../../assets/image/FA.png") no-repeat center 5px;
+    background-size: 34px;
+  }
+  strong.view-li-user {
+    background: url("../../assets/image/user_default.png") no-repeat center 5px;
+    background-size: 24px;
+  }
+  strong.view-li-user.on {
+    background: url("../../assets/image/user.png") no-repeat center 5px;
+    background-size: 33px;
+  }
+}
+</style>
+

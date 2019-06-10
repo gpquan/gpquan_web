@@ -1,0 +1,40 @@
+html{
+    width: 100%;
+    height:100%;
+}
+body{
+    background:#FCFCFC;
+    background:#F8F8F8;
+    width: 100%;
+    height: 100%;
+}
+#app{
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+.c-w1200 {
+    min-width: 1200px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+.c-w1000 {
+    min-width: 1000px;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+.clear:after{
+    content:'';
+    width:0;
+    height:0;
+    visibility: hidden;
+    clear: both;
+    overflow: hidden;
+    display: block;
+}
+.clear{
+    zoom:1
+}
+.view-margin-bottom-10 {
+    margin-bottom: 10px;
+}

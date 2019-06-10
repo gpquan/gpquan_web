@@ -1,0 +1,54 @@
+/*
+* @description:Common usage Styles
+* @author:WangLi
+* @update:WangLi (2017-11-15 5:15)
+*/
+
+.banner .swiper-pagination-custom {
+    position: absolute;
+    bottom: 35%;
+    height: 0px;
+    width: 100%;
+}
+
+.banner .swiper-pagination-custom .swiper-pagination-customs {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background: #646464;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.banner .swiper-pagination-custom .swiper-pagination-customs-active {
+    background: #007aff;
+    opacity: 1;
+}
+
+.government_swiper .swiper-pagination-custom {
+    position: absolute;
+    left: 80%;
+    z-index: 10;
+    width: 20%;
+}
+
+.government_swiper .customs {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    opacity: 0.6;
+    background: #818181;
+    color: #333;
+    line-height: 15px;
+    text-align: center;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.government_swiper .customs-active {
+    background: #007aff;
+    color: #fff;
+    opacity: 1;
+}
