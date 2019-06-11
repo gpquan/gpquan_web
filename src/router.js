@@ -12,6 +12,9 @@ import FA from './components/FA/FA'
 import UserCenter from './components/userCenter/user'
 import Login from './components/logins/login'
 import Sign from './components/logins/sign'
+import accelerate from './components/financing/accelerate'
+
+
 
 Vue.use(Router)
 
@@ -52,7 +55,8 @@ export default new Router({
                     path:'/project/personage',
                     name:'personage',
                     component:ProjectPersonage
-                }
+                },
+        
             ]
         },
         {
@@ -81,6 +85,11 @@ export default new Router({
             path:'/Sign',
             name:'SignIn',
             component:Sign,
-        }
+        },
+    {
+        path: '/accelerate',
+        name: 'accelerate',
+        component: accelerate,
+    },
     ]
 })

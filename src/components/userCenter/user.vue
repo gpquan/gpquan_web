@@ -188,7 +188,7 @@ export default {
         left: 23px;
         top: -10px;
         font-size: 8px;
-        background: linear-gradient(left, #f49e51, #f45551);
+        background: linear-gradient(to left, #f49e51, #f45551);
         border-radius: 10px 10px 10px 0px;
         color: #fff;
       }
@@ -208,7 +208,7 @@ export default {
         left: 23px;
         top: -10px;
         font-size: 8px;
-        background: linear-gradient(left, #f49e51, #f45551);
+        background: linear-gradient(to left, #f49e51, #f45551);
         border-radius: 10px 10px 10px 0px;
         color: #fff;
       }
