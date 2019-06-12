@@ -115,7 +115,11 @@ export default new Router({
                         meta:{
                             keep:2
                         }
-                    }
+                    },{
+						path:'/accelerate/Manage/o', //机构
+						name:'ManageO',
+						component:ManageO,
+					}
                 ]
             }
         ]
