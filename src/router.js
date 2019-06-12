@@ -13,6 +13,7 @@ import UserCenter from './components/userCenter/user'
 import Login from './components/logins/login'
 import Sign from './components/logins/sign'
 import accelerate from './components/financing/accelerate'
+import accelerateHome from './components/financing/accelerateHome'
 import Manage from '@/components/financing/manage'
 import ManageP from '@/components/financing/ManageP'
 import ManageO from '@/components/financing/ManageO'
@@ -40,8 +41,6 @@ export default new Router({
                     meta: {
                         showFooter: true
                     }
-            
-
                 },
                 {
                     path:'/project/details',
@@ -92,7 +91,7 @@ export default new Router({
     {
         path: '/accelerate',
         name: 'accelerate',
-        component: accelerate,
+        component: accelerateHome,
         redirect:'/accelerate/Manage',
         children:[
             {

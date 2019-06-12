@@ -1,198 +1,36 @@
 <template>
-  <div class="ppppp">
+  <div>
     <div class="list">
-      <ul>
-        <li class="list_Item">
-          <b class="icon_Box" @click="ListShow()" v-if="!isShow">
-            <nut-icon type="more"></nut-icon>
-          </b>
-          <div class="title">
-            <div>
-              <em>|</em>
-              <b>优广网</b>
-            </div>
-            <div style="padding:10px 0">
-              <span class="yd">移动互联网</span>
-              <span class="SAAS">SAAS</span>
-              <span class="xmt">新媒体</span>
-            </div>
-          </div>
-          <div class="div_ListBox">
-            <div class="List_top">
-              <div class="box_1">
-                <span class="box1">
-                  <circle-progress
-                    :id="1"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#F2AE57"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>444</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_2">
-                <span class="box2">
-                  <circle-progress
-                    :id="2"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#fa7e7e"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>555</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_3">
-                <span class="box3">
-                  <circle-progress
-                    :id="3"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#fa7e7e"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>666</span>
-                </span>
-                <b>优广网</b>
-              </div>
-            </div>
-            <div class="List_gather" v-if="isShow">
-              <b class="List_gather_Icon" @click="closeListGather()">
-                <nut-icon type="minus"></nut-icon>
-              </b>
-              <div class="box_1">
-                <span class="box1">
-                  <circle-progress
-                    :id="1"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#F2AE57"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>111</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_2">
-                <span class="box2">
-                  <circle-progress
-                    :id="2"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#fa7e7e"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>222</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_3">
-                <span class="box3">
-                  <circle-progress
-                    :id="3"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#fa7e7e"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>333</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_1">
-                <span class="box1">
-                  <circle-progress
-                    :id="1"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#F2AE57"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>111</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_2">
-                <span class="box2">
-                  <circle-progress
-                    :id="2"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#fa7e7e"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>222</span>
-                </span>
-                <b>优广网</b>
-              </div>
-              <div class="box_3">
-                <span class="box3">
-                  <circle-progress
-                    :id="3"
-                    :width="80"
-                    :radius="5"
-                    :progress="70"
-                    :delay="200"
-                    :duration="1000"
-                    barColor="#fa7e7e"
-                    backgroundColor="#FFE8CC"
-                    :isAnimation="true"
-                  ></circle-progress>
-                  <span>333</span>
-                </span>
-                <b>优广网</b>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <ManageList :ListData="ListData"/>
     </div>
   </div>
 </template>
 
 <script>
 import CircleProgress from "@/components/reusable/circle-progress";
+import ManageList from "@/components/reusable/Manage_List"
 export default {
   components: {
-    CircleProgress
+    CircleProgress,
+    ManageList
   },
   data() {
     return {
+      ListData:[
+        {
+          num:33
+        },{
+          num:55
+        },{
+          num:23
+        },{
+          num:52
+        },{
+          num:64
+        },{
+          num:23
+        },
+      ],
       isShow: true,
       width: 200,
       radius: 20,
