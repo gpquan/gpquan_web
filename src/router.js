@@ -13,7 +13,10 @@ import UserCenter from './components/userCenter/user'
 import Login from './components/logins/login'
 import Sign from './components/logins/sign'
 import accelerate from './components/financing/accelerate'
-
+import Manage from '@/components/financing/manage'
+import ManageP from '@/components/financing/ManageP'
+import ManageO from '@/components/financing/ManageO'
+ 
 
 
 Vue.use(Router)
@@ -90,6 +93,33 @@ export default new Router({
         path: '/accelerate',
         name: 'accelerate',
         component: accelerate,
+        redirect:'/accelerate/Manage',
+        children:[
+            {
+                path:'/accelerate/Manage',
+                name:'manage',
+                component:Manage,
+                redirect:'/accelerate/Manage/p',
+                children:[
+                    {
+                        path:'/accelerate/Manage/p', //项目
+                        name:'ManageP',
+                        component:ManageP,
+                        meta:{
+                            keep:1
+                        }
+
+                    },{
+                        path:'/accelerate/Manage/o', //机构
+                        name:'ManageO',
+                        component:ManageO,
+                        meta:{
+                            keep:2
+                        }
+                    }
+                ]
+            }
+        ]
     },
     ]
 })
