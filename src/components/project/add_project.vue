@@ -42,6 +42,7 @@
         <div class="top_line"></div>
         <div class="basicBox">
           <nut-textinput
+            v-model="name"
             placeholder="请输入项目名称"
             maxlength="5"
             :hasBorder="false"
@@ -154,7 +155,7 @@
       </div>
       <div class="product">
         <div class="productTitle">
-            <div class="left">
+          <div class="left">
             <em>|</em>
             <b>竞品</b>
           </div>
@@ -170,7 +171,7 @@
           </div>
         </div>
       </div>
-       <div class="lightspot">
+      <div class="lightspot">
         <div class="lightspottitle">
           <em>|</em>
           <b>项目亮点</b>
@@ -180,8 +181,8 @@
             <nut-cell title="项目亮点" desc="请输入项目亮点" :showIcon="true" class="projectLD"></nut-cell>
           </div>
         </div>
-        </div>
-       
+      </div>
+
       <div class="recommend_Btn">
         <nut-button block shape="circle">提交审核</nut-button>
       </div>
@@ -193,6 +194,7 @@
         :list-data="listData1"
         @close="switchPicker('isVisible1')"
         @confirm="setYearValue"
+        @choose="updateChooseValue"
       ></nut-picker>
 
       <!-- 行业 -->
@@ -261,7 +263,7 @@
           :hasBorder="false"
         />
       </nut-dialog>
-         <!-- 竞品 -->
+      <!-- 竞品 -->
       <nut-dialog
         title="竞品"
         :visible="dialogProduct"
@@ -306,6 +308,7 @@ export default {
   data() {
     return {
       url: "https://my-json-server.typicode.com/linrufeng/demo/posts",
+      name:null,//项目名称
       dialogShow: false, //遮罩
       defaultValueData: "2010",
       rzjd: false, //融资阶段显隐
@@ -315,40 +318,11 @@ export default {
       industry1: false, //选择行业
       industry: null,
       moneyRatio: null, //佣金比例
-      industryList: [
-        [
-          "保险业",
-          "采矿",
-          "能源",
-          "餐饮",
-          "宾馆",
-          "电讯业",
-          "房地产",
-          "服务",
-          "服装业",
-          "公益组织",
-          "广告业",
-          "航空航天",
-          "化学",
-          "健康",
-          "保健",
-          "建筑业",
-          "教育",
-          "培训",
-          "计算机",
-          "金属冶炼",
-          "警察",
-          "消防",
-          "军人",
-          "会计",
-          "美容,媒体"
-        ]
-      ],
+      industryList: [[]], //领域集合 数组
+      lingyuList: [], //领域集合  对象
       defaultindustry: null,
 
-      listData1: [
-        ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"]
-      ],
+      listData1: [[]],
       defaultValueData1: null,
       previewImg: "",
       isVisible: false, //是否独家
@@ -368,8 +342,7 @@ export default {
       defaultRZhistory: null, //融资
       Rzhistory: "", //融资展示
       rzhistoryList: [[111, 222, 333, 444]],
-      rzhistoryObj: [
-      ],
+      rzhistoryObj: [],
       dialogShowTeam: false, //团队
       teamObj: [
         {
@@ -378,17 +351,53 @@ export default {
           intro: "123dwed2131"
         }
       ],
-      dialogProduct:false,//竞品
-      ProductObj:[
+      dialogProduct: false, //竞品
+      ProductObj: [
         {
-          ProductName:"1111",
-          field:"222",
-          phase:"333"
+          ProductName: "1111",
+          field: "222",
+          phase: "333"
         }
-      ]
+      ],
+      roundsList: [], //轮次集合
+      roundsId: null, //轮次ID
+      lingyuId: null, //领域ID
+                  data:{
+                '北京': ['北京'],
+                '黑龙江': ['哈尔滨','绥化','漠河','大兴安岭','牡丹江','佳木斯','齐齐哈尔','大庆','五大连池'],
+                '江西': ['九江', '南昌', '赣州'],
+                '上海': ['上海'],
+                '重庆': ['重庆'],
+                '内蒙古': ['呼和浩特', '呼和浩特1','呼和浩特2', '呼和浩特3','呼和浩特4', '呼和浩特5','呼和浩特6', '呼和浩特7']
+            },
+ 
     };
   },
+  created() {
+    this.getroundsList();
+    this.getLingyuList();
+  },
   methods: {
+    getLingyuList() {
+      //获取领域集合
+      this.$post("/api/getLingyu").then(res => {
+        this.lingyuList = res.data;
+        for (let i = 0; i < res.data.length; i++) {
+          this.industryList[0].push(res.data[i].name);
+        }
+        // console.log(this.industryList)
+      });
+    },
+    getroundsList() {
+      //获取轮次集合
+      this.$post("/api/getStage").then(res => {
+        this.roundsList = res.data;
+        for (let i = 0; i < res.data.length; i++) {
+          this.listData1[0].push(res.data[i].name);
+        }
+        // console.log(this.listData1[0]);
+      });
+    },
     switchActionSheet(param) {
       this[`${param}`] = !this[`${param}`];
     },
@@ -409,9 +418,22 @@ export default {
       this[`${param}`] = !this[`${param}`];
     },
     setYearValue(chooseData) {
+      //选中轮次
+      for (let i = 0; i < this.roundsList.length; i++) {
+        if (this.roundsList[i].name == chooseData) {
+          this.roundsId = this.roundsList[i].id;
+        }
+      }
+      // console.log(this.roundsId);
       this.rounds = `${chooseData[0]}`;
     },
     setindustryValue(chooseData) {
+      //选中行业
+      for (let i = 0; i < this.lingyuList.length; i++) {
+        if (this.lingyuList[i].name == chooseData) {
+          this.lingyuId = this.lingyuList[i].id;
+        }
+      }
       this.industry = `${chooseData[0]}`;
     },
     back() {
@@ -444,11 +466,11 @@ export default {
     },
     gopersonage() {
       //项目介绍
-      this.$router.push({name:"personage",params:{kind:1}});
+      this.$router.push({ name: "personage", params: { kind: 1 } });
     },
-    lightspot(){
+    lightspot() {
       //项目亮点
-      this.$router.push({name:"personage",params:{kind:2}});
+      this.$router.push({ name: "personage", params: { kind: 2 } });
     },
     addHistory() {
       //添加融资历史
@@ -474,13 +496,45 @@ export default {
       //确认
       this.dialogShowTeam = false;
     },
-    addproduct(){
+    addproduct() {
       //竞品
-      this.dialogProduct=true
+      this.dialogProduct = true;
     },
-    confirmProduct(){
+    confirmProduct() {
       //竞品确认
-    }
+    },
+    closeUpdateChooseValue(self, chooseData) {
+      //轮次选项发生改变
+      this.updateLinkage(self, chooseData[0], 1, chooseData[1], chooseData);
+    },
+    updateLinkage(self, value, index, chooseValue, cacheValueData) {
+      if (!value) {
+        return false;
+      }
+      switch (index) {
+        case 1:
+          let i = this.listData[0].indexOf(value);
+          this.listData.splice(index, 1, [...this.data[this.listData[0][i]]]);
+          chooseValue = chooseValue ? chooseValue : this.listData[index][0];
+          self && self.updateChooseValue(self, index, chooseValue);
+          this.updateLinkage(
+            self,
+            chooseValue,
+            2,
+            cacheValueData && cacheValueData[2] ? cacheValueData[2] : null
+          );
+          break;
+        case 2:
+          let areaData = this.dataSub[value] ? this.dataSub[value] : [];
+          this.listData.splice(index, 1, [...areaData]);
+          chooseValue = chooseValue ? chooseValue : this.listData[index][0];
+          self && self.updateChooseValue(self, index, chooseValue);
+          break;
+      }
+    },
+       updateChooseValue(self, index, value, cacheValueData) {
+            index < 2 && this.updateLinkage(self, value, (index + 1), null);
+        },
   }
 };
 </script>
@@ -518,8 +572,8 @@ export default {
 .Basictitle,
 .financingtitle,
 .teamtitle,
-.productTitle ,
-.lightspottitle{
+.productTitle,
+.lightspottitle {
   padding: 10px 0;
 }
 .top_line {
@@ -550,6 +604,7 @@ export default {
 .recommend_Btn {
   margin-top: 20px;
   text-align: center;
+  padding-bottom: 30px;
 }
 .recommend_Btn button {
   width: 90%;
@@ -562,7 +617,8 @@ export default {
     line-height: 55px;
   }
 }
-.projectJS,.projectLD {
+.projectJS,
+.projectLD {
   /deep/.nut-cell-desc {
     padding-right: 15px;
     align-items: center;

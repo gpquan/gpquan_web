@@ -40,6 +40,10 @@ export default {
   methods: {
     saveText() {
       console.log("保存");
+      this.$route.push({
+        name:'addProject',
+        params:this.status==1?this.introduce:this.lightspot
+      })
     },
     back() {
       // alert('header头部， 点击返回')

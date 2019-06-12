@@ -1,5 +1,5 @@
 <template>
-  <div class="view-footer">
+  <!-- <div class="view-footer">
     <router-link to="/">
       <strong class="view-li-first" @click="tagToggle(1)">
         <span class="view-font-default">首页</span>
@@ -20,6 +20,28 @@
         <span class="view-font-default">个人中心</span>
       </strong>
     </router-link>
+  </div> -->
+   <div class="view-footer">
+    <router-link to="/project">
+      <strong class="view-li-project" @click="tagToggle(1)">
+        <span class="view-font-default">精准推荐</span>
+      </strong>
+    </router-link>
+    <router-link to="/accelerate">
+      <strong class="view-li-accelerate" @click="tagToggle(2)">
+        <span class="view-font-default">融资助手</span>
+      </strong>
+    </router-link>
+    <router-link to="/userCenter">
+      <strong class="view-li-userCenter" @click="tagToggle(3)">
+        <span class="view-font-default">个人中心</span>
+      </strong>
+    </router-link>
+    <!-- <router-link to="/userCenter">
+      <strong class="view-li-user" @click="tagToggle(4)">
+        <span class="view-font-default">个人中心</span>
+      </strong>
+    </router-link> -->
   </div>
 </template>
 <script>
@@ -111,11 +133,11 @@ export default {
       color: orangered;
     }
   }
-  strong.view-li-first {
+  strong.view-li-accelerate {
     background: url("../../assets/image/home_default.png") no-repeat center 5px;
     background-size: 20px;
   }
-  strong.view-li-first.on {
+  strong.view-li-accelerate.on {
     background: url("../../assets/image/home.png") no-repeat center 5px;
     background-size: 34px;
   }
@@ -135,11 +157,11 @@ export default {
     background: url("../../assets/image/FA.png") no-repeat center 5px;
     background-size: 34px;
   }
-  strong.view-li-user {
+  strong.view-li-userCenter {
     background: url("../../assets/image/user_default.png") no-repeat center 5px;
     background-size: 24px;
   }
-  strong.view-li-user.on {
+  strong.view-li-userCenter.on {
     background: url("../../assets/image/user.png") no-repeat center 5px;
     background-size: 33px;
   }

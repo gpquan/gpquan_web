@@ -1,6 +1,6 @@
 <template>
     <div class="view-home">
-        1231231232
+        <router-view class="showBox"></router-view>
     </div>
 </template>
 <script>
@@ -9,7 +9,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.showBox{
+    margin-bottom: 51px;
+}
+.view-home{
+    height: 100%;
+}
 </style>
 

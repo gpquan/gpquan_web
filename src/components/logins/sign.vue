@@ -12,7 +12,7 @@
       <div class="userBox">
         <input
           type="text"
-          v-model="Userval"
+          v-model="phone"
           style="boder:none"
           class="user"
           placeholder="请输入手机号/邮箱"
@@ -34,11 +34,11 @@
       <div class="line"></div>
       <div class="againPwd">
         <input
-          :type="Pwdisshow?'password':'password'"
+          type="password"
           class="pwd2"
           v-model="Pwdval2"
           required
-          :placeholder="pwd2placehold?'请再次输入密码':''"
+          placeholder="请再次输入密码"
         >
       </div>
       <div class="line"></div>
@@ -48,11 +48,18 @@
       </div>
       <div class="line"></div>
       <div class="sf" @click="getSF">
-        <span>请选择身份</span>
+        <nut-cell 
+          title = "选择身份" 
+          :desc = "sf"
+          :showIcon = "true"
+          bgColor="transparent"
+        >
+        </nut-cell>
+        <!-- <span>请选择身份</span>
         <span class="get_sf">
           <span>{{sf}}</span>
           <img src="../../assets/image/arrow.png" alt class="getSF_IMG">
-        </span>
+        </span> -->
       </div>
       <nut-picker
         :is-visible="isVisible"
@@ -62,7 +69,7 @@
       ></nut-picker>
       <div class="line"></div>
       <div class="sign_BtnBox">
-        <nut-button block shape="circle" class="sign_Btn">注册</nut-button>
+        <nut-button block shape="circle" class="sign_Btn" @click="sign_submit()">注册</nut-button>
       </div>
       <div class="xggd">
         <nut-checkbox v-model="ifLook" @changeEvt="checkboxChange">&nbsp;我已阅读平台相关规定</nut-checkbox>
@@ -76,6 +83,9 @@ export default {
   name: "sign",
   data() {
     return {
+      phone:null, //账号
+      pwd:null, //密码
+      role:null, //身份 角色（1表示fa，2表示公司，3表示投资人）
       ifLook: false,
       Userval: "",
       Pwdval: "",
@@ -86,12 +96,47 @@ export default {
       Pwdisshow: true,
       pwd2placehold: true,
       listData1: [
-        ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"]
+        ["FA","公司","投资人"]
       ]
     };
   },
   created() {},
   methods: {
+    sign_submit(){
+      let call;
+      let pw;
+      if(!(/^1[3456789]\d{9}$/.test(this.phone))){ 
+        alert("手机号码有误，请重填");  
+        cal=false
+        return false; 
+    }else{
+      call=true
+    }
+    if(this.Pwdval!=this.Pwdval2){
+          alert("俩次密码不相同，请重新输入")
+          pw=false
+    }else if(this.Pwdval==''||this.Pwdval2==''){
+          alert('密码不能为空')
+          pw=false
+    }else{
+      this.pwd=this.Pwdval
+      pw=true
+    }
+    if(!this.ifLook){
+      alert("请阅读平台相关规定")
+    }
+      if(call&&pw&&this.ifLook){
+           this.$post("/api/register",{
+            phone:this.phone,
+            password:this.pwd,
+            role:this.role
+          }).then((res)=>{
+            console.log(res)
+            this.$router.push('/login')
+          })
+      }
+     
+    },
     isLookPwd() {
       this.Pwdisshow = !this.Pwdisshow;
       this.pwd2placehold = !this.pwd2placehold;
@@ -109,8 +154,11 @@ export default {
       this[`${param}`] = !this[`${param}`];
     },
     setYearValue(chooseData) {
-      this.sf = `${chooseData[0]}年`;
-      console.log(chooseData);
+      this.sf = `${chooseData[0]}`;
+      console.log(chooseData)
+      this.role= this.listData1[0].indexOf(chooseData[0])+1
+       console.log(this.role)
+     
     },
     modifyYear() {
       this.defaultValueData = ["2018"];
@@ -255,6 +303,12 @@ select:-webkit-autofill {
   justify-content: space-between;
   text-indent: 10px;
   color: #ccc;
+  .nut-cell{
+    width: 100%;
+    padding-left:0;
+    color:#ccc;
+    // background-color: transparent;
+  }
   .get_sf {
     display: flex;
     align-items: center;
@@ -290,10 +344,10 @@ select:-webkit-autofill {
 input[type="password"] {
   font-size: 20px;
 }
-.pwd2::-webkit-input-placeholder{
+input::-webkit-input-placeholder{
     font-size: 14px;
 }
-input[type="text"] {
+.pwd [type="text"] {
   font-size: 14px;
 }
 input::-webkit-input-placeholder {

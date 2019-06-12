@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="heade">登录</div>
+    <nut-navbar 
+    @on-click-back="back" 
+    :leftShow="true" 
+    :rightShow="false"
+    >登录</nut-navbar>
     <img src="../../assets/image/R_round.png" alt="" class="R_round_IMG">
     <div class="center">
       <div class="title">
@@ -13,7 +17,7 @@
         <div class="userBox">
           <input
             type="text"
-            v-model="Userval"
+            v-model="phone"
             style="boder:none"
             class="user"
             placeholder="请输入手机号/邮箱"
@@ -29,10 +33,10 @@
           :clearBtn="true"
           :disabled="false"
           :hasBorder="false"
-        />-->
+        /> -->
         <div class="line"></div>
         <div class="pwdBox">
-          <input type="password" class="pwd" v-model="Pwdval" required>
+          <input type="password" class="pwd" v-model="password" required>
           <span class="editable-clear-x" @click="pwdclear"></span>
           <img src="../../assets/image/line.png" alt class="line_IMG">
           <em class="look">
@@ -48,7 +52,7 @@
           type="password"
         />-->
       </div>
-      <nut-button block shape="circle" class="login_Btn">登录</nut-button>
+      <nut-button block shape="circle" class="login_Btn" @click="LoginUser()">登录</nut-button>
       <div class="wj">
         <span>忘记密码？</span>
         <span @click="signIn">
@@ -75,15 +79,33 @@
 export default {
   data() {
     return {
-      Userval: "",
-      Pwdval: ""
+      phone: "",
+      password: ""
     };
   },
   mounted() {
-    this.Userval = "";
-    this.Pwdval = "";
+    this.phone = "";
+    this.password = "";
   },
   methods: {
+    LoginUser(){
+      this.$post("/api/login",{
+        phone: this.phone,
+        password:this.password
+      }).then((res)=>{
+        if(res.status=='success'){
+          sessionStorage.setItem(
+                "userInfo",
+                JSON.stringify(res.data)
+              );
+             this.$router.push('/')
+          if(res.role==1){
+            this.$router.push('/accelerate')
+          }
+        }
+        
+      })
+    },
     pwdchange() {
       console.log(this.Pwdval);
     },
@@ -96,7 +118,10 @@ export default {
     signIn(){
       console.log(this.$route.path)
       this.$router.push({path:'/Sign'});
-    }
+    },
+      back(){
+            alert('header头部， 点击返回')
+        }
   }
 };
 </script>
@@ -263,6 +288,7 @@ select:-webkit-autofill {
   display: inline;
 }
 .pwdBox {
+  background: #fff;
   .look {
     float: right;
   }
@@ -277,5 +303,8 @@ select:-webkit-autofill {
   position: fixed;
   right: -200px;
   top:-200px;
+}
+.nut-navbar{
+  background-color:transparent;
 }
 </style>

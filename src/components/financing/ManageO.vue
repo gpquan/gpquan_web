@@ -1,36 +1,28 @@
 <template>
   <div>
     <div class="list">
+      <ManageListO :ListData="MaxList" :statusList="statusList"/>
+      <!-- <ManageList :ListData="ListData"/>
       <ManageList :ListData="ListData"/>
+      <ManageList :ListData="ListData"/>
+      <ManageList :ListData="ListData"/>
+      <ManageList :ListData="ListData"/>-->
     </div>
+    <nut-backtop></nut-backtop>
   </div>
 </template>
 
 <script>
 import CircleProgress from "@/components/reusable/circle-progress";
-import ManageList from "@/components/reusable/Manage_List"
+import ManageListO from "@/components/reusable/Manage_ListO";
 export default {
   components: {
     CircleProgress,
-    ManageList
+    ManageListO
   },
   data() {
     return {
-      ListData:[
-        {
-          num:33
-        },{
-          num:55
-        },{
-          num:23
-        },{
-          num:52
-        },{
-          num:64
-        },{
-          num:23
-        },
-      ],
+      ListData: [],
       isShow: true,
       width: 200,
       radius: 20,
@@ -40,8 +32,36 @@ export default {
       isShow: false,
       barColor: "#F2AE57",
       backgroundColor: "#FFE8CC",
-      timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)"
+      timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
+      MaxList: [],
+      statusList:[]
     };
+  },
+  mounted() {
+    let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+    // console.log()
+    this.$post("/api/getUserOrganList", { userId: 3, page: "1" }).then(
+      res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (res.data[i].projects.length < 3) {
+            res.data[i].maxLength = res.data[i].projects.length;
+          } else {
+            res.data[i].maxLength = 3;
+          }
+        }
+                for(let i=0;i<res.data.length;i++){
+        //    this.statusList.show
+                    this.statusList.push(0)
+                    console.log(res.data)
+                // this.statusList[i].length=this.ListData.length
+        //    this.ListData[i].ISshow=false
+            // console.log(this.ListData[i])
+    }
+        console.log(res.data);
+        this.MaxList = res.data;
+        console.log(res);
+      }
+    );
   },
   methods: {
     reset() {
@@ -53,8 +73,8 @@ export default {
     ListShow() {
       this.isShow = true;
     },
-    closeListGather(){
-        this.isShow=false
+    closeListGather() {
+      this.isShow = false;
     }
   }
 };
@@ -69,17 +89,16 @@ export default {
   flex-wrap: wrap;
   position: relative;
   padding-bottom: 30px;
+}
+.List_gather_Icon {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-}
-.List_gather_Icon{
- position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-   
 .List_top {
   display: flex;
   flex-direction: row;
@@ -94,6 +113,7 @@ export default {
 }
 .list {
   height: 100%;
+  margin-bottom: 60px;
 }
 .list_Item {
   width: 90%;

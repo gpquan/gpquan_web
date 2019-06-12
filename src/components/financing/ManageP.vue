@@ -1,37 +1,28 @@
 <template>
   <div>
     <div class="list">
+      <ManageListP :ListData="MaxList"/>
+      <!-- <ManageList :ListData="ListData"/>
       <ManageList :ListData="ListData"/>
       <ManageList :ListData="ListData"/>
+      <ManageList :ListData="ListData"/>
+      <ManageList :ListData="ListData"/>-->
     </div>
+    <nut-backtop></nut-backtop>
   </div>
 </template>
 
 <script>
 import CircleProgress from "@/components/reusable/circle-progress";
-import ManageList from "@/components/reusable/Manage_List"
+import ManageListP from "@/components/reusable/Manage_ListP";
 export default {
   components: {
     CircleProgress,
-    ManageList
+    ManageListP
   },
   data() {
     return {
-      ListData:[
-        {
-          num:1
-        },{
-          num:2
-        },{
-          num:3
-        },{
-          num:4
-        },{
-          num:5
-        },{
-          num:6
-        },
-      ],
+      ListData: [],
       isShow: true,
       width: 200,
       radius: 20,
@@ -41,8 +32,30 @@ export default {
       isShow: false,
       barColor: "#F2AE57",
       backgroundColor: "#FFE8CC",
-      timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)"
+      timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
+      MaxList: [],
+      Maxnum:0
     };
+  },
+  mounted() {
+    let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+    // console.log()
+    this.$post("/api/getUserProjectList", { userId: 3, page: "1" }).then(
+      res => {
+        for (let i = 0; i < res.data.length; i++) {
+          // this.Maxnum+=res.data[i].organs.length;
+          if (res.data[i].organs.length < 3) {
+            res.data[i].maxLength = res.data[i].organs.length;
+          } else {
+            res.data[i].maxLength = 3;
+          }
+        }
+        // res.data.Maxnum=this.Maxnum
+        console.log(res.data);
+        this.MaxList = res.data;
+        console.log(res);
+      }
+    );
   },
   methods: {
     reset() {
@@ -54,8 +67,8 @@ export default {
     ListShow() {
       this.isShow = true;
     },
-    closeListGather(){
-        this.isShow=false
+    closeListGather() {
+      this.isShow = false;
     }
   }
 };
@@ -70,17 +83,16 @@ export default {
   flex-wrap: wrap;
   position: relative;
   padding-bottom: 30px;
+}
+.List_gather_Icon {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-}
-.List_gather_Icon{
- position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-   
 .List_top {
   display: flex;
   flex-direction: row;
@@ -95,6 +107,7 @@ export default {
 }
 .list {
   height: 100%;
+  margin-bottom: 60px;
 }
 .list_Item {
   width: 90%;
