@@ -11,7 +11,7 @@ export default {
 
 <style lang="scss" scoped>
 .showBox{
-    margin-bottom: 51px;
+    // padding-bottom: 51px;
 }
 .view-home{
     height: 100%;

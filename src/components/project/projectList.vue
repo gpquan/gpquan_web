@@ -26,18 +26,23 @@
             :loop="true"
             :canDragging="false"
             :paginationVisible="true"
+            :autoPlay="3000"
           >
             <div class="nut-swiper-slide gray">
-              <span>page 1</span>
+              <img src="../../assets/image/banner/banner11.jpg" alt="">
+              <!-- <span>page 1</span> -->
             </div>
             <div class="nut-swiper-slide gray_1">
-              <span>page 2</span>
+               <img src="../../assets/image/banner/banner22.jpg" alt="">
+              <!-- <span>page 2</span> -->
             </div>
             <div class="nut-swiper-slide gray">
-              <span>page 3</span>
+               <img src="../../assets/image/banner/banner33.jpg" alt="">
+              <!-- <span>page 3</span> -->
             </div>
             <div class="nut-swiper-slide gray_1">
-              <span>page 4</span>
+               <img src="../../assets/image/banner/banner4.png" alt="">
+              <!-- <span>page 4</span> -->
             </div>
           </nut-swiper>
         </div>
@@ -406,6 +411,12 @@ export default {
 .nav{
   height: 11px;
   background: #F5F6FA;
+}
+.nut-swiper-slide{
+  img{
+    width: 100%;
+    height:100%;
+  }
 }
 </style>
 

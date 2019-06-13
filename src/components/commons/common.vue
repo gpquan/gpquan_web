@@ -23,17 +23,17 @@
   </div> -->
    <div class="view-footer">
     <router-link to="/project">
-      <strong class="view-li-project" @click="tagToggle(1)">
+      <strong :class=" !flag1?'view-li-project':'projectActive'"  @click="tagToggle(1)">
         <span class="view-font-default">精准推荐</span>
       </strong>
     </router-link>
     <router-link to="/accelerate">
-      <strong class="view-li-accelerate" @click="tagToggle(2)">
+      <strong :class=" !flag2?'view-li-accelerate':'accelerateActive'" @click="tagToggle(2)">
         <span class="view-font-default">融资助手</span>
       </strong>
     </router-link>
     <router-link to="/userCenter">
-      <strong class="view-li-userCenter" @click="tagToggle(3)">
+      <strong :class=" !flag3?'view-li-userCenter':'userActive'" @click="tagToggle(3)">
         <span class="view-font-default">个人中心</span>
       </strong>
     </router-link>
@@ -49,24 +49,36 @@ export default {
   name: "foote",
   data() {
     return {
-      Ind: 1
+      Ind: 1,
+      flag1:true,
+       flag2:true,
+        flag3:true,
     };
   },
   methods: {
     tagToggle(num) {
       this.Ind  = num
-      // if (this.Ind == 1) {
-      //   this.tab($(".view-li-first"));
-      // }
-      // if (this.Ind == 2) {
-      //   this.tab($(".view-li-project"));
-      // }
-      // if (this.Ind == 3) {
-      //   this.tab($(".view-li-FA"));
-      // }
-      // if (this.Ind == 4) {
-      //   this.tab($(".view-li-user"));
-      // }
+      if (this.Ind == 1) {
+        // this.tab($(".view-li-project"));
+         this.flag1=true
+         this.flag2=false
+         this.flag3=false
+      }
+      if (this.Ind == 2) {
+        // this.tab($(".view-li-accelerate"));
+         this.flag2=true
+          this.flag1=false
+         this.flag3=false
+      }
+      if (this.Ind == 3) {
+        // this.tab($(".view-li-userCenter"));
+        this.flag3=true
+         this.flag2=false
+         this.flag1=false
+      }
+      if (this.Ind == 4) {
+        this.tab($(".view-li-user"));
+      }
     },
     tab(el) {
       // el.addClass("on")
@@ -165,6 +177,19 @@ export default {
     background: url("../../assets/image/user.png") no-repeat center 5px;
     background-size: 33px;
   }
+    strong.userActive {
+    background: url("../../assets/image/user.png") no-repeat center 5px;
+    background-size: 33px;
+  }
+      strong.projectActive {
+    background: url("../../assets/image/file.png") no-repeat center 5px;
+    background-size: 33px;
+  }
+      strong.accelerateActive {
+    background: url("../../assets/image/home.png") no-repeat center 5px;
+    background-size: 33px;
+  }
+  
 }
 </style>
 

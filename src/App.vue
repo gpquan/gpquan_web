@@ -3,7 +3,7 @@
     <content class="content">
       <router-view></router-view>
     </content>
-      <Commons></Commons>
+      <Commons v-if="$route.meta.fshow"></Commons>
   </div>
 </template>
 

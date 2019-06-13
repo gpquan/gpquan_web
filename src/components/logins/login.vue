@@ -58,7 +58,7 @@
         <span @click="signIn">
           还没有账户？去注册</span>
       </div>
-      <div class="btm_log">
+      <!-- <div class="btm_log">
         <div class="btm_title">
           <div class="btm_line"></div>
           <div class="btm_text">更多登录方式</div>
@@ -70,7 +70,7 @@
         <div class="btm_name">
            <span>GP圈</span>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

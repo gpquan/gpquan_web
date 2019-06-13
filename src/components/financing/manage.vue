@@ -25,7 +25,7 @@
 export default {
   data(){
     return{
-      IND:1,
+      IND:0,
       tabLink:[
         {
           name:"机构管理",
@@ -38,13 +38,34 @@ export default {
       ]
     }
   },
+  mounted(){
+    for (let i = 0; i < this.tabLink.length; i++) {
+        if (this.$route.path == this.tabLink[i].links) {
+            this.IND = i;
+           console.log(this.tabInd);
+        }
+  }
+  },
   methods: {
    tabClick(i){
       this.$router.push(this.tabLink[i].links)
       this.IND=i
    }
+  },
+  watch:{
+    $route(n, o) {
+      // this.routeCchange(n);
+      console.log(this.$route.path)
+      for (let i = 0; i < this.tabLink.length; i++) {
+        if (this.$route.path == this.tabLink[i].links) {
+            this.IND = i;
+           console.log(this.tabInd);
+        }
+      
   }
-};
+    }
+    }
+}
 </script>
 
 <style lang="scss" scoped>

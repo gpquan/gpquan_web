@@ -16,7 +16,7 @@
             </dt>
             <dd>
               <div>
-                <span class="name">优广网</span>
+                <span class="name">{{nameArr[index]}}</span>
                 <span class="yd">移动互联网</span>
                 <span class="SAAS">SAAS</span>
                 <span class="xmt">新媒体</span>
@@ -46,7 +46,8 @@ export default {
     props: ["Listdata"],
   data() {
     return {
-      textjj:"心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部心悦俱乐部"
+      textjj:"",
+      nameArr:["优广网","淘宝网","凤凰网","赶集网","飞猪","携程","优广网","淘宝网","凤凰网","赶集网","飞猪","携程","优广网","淘宝网","凤凰网","赶集网","飞猪","携程","优广网","淘宝网","凤凰网","赶集网","飞猪","携程"]
       //   listData: new Array(5),
     //   listData1: new Array(5),
       //   listData2: [1, 2],

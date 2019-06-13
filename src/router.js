@@ -40,9 +40,9 @@ const router = new Router({
                         path: '/project/List',
                         name: 'projectList',
                         component: ProjectList,
-                        meta: {
-                            showFooter: true
-                        }
+                        meta:{
+                            fshow:true
+                        },
                     },
                     {
                         path: '/project/details',
@@ -68,7 +68,7 @@ const router = new Router({
                 name: 'FA',
                 component: FA,
                 meta: {
-                    showFooter: true
+                    fshow: true
                 }
 
             },
@@ -77,7 +77,7 @@ const router = new Router({
                 name: 'user',
                 component: UserCenter,
                 meta: {
-                    showFooter: true
+                    fshow: true
                 }
 
             },
@@ -87,19 +87,21 @@ const router = new Router({
                 name: 'accelerate',
                 component: accelerateHome,
                 redirect: '/accelerate/Manage',
+               
                 children: [
                     {
                         path: '/accelerate/Manage',
                         name: 'manage',
                         component: Manage,
-                        redirect: '/accelerate/Manage/p',
+                        redirect: '/accelerate/Manage/o',
                         children: [
                             {
                                 path: '/accelerate/Manage/p', //项目
                                 name: 'ManageP',
                                 component: ManageP,
                                 meta: {
-                                    keep: 1
+                                    keep: 1,
+                                    fshow:true
                                 }
 
                             }, {
@@ -107,7 +109,8 @@ const router = new Router({
                                 name: 'ManageO',
                                 component: ManageO,
                                 meta: {
-                                    keep: 2
+                                    keep: 2,
+                                    fshow:true
                                 }
                             }
                         ]
@@ -139,7 +142,7 @@ const router = new Router({
     ]
 })
 router.beforeEach((to, from, next) => {
-    console.log(to)
+    // console.log(to)
     if(!JSON.parse(sessionStorage.getItem("userInfo"))){
         console.log("未登录")
         if(to.name=='log'){

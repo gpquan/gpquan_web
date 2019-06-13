@@ -9,13 +9,14 @@
       <div class="title_">
         <div class="title_top">
           <div class="left">
-            <em>|</em>
+            <em class="lineEm"></em>
             <b class="noW">{{i.name}}</b>
           </div>
-          <div class="right">
-            <b class="expedite" @click="expedite()">加速</b>
-          </div>
+         
         </div>
+         <div class="right">
+            <b class="expedite" @click="expedite(i.lingyu_id)"></b>
+          </div>
         <div class="title_Bottm">
           <div style="padding:10px 0">
             <span  v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length" :key="idd" :class="colorClass[idd]">{{i.lingyu_name[idd]}}</span>
@@ -28,12 +29,12 @@
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
             <span class="box1">
               <circle-progress
-                :id="i.organs[ind].progress.uniqid"
+                :id="i.organs[ind].progress.uniqid+1"
                 :width="85"
                 :radius="5"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
-                :duration="1000"
+                :duration="500"
                 barColor="#F2AE57"
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
@@ -51,12 +52,12 @@
           <div class="box_1" v-for="(items,ind) in i.organs" :key="ind">
             <span class="box1">
               <circle-progress
-                :id="i.organs[ind].progress.uniqid"
+                :id="i.organs[ind].progress.uniqid+2"
                 :width="85"
                 :radius="5"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
-                :duration="1000"
+                :duration="500"
                 barColor="#F2AE57"
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
@@ -118,7 +119,7 @@ export default {
         //  this.statusList[i]=false
         this.ListData[i].status=2
     },
-    expedite() {
+    expedite(lyid) {
       //点击加速
       // this.$post("/api/login", {
       //   phone: 18611174866,
@@ -126,7 +127,7 @@ export default {
       // }).then(res => {
       //   console.log(res);
       // });
-      this.$router.push("/accelerate/Manage/a")
+      this.$router.push({path:"/accelerate/Manage/a",query:{lyid:lyid}})
     }
   }
 };
@@ -165,7 +166,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 10px;
+  // padding:15px;
+  // margin-left: 10px;
 }
 .list {
   //   height: 100%;
@@ -194,6 +196,7 @@ export default {
   margin-left: 5%;
   padding: 2% 0;
   border-bottom: 1px solid #ccc;
+  position: relative;
 }
 .title_top {
   display: flex;
@@ -249,10 +252,21 @@ export default {
     justify-content: center;
   }
 }
-.right .expedite {
-  padding: 5px 15px;
+.right{
+position: absolute;
+top:10%;
+right: 0%;
+}
+
+
+ .expedite {
+  position: relative;
+  padding: 5px 30px;
+  width: 5px;
+  height: 20px;
+  display: inline-block;
   color: #fff;
-  background-image: url("../../assets/image/btn.png");
+  background-image: url("../../assets/image/up.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
@@ -295,5 +309,14 @@ export default {
 }
 .noW {
   font-weight: 400;
+  text-indent: 10px;
+}
+.lineEm {
+  width: 3px;
+  height: 80%;
+  display: inline-block;
+  background-image: url("../../assets/image/line1.png");
+  background-size: 100%;
+  margin-right: 5px;
 }
 </style>

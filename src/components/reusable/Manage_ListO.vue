@@ -10,11 +10,11 @@
       <div class="title_">
         <div class="title_top">
           <div class="left">
-            <em>|</em>
+            <em class="lineEm"></em>
             <b class="noW">{{i.name}}</b>
           </div>
           <div class="right">
-            <b class="expedite" @click="expedite()">加速</b>
+            <!-- <b class="expedite" @click="expedite(i.lingyu_id)">加速</b> -->
           </div>
         </div>
         <div class="title_Bottm">
@@ -31,7 +31,7 @@
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
             <span class="box1">
               <circle-progress
-                :id="i.projects.uniqid"
+                :id="i.projects[ind].progress.uniqid+1"
                 :width="85"
                 :radius="5"
                 :progress="i.projects[ind].progress.rate"
@@ -58,7 +58,7 @@
           <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
             <span class="box1">
               <circle-progress
-                :id="i.projects.uniqid"
+                :id="i.projects[ind].progress.uniqid+2"
                 :width="85"
                 :radius="5"
                 :progress="i.projects[ind].progress.rate"
@@ -68,7 +68,9 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb"><em>{{i.projects[ind].progress_name}}</em></span>
+              <span class="dhwb">
+                <em>{{i.projects[ind].progress_name}}</em>
+              </span>
             </span>
             <b class="nameTIT">
               <em></em>
@@ -167,7 +169,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 10px;
+  // margin-left: 10px;
 }
 .list {
   //   height: 100%;
@@ -297,5 +299,13 @@ export default {
 }
 .noW {
   font-weight: 400;
+}
+.lineEm {
+  width: 3px;
+  height: 80%;
+  display: inline-block;
+  background-image: url("../../assets/image/line1.png");
+  background-size: 100%;
+  margin-right: 5px;
 }
 </style>
