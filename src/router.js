@@ -17,7 +17,8 @@ import accelerateHome from './components/financing/accelerateHome'
 import Manage from '@/components/financing/manage'
 import ManageP from '@/components/financing/ManageP'
 import ManageO from '@/components/financing/ManageO'
-
+import ManageA from '@/components/financing/ManageA'
+import ManageA_details from '@/components/financing/ManageA_details'
 
 
 Vue.use(Router)
@@ -110,7 +111,18 @@ const router = new Router({
                                 }
                             }
                         ]
-                    }
+                    },
+                    {
+                        path:'/accelerate/Manage/a', //融资加速
+                        name:'ManageA',
+                        component:ManageA,
+                      },
+                      {
+                        path:'/accelerate/Manage/a/details', //融资加速详情
+                        name:'ManageA_details',
+                        component:ManageA_details,
+                      },
+
                 ]
             },
         ]
@@ -126,11 +138,21 @@ const router = new Router({
     },
     ]
 })
-// router.beforeEach((to, from, next) => {
-//     if(to.name=='home'){
-//     //    router.push('/accelerate')
-//     next({path:'/accelerate'})
-//     }
-
-//   })
+router.beforeEach((to, from, next) => {
+    console.log(to)
+    if(!JSON.parse(sessionStorage.getItem("userInfo"))){
+        console.log("未登录")
+        if(to.name=='log'){
+            next()
+        }else{
+            next({
+                    path: '/Login',
+                    query: {} // 将跳转的路由path作为参数，登录成功后跳转到该路由
+                  })
+        }
+    }else{
+        next()
+        console.log("已登录")
+    }
+  })
 export default router

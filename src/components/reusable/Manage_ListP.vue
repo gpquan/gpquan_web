@@ -3,14 +3,14 @@
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       {{i.organs[0].lenght}}
-      <b class="icon_Box" @click="ListShow(idx)" v-if="!statusList[idx]&&i.maxLength>3">
+      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>3">
         <nut-icon type="more"></nut-icon>
       </b>
       <div class="title_">
         <div class="title_top">
           <div class="left">
             <em>|</em>
-            <b>{{i.name}}</b>
+            <b class="noW">{{i.name}}</b>
           </div>
           <div class="right">
             <b class="expedite" @click="expedite()">加速</b>
@@ -23,13 +23,13 @@
         </div>
       </div>
       <div class="div_ListBox">
-        <div class="List_top" v-if="!statusList[idx]">
+        <div class="List_top" v-show="i.status==2">
           <!-- {{typeOf(i.maxLength)}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
             <span class="box1">
               <circle-progress
                 :id="i.organs[ind].progress.uniqid"
-                :width="80"
+                :width="85"
                 :radius="5"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
@@ -38,12 +38,13 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span>{{i.organs[ind].progress_name}}</span>
+               <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
             </span>
-            <b>{{i.organs[ind].name}}</b>
+               <b class="nameTIT">
+              <em></em>{{i.organs[ind].name}}</b>
           </div>
         </div>
-        <div class="List_gather" v-if="statusList[idx]">
+        <div class="List_gather" v-show="i.status==1">
           <b class="List_gather_Icon" @click="closeListGather(idx)">
             <nut-icon type="minus"></nut-icon>
           </b>
@@ -51,7 +52,7 @@
             <span class="box1">
               <circle-progress
                 :id="i.organs[ind].progress.uniqid"
-                :width="80"
+                :width="85"
                 :radius="5"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
@@ -60,9 +61,10 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span>{{i.organs[ind].progress_name}}</span>
+              <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
             </span>
-            <b>{{i.organs[ind].name}}</b>
+               <b class="nameTIT">
+              <em></em>{{i.organs[ind].name}}</b>
           </div>
         </div>
       </div>
@@ -90,12 +92,12 @@ export default {
       backgroundColor: "#FFE8CC",
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
        colorClass:["yd" ,"SAAS","xmt"],
-       statusList:[]
+      //  statusList:[]
     };
   },
   beforeMount() {
     for(let i=0;i<this.ListData.length;i++){
-           this.statusList[i]=false
+          //  this.statusList[i]=false
     }
     // console.log("=-=============")
   
@@ -109,20 +111,22 @@ export default {
     },
     ListShow(i) {
       this.isShow = true;
-      this.statusList[i]=true
+      // this.statusList[i]=true
+      this.ListData[i].status=1
     },
     closeListGather(i) {
-         this.statusList[i]=false
+        //  this.statusList[i]=false
+        this.ListData[i].status=2
     },
     expedite() {
       //点击加速
-      this.$post("/api/login", {
-        phone: 18611174866,
-        password: 123456
-      }).then(res => {
-        console.log(res);
-      });
-      // this.$router.push("/accelerate/Manage/accelerate")
+      // this.$post("/api/login", {
+      //   phone: 18611174866,
+      //   password: 123456
+      // }).then(res => {
+      //   console.log(res);
+      // });
+      this.$router.push("/accelerate/Manage/a")
     }
   }
 };
@@ -161,6 +165,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 10px;
 }
 .list {
   //   height: 100%;
@@ -179,7 +184,7 @@ export default {
 .icon_Box {
   position: absolute;
   top: 60%;
-  right: 5%;
+  right: 1%;
 }
 .title_ {
   //   padding: 10px 5% 0;
@@ -210,7 +215,7 @@ export default {
   font-size: 11px;
   height: 18px;
   border-radius: 9px;
-  padding: 5px 5px;
+  padding: 5px 10px;
 }
 .yd {
   background: #fef8e5;
@@ -236,7 +241,7 @@ export default {
   padding: 10px;
   span {
     position: absolute;
-    top: 0;
+    top: 7%;
     width: 80%;
     height: 80%;
     display: flex;
@@ -250,5 +255,45 @@ export default {
   background-image: url("../../assets/image/btn.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+.nameTIT {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 12px;
+  em {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1cc6bb;
+    margin-right: 5px;
+  }
+}
+.dhwb {
+  width: 80%;
+  height: 80%;
+  font-size: 12px;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
+  //   display: inline-block;
+  //   line-height: 100px;
+  em {
+    width: 80%;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    // -webkit-line-clamp: 1;
+    overflow: hidden;
+    // overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-align: center;
+  }
+}
+.noW {
+  font-weight: 400;
 }
 </style>

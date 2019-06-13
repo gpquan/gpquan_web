@@ -3,7 +3,7 @@
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       <!-- {{i}} -->
-      <b class="icon_Box" @click="ListShow()" v-if="!isShow&&i.maxLength>2">
+      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
         <nut-icon type="more"></nut-icon>
       </b>
 
@@ -11,7 +11,7 @@
         <div class="title_top">
           <div class="left">
             <em>|</em>
-            <b>{{i.name}}</b>
+            <b class="noW">{{i.name}}</b>
           </div>
           <div class="right">
             <b class="expedite" @click="expedite()">加速</b>
@@ -19,43 +19,47 @@
         </div>
         <div class="title_Bottm">
           <div style="padding:10px 0">
-            <span v-for="(itt,idd) in 3" :key="idd"  :class="colorClass[idd]">{{i.lingyu_name[idd]}}</span>
+            <span v-for="(itt,idd) in 3" :key="idd" :class="colorClass[idd]">{{i.lingyu_name[idd]}}</span>
             <!-- <span class="SAAS">SAAS</span>
-            <span class="xmt">新媒体</span> -->
+            <span class="xmt">新媒体</span>-->
           </div>
-          
         </div>
       </div>
       <div class="div_ListBox">
-        <div class="List_top" v-if="!isShow">
+        <div class="List_top" v-show="i.status==2">
           <!-- {{I.maxLength}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
             <span class="box1">
               <circle-progress
                 :id="i.projects.uniqid"
-                :width="80"
+                :width="85"
                 :radius="5"
                 :progress="i.projects[ind].progress.rate"
                 :delay="200"
                 :duration="1000"
-                barColor="#F2AE57"
+                barColor="#f05e62"
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb">{{i.projects[ind].progress_name}}</span>
+              <span class="dhwb">
+                <em>{{i.projects[ind].progress_name}}</em>
+              </span>
             </span>
-            <b>{{i.projects[ind].name}}</b>
+            <b class="nameTIT">
+              <em></em>
+              {{i.projects[ind].name}}
+            </b>
           </div>
         </div>
-        <div class="List_gather" v-if="isShow">
-          <b class="List_gather_Icon" @click="closeListGather()">
+        <div class="List_gather" v-show="i.status==1">
+          <b class="List_gather_Icon" @click="closeListGather(idx)">
             <nut-icon type="minus"></nut-icon>
           </b>
           <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
             <span class="box1">
               <circle-progress
                 :id="i.projects.uniqid"
-                :width="80"
+                :width="85"
                 :radius="5"
                 :progress="i.projects[ind].progress.rate"
                 :delay="200"
@@ -64,9 +68,12 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb">{{i.projects[ind].progress_name}}</span>
+              <span class="dhwb"><em>{{i.projects[ind].progress_name}}</em></span>
             </span>
-            <b>{{i.projects[ind].name}}</b>
+            <b class="nameTIT">
+              <em></em>
+              {{i.projects[ind].name}}
+            </b>
           </div>
         </div>
       </div>
@@ -94,7 +101,7 @@ export default {
       backgroundColor: "#FFE8CC",
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
       maxLength: null,
-      colorClass:["yd" ,"SAAS","xmt"]
+      colorClass: ["yd", "SAAS", "xmt"]
     };
   },
   beforeMount() {
@@ -107,11 +114,11 @@ export default {
         this.isShow = true;
       });
     },
-    ListShow() {
-      this.isShow = true;
+    ListShow(i) {
+      this.ListData[i].status = 1;
     },
-    closeListGather() {
-      this.isShow = false;
+    closeListGather(i) {
+      this.ListData[i].status = 2;
     },
     expedite() {
       //点击加速
@@ -160,6 +167,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 10px;
 }
 .list {
   //   height: 100%;
@@ -178,7 +186,7 @@ export default {
 .icon_Box {
   position: absolute;
   top: 60%;
-  right: 5%;
+  right: 1%;
 }
 .title_ {
   //   padding: 10px 5% 0;
@@ -209,7 +217,7 @@ export default {
   font-size: 11px;
   height: 18px;
   border-radius: 9px;
-  padding: 5px 5px;
+  padding: 5px 10px;
 }
 .yd {
   background: #fef8e5;
@@ -235,7 +243,7 @@ export default {
   padding: 10px;
   span {
     position: absolute;
-    top: 0;
+    top: 7%;
     width: 80%;
     height: 80%;
     display: flex;
@@ -251,10 +259,43 @@ export default {
   background-size: 100% 100%;
 }
 .dhwb {
-  　　overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline-block;
-  line-height: 100px;
+  width: 80%;
+  height: 80%;
+  font-size: 12px;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
+  //   display: inline-block;
+  //   line-height: 100px;
+  em {
+    width: 80%;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    // -webkit-line-clamp: 1;
+    overflow: hidden;
+    // overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-align: center;
+  }
+}
+.nameTIT {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 12px;
+  em {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1cc6bb;
+    margin-right: 5px;
+  }
+}
+.noW {
+  font-weight: 400;
 }
 </style>

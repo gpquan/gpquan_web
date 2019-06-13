@@ -25,7 +25,7 @@
 export default {
   data(){
     return{
-      IND:null,
+      IND:1,
       tabLink:[
         {
           name:"机构管理",
@@ -83,7 +83,7 @@ export default {
      
         opacity: 1;
           display: inline-block;
-           background: #fa7e7e;
+           background: #fff;
         
     }
   }

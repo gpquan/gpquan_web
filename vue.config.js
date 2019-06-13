@@ -13,7 +13,7 @@ module.exports = {
  },
  devServer: {
    // open: process.platform === 'darwin',
-   host: 'localhost',
+   host: '0.0.0.0',
    port: 8080,
    // open: true, //配置自动启动浏览器
    proxy: {

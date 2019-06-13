@@ -43,6 +43,7 @@ export default {
     this.$post("/api/getUserProjectList", { userId: 3, page: "1" }).then(
       res => {
         for (let i = 0; i < res.data.length; i++) {
+          res.data[i].status=2
           // this.Maxnum+=res.data[i].organs.length;
           if (res.data[i].organs.length < 3) {
             res.data[i].maxLength = res.data[i].organs.length;
