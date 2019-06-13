@@ -1,5 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+import App from './App.vue'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css' 
+Vue.use(ElementUI)
+
+Vue.use(MintUI)
 
 //组件模块
 import Home from './components/home/home'
@@ -119,11 +127,17 @@ const router = new Router({
                         path:'/accelerate/Manage/a', //融资加速
                         name:'ManageA',
                         component:ManageA,
+						meta:{
+						    fshow:true
+						},
                       },
                       {
                         path:'/accelerate/Manage/a/details', //融资加速详情
                         name:'ManageA_details',
                         component:ManageA_details,
+						meta:{
+						    fshow:true
+						},
                       },
 
                 ]
