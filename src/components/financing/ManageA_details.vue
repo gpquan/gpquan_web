@@ -24,9 +24,10 @@
 				  v-for="(activity, index) in activities"
 				  :key="index"
 				  :color="activity.color"
-				  :timestamp="activity.timestamp">
-				  {{activity.content}}
-				</el-timeline-item>
+				  :timestamp="activity.timestamp"
+				  >
+				  {{activity.content}} 
+				</el-timeline-item> 
 			  </el-timeline>
 			</div>
 		</div>
