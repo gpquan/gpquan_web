@@ -27,6 +27,7 @@ import ManageP from '@/components/financing/ManageP'
 import ManageO from '@/components/financing/ManageO'
 import ManageA from '@/components/financing/ManageA'
 import ManageA_details from '@/components/financing/ManageA_details'
+import ManageO_add from '@/components/financing/ManageO_add'
 
 
 Vue.use(Router)
@@ -120,7 +121,7 @@ const router = new Router({
                                     keep: 2,
                                     fshow:true
                                 }
-                            }
+                            },
                         ]
                     },
                     {
@@ -138,7 +139,14 @@ const router = new Router({
 						meta:{
 						    fshow:true
 						},
-                      },
+                      },{
+								path: '/accelerate/Manage/o/add', //添加机构
+								name: 'ManageO_add',
+								component: ManageO_add,
+								meta: {
+									
+								}
+							},
 
                 ]
             },
