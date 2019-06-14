@@ -9,6 +9,11 @@
         <span class="sign_title">优广网</span>
         <span></span>
       </div>
+      <!-- <nut-navbar 
+   
+    :leftShow="true" 
+    :rightShow="true"
+      >title</nut-navbar>-->
       <div class="statusShow">
         <div class="statusBox1">
           <div class="statusIMG">
@@ -25,9 +30,14 @@
     </div>
     <div class="center">
       <div class="top_status">
-        <div class="top_title">
-          <em>|</em>
-          <b>基本信息</b>
+        <div class="title_top">
+          <div class="left">
+            <em class="lineEm"></em>
+            <b class="noW">基本信息</b>
+          </div>
+        </div>
+        <div class="right">
+          <b class="expedite" @click="expedite(i.lingyu_id)"></b>
         </div>
         <div class="jbxxList">
           <div>
@@ -36,26 +46,34 @@
           </div>
           <div class="intro">
             <span>项目简介</span>
-            <p>优广网</p>
+            <p>项目简介项目简介项目简介项目简介项目简介项目简介项目简介项目简介项目简介</p>
           </div>
           <div>
             <span>本轮融资</span>
-            <b>优广网</b>
+            <b>天使轮</b>
           </div>
           <div>
             <span>融资金额</span>
-            <b>优广网</b>
+            <b>1000万</b>
           </div>
-          <div>
+          <div class="lingyu">
             <span>行业关键字</span>
-            <b>优广网</b>
+            <b>
+              <div style="padding:10px 0">
+                <em v-for="(itt,idd) in  3" :key="idd" :class="colorClass[idd]">{{lingyuName[idd]}}</em>
+              </div>
+            </b>
           </div>
         </div>
       </div>
       <div class="status_history">
         <div class="status_title">
-          <em>|</em>
-          <b>融资历史</b>
+          <div class="title_top">
+            <div class="left">
+              <em class="lineEm"></em>
+              <b class="noW">融资历史</b>
+            </div>
+          </div>
         </div>
         <div class="status_box">
           <div class="steps_">
@@ -71,10 +89,68 @@
         </div>
       </div>
     </div>
+    <div class="teamBox">
+      <!-- <div class="teamBox_title"> -->
+      <div class="title_top">
+        <div class="left">
+          <em class="lineEm"></em>
+          <b class="noW">团队</b>
+        </div>
+        <!-- </div> -->
+      </div>
+      <div class="teamCentent">
+        <nut-scroller>
+          <div slot="list" class="nut-hor-list-item" v-for="(item, index) of 3" :key="index">
+            <div>
+              <div class="name">
+                麻花花
+                <span class="position">投资总监</span>
+              </div>
+              <div class="hide">我是麻花花我是投资总监我是麻花花我是投资总监我是麻花花我是投资总监我是麻花花我是投资总监我是麻花花我是投资总监</div>
+            </div>
+          </div>
+          <slot slot="more">
+            <div class="nut-hor-jump-more">查看更多</div>
+          </slot>
+        </nut-scroller>
+      </div>
+    </div>
+    <div class="ProjectList">
+      <!-- <div class="teamBox_title"> -->
+      <div class="title_top">
+        <div class="left">
+          <em class="lineEm"></em>
+          <b class="noW">竞品项目</b>
+        </div>
+        <!-- </div> -->
+      </div>
+      <div class="teamCentent">
+        <nut-scroller>
+          <div slot="list" class="nut-hor-list-item" v-for="(item, index) of 3" :key="index">
+            <dl class="nut-scroller-item-info">
+              <dt><img src="../../assets/image/right-title-portrait.png" alt=""></dt>
+              <dd>
+                <div>2018-02-25</div>
+                <div>2018-02-25</div>
+                <div>2018-02-25</div>
+                <div>2018-02-25</div>
+                </dd>
+            </dl>
+          </div>
+          <slot slot="more">
+            <div class="nut-hor-jump-more">查看更多</div>
+          </slot>
+        </nut-scroller>
+      </div>
+    </div>
     <div class="bright">
       <div class="bright_title">
-        <em>|</em>
-        <b>项目亮点</b>
+        <div class="title_top">
+          <div class="left">
+            <em class="lineEm"></em>
+            <b class="noW">项目亮点</b>
+          </div>
+        </div>
       </div>
       <div class="bright_history">
         <p v-if="unfoldAll" class="hide">
@@ -99,17 +175,25 @@
         </p>
       </div>
       <div class="Bp_title">
-        <em>|</em>
-        <b>项目BP</b>
+        <div class="title_top">
+          <div class="left">
+            <em class="lineEm"></em>
+            <b class="noW">项目BP</b>
+          </div>
+        </div>
       </div>
       <div class="Bp_">
-        <img src="../../assets/image/btn.png" alt class="Bp_img">
+        <img src="../../assets/image/ProBp.png" alt class="Bp_img">
       </div>
     </div>
     <div class="recommend">
       <div class="recommend_title">
-        <em>|</em>
-        <b>项目保荐人</b>
+        <div class="title_top">
+          <div class="left">
+            <em class="lineEm"></em>
+            <b class="noW">项目保荐人</b>
+          </div>
+        </div>
       </div>
       <div class="recommend_box">
         <UserItem :userList="listData1"/>
@@ -133,11 +217,22 @@ export default {
   data() {
     return {
       unfoldAll: true,
-      listData1: new Array(2)
+      listData1: new Array(2),
+      colorClass: ["yd", "SAAS", "xmt"],
+      lingyuName: ["111", "222", "333"]
     };
   },
   beforeMount() {},
   methods: {
+    back() {
+      this.$router.go(-1);
+    },
+    title() {
+      alert("header头部， 点击title");
+    },
+    more() {
+      alert("header头部， 点击更多");
+    },
     unfoldShow() {
       this.unfoldAll = false;
     },
@@ -219,12 +314,12 @@ export default {
     justify-content: center;
   }
   .statusBox1 .statusIMG {
-    background-image: url("../../assets/image/h.png");
+    background-image: url("../../assets/image/icon3.png");
     background-repeat: no-repeat;
     background-size: 100%;
   }
   .statusBox2 .statusIMG {
-    background-image: url("../../assets/image/bili.png");
+    background-image: url("../../assets/image/icon2.png");
     background-repeat: no-repeat;
     background-size: 100%;
     display: flex;
@@ -232,7 +327,7 @@ export default {
     justify-content: center;
   }
   .statusBox3 .statusIMG {
-    background-image: url("../../assets/image/first.png");
+    background-image: url("../../assets/image/icon.png");
     background-repeat: no-repeat;
     background-size: 100%;
   }
@@ -253,15 +348,19 @@ export default {
     }
   }
 }
+.intro {
+  display: flex;
+}
 .intro p {
   display: inline-block;
 }
 .jbxxList span {
-  width: 87px;
+  min-width: 87px;
   display: inline-block;
+  color: #b5b5b5;
 }
 .jbxxList div {
-  height: 44px;
+  line-height: 44px;
 }
 .jbxxList b {
   color: #333333;
@@ -274,23 +373,25 @@ export default {
   margin-right: -10px;
 }
 .status_history {
-  padding: 30px 5% 0;
+  padding: 10px 5%;
   background: #fff;
   margin-top: 10px;
   // height: 150px;
 }
-.bright {
-  padding: 30px 5% 0;
+
+.bright,
+.recommend,
+.teamBox,
+.ProjectList {
+  padding: 10px 5% 0;
   background: #fff;
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 .Bp_img {
   width: 100%;
 }
-.recommend {
-  margin-top: 10px;
-  padding: 30px 5% 0;
-  background: #fff;
-}
+
 .nut-button {
   background: rgb(29, 198, 197);
 }
@@ -348,7 +449,81 @@ export default {
 }
 .bright_title,
 .Bp_title,
-.top_title {
+.title_top {
   padding: 10px 0;
+}
+.title_top {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  // overflow: hidden;
+  height: 30px;
+}
+.left {
+  height: 100%;
+}
+.noW {
+  font-weight: 400;
+  font-size: 16px;
+  text-indent: 10px;
+}
+.lineEm {
+  width: 3px;
+  height: 50%;
+  display: inline-block;
+  background-image: url("../../assets/image/line1.png");
+  background-size: 100%;
+  margin-right: 5px;
+}
+.yd,
+.SAAS,
+.xmt {
+  font-size: 11px;
+  height: 18px;
+  border-radius: 9px;
+  padding: 5px 10px;
+}
+.yd {
+  background: #fef8e5;
+  color: #ffa800;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.SAAS {
+  background: #fee5e5;
+  color: #f23353;
+  margin-right: 5px;
+}
+.xmt {
+  background: #e5eefe;
+  color: #009cff;
+}
+.lingyu {
+  display: flex;
+  align-items: center;
+}
+.position {
+  padding: 0 10px;
+  background: skyblue;
+}
+/deep/.teamBox .nut-hor-list .nut-hor-list-item{
+  width:200px;
+  margin-left: 10px;
+}
+.ProjectList .nut-hor-list .nut-hor-list-item{
+  width:220px;
+  margin-left: 10px;
+}
+.ProjectList .nut-hor-list .nut-hor-list-item .nut-scroller-item-info{
+  display:flex;
+  dt{
+    width:30%;
+    img{
+      width:100%;
+    }
+  }
+  dl{
+    flex:1;
+  }
 }
 </style>
