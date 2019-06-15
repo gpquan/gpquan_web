@@ -11,23 +11,22 @@
 					<span style="" class="list-left">上传图片</span>
 					<el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false"
 					 :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" style="text-align: right;">
-						<img v-if="imageUrl" :src="imageUrl" class="avatar">
 						<!-- <img v-else src="../../assets/image/up-image.jpg" alt="" class="up-img-icon"> -->
-						<div class="up-img-icon" style="height: 5vh;"></div>
+						<div class="up-img-icon" style="height: 5vh;" :style="getImgUrl"></div>
 					</el-upload>
 				</div>
 				<div class="mechanism">
-					<nut-textinput placeholder="请输入内容" label="机构名称" suffix="aaa" v-model="val" />
+					<nut-textinput placeholder="请输入内容" label="机构名称" suffix="aaa" v-model="name" />
 				</div>
 				<div class="mechanism">
-					<nut-textinput placeholder="请输入内容" label="机构所在地" v-model="val" />
+					<nut-textinput placeholder="请输入内容" label="机构所在地" v-model="address" />
 				</div>
 			</div>
 
 			<div class="list2">
 				<div class="title2-box">
 					<img src="../../assets/image/line1.png" alt="" class="line">
-					<span class="title-text">机构简介</span>
+					<span class="title-text" v-model="description">机构简介</span>
 				</div>
 			</div>
 			<div @click="gopersonage()">
@@ -62,7 +61,9 @@
 		data() {
 			return {
 				is_show: false,
-				val: '',
+				name:'',     //机构名称
+				description:'',   //机构简介
+				address:'',   //机构所在地
 				imageUrl: '',
 				listData0: [
 					['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
@@ -70,6 +71,11 @@
 				],
 				defaultValueData1: ['2012', '2'],
 			};
+		},
+		computed:{
+			getImgUrl:function(){
+				return this.imageUrl ? 'background-image: url('+  this.imageUrl  +');' : '';
+			}
 		},
 		methods: {
 			back() {
@@ -181,10 +187,11 @@
 
 	.add-icon {
 		border-radius: 50%;
-		border: 1px solid blue;
+		border: 1px solid #00aca0;
 		height: 2vh;
 		line-height: 8vh;
 		margin-left: 65vw;
+		color: #00aca0;
 	}
 
 	.projectJS {
@@ -199,7 +206,7 @@
 
 	.mechanism {
 		height: 8vh;
-		border-bottom: 1px solid #666;
+		border-bottom: 1px solid #efefef;
 	}
 
 	.up-img-icon {
@@ -209,7 +216,11 @@
 		right: 5vh;
 		background-image: url("../../assets/image/up-image.jpg");
 		height: 5vh;
-		background-size: 100% 100%;
+		background-size: 100% auto;
+		border-radius: 50%;
+		background-repeat: no-repeat;
+		background-position: left center;
+		background-color: #efefef;
 	}
 
 	.title-text,
@@ -243,14 +254,16 @@
 	.up-image {
 		width: 100%;
 		height: 8vh;
-		border-bottom: 1px solid;
+		border-bottom: 1px solid #efefef;
 	}
 
 	.list-body {
 		width: 100%;
 		height: 80vh;
 	}
-
+	.avatar-uploader{
+		text-align: left;
+	}
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
 		border-radius: 6px;
@@ -273,8 +286,11 @@
 	}
 
 	.avatar {
-		width: 178px;
-		height: 178px;
+		width: 20%;
 		display: block;
+	}
+	/deep/.nut-textinput .nut-textinput-clear{
+		top: inherit;
+		transform: translateY(-70%);
 	}
 </style>

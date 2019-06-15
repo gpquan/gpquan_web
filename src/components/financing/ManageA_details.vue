@@ -8,84 +8,46 @@
 					皓月灰
 				</nut-button>
 			</div>
-			<div class="head_card_icon">
-
+			<div class="head_crad_text">
+				<div class="head_card_icon" :style="'background-image:url('+progressObj.logo+')'"></div>
+				<div class="head_card_left">
+					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;"></p>
+					<p v-text="progressObj.description" class="pro_msg"></p>
+					<p v-text="" style="margin-top:2vmin;color: #fff;margin-bottom:2vmin;">行业l轮次：啊啦啦啦啦</p>
+					<nut-button
+					  type="actived"
+					  shape="circle"
+					  small
+					  v-for="(item,ind) in [progressObj.lingyu_name,progressObj.stage_name]" :key="ind"
+					  :color="colorList[ind]"
+					  :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
+					>{{item}}</nut-button>
+					<p v-text="" style="margin-top: 2vmin;color: #fff;">酬劳比六：打算sad的</p>
+				</div>
+				
 			</div>
-
 		</div>
 		<div class="body_step" id="body_step">
 			<div class="opcity-bg">
-				<div class="step-item-box">
-					<div class="step-item-left step-circle-done">
+				<div class="step-item-box" v-for="item in progressObj.progress">
+					<!-- -->
+					<div class="step-item-left"
+						:class="item.id >progressObj.progress_id ? 'step-circle-undo' : (item.id == progressObj.progress_id ? 'step-circle-doing' : 'step-circle-done') "   
+					>
 						<div class="step-circle"><span class="step-circle-inner"></span></div>
 					</div>
-					<div class="step-item-right">
+					<div class="step-item-right" @click="showPop(1,item.id)">
 						<div class="step-right-title">
-							<span>财务顾问协议</span>
-							<span>2019.01.02</span>
+							<span v-text="item.name"></span>
+							<span>2019.01.02</span>   
+							<!-- 缺少时间 -->
 						</div>
 						<div class="step-right-cont">
-							<p @click="showPop(1)"><span class="cont-circle"></span>我是备注备注</p>
+							<p  v-if="sta"><span class="cont-circle"></span>我是备注备注</p>
 						</div>
 					</div>
 				</div>
-
-				<div class="step-item-box">
-					<div class="step-item-left step-circle-doing">
-						<div class="step-circle"><span class="step-circle-inner"></span></div>
-					</div>
-					<div class="step-item-right">
-						<div class="step-right-title">
-							<span>财务顾问协议</span>
-							<span>2019.01.02</span>
-						</div>
-						<div class="step-right-cont">
-							<p><span class="cont-circle"></span>我是备注备注</p>
-						</div>
-					</div>
-				</div>
-				<div class="step-item-box">
-					<div class="step-item-left step-circle-undo">
-						<div class="step-circle"><span class="step-circle-inner"></span></div>
-					</div>
-					<div class="step-item-right">
-						<div class="step-right-title">
-							<span>财务顾问协议</span>
-							<span>2019.01.02</span>
-						</div>
-						<div class="step-right-cont">
-							<!--<p><span class="cont-circle"></span>我是备注备注</p>-->
-						</div>
-					</div>
-				</div>
-				<div class="step-item-box">
-					<div class="step-item-left step-circle-undo">
-						<div class="step-circle"><span class="step-circle-inner"></span></div>
-					</div>
-					<div class="step-item-right">
-						<div class="step-right-title">
-							<span>财务顾问协议</span>
-							<span>2019.01.02</span>
-						</div>
-						<div class="step-right-cont">
-							<!--<p><span class="cont-circle"></span>我是备注备注</p>-->
-						</div>
-					</div>
-				</div>
-				<div class="step-item-box">
-					<div class="step-item-left step-circle-undo">
-						<div class="step-circle"><span class="step-circle-inner"></span></div>
-					</div>
-					<div class="step-item-right">
-						<div class="step-right-title">
-							<span>财务顾问协议</span>
-							<span>2019.01.02</span>
-						</div>
-						<div class="step-right-cont">
-							<!--<p><span class="cont-circle"></span>我是备注备注</p>-->
-						</div>
-					</div>
-				</div>
+<!--  -->
 
 
 			</div>
@@ -107,7 +69,7 @@
 						<span>删除此节点</span>
 					</div>
 					<div class="alert-foot-save">
-						<span>删除此节点</span>
+						<span @click="save_text">保存备注</span>
 					</div>
 				</div>
 			</div>
@@ -120,52 +82,68 @@
 		data() {
 			return {
 				textarea: '',
+				project_id:'',
+				progressObj:'',   //整个返回信息
+				current_tip_id:'',   //当前点击备注id
+				sta :false,
+				BGcolorList: ["#fef8e5", "#fee5e5", "#e5eefe"],
+				colorList: ["#ffa800", "#f23353", "#009cff"],
 			};
 		},
 		mounted() {
 			let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 			// console.log()
-			this.$post("/api/getProjectInvestProgress", {
-				userId: 3,
-				page: "1"
-			}).then(
-				res => {
-					for (let i = 0; i < res.data.length; i++) {
-						res.data[i].status = 2;
-						if (res.data[i].projects.length < 3) {
-							res.data[i].maxLength = res.data[i].projects.length;
-						} else {
-							res.data[i].maxLength = 3;
-						}
-					}
-					for (let i = 0; i < res.data.length; i++) {
-						//    this.statusList.show
-						this.statusList.push(0)
-						console.log(res.data)
-						// this.statusList[i].length=this.ListData.length
-						//    this.ListData[i].ISshow=false
-						// console.log(this.ListData[i])
-					}
-					console.log(res.data);
-					this.MaxList = res.data;
-					console.log(res);
-				}
-			);
+			this.getDetails();
 		},
 		methods: {
-			showPop: function(type) {
+			save_text:function(){
+				this.$post("/api/getProjectInvestProgress",{
+					save_text :this.textarea,
+					current_tip_id:this.current_tip_id,
+				}).then(
+					res =>{
+						if(res.status == 'success'){
+							alert("成功");
+							this.showPop(2);
+							this.getDetails();
+							
+						}else{
+							this.sta = true;
+							this.textarea = '';
+							alert(res.error.message);
+							this.showPop(2);
+						};
+					}
+				)
+			},
+			//获取详情
+			getDetails:function(){
+				this.project_id = this.$route.query.id;
+				// console.log(this.project_id)
+				this.$post("/api/getProjectInvestProgress", {
+					projectId: 82697,
+				}).then(
+					res => {
+						this.progressObj = res.data;
+						console.log(this.progressObj);
+					}
+				);
+			},
+			showPop: function(type,id) {
 				if (type == 1) {
 					$(".bot-alert-box").fadeIn(10)
 					setTimeout(function() {
-						$(".pop-body").slideDown(200)
-					}, 10)
+						$(".pop-body").slideDown(200);
+					},10)
+					this.current_tip_id = id;
+					console.log(this.current_tip_id)
 				} else {
 					$(".pop-body").slideUp(200)
 					setTimeout(function() {
-						$(".bot-alert-box").fadeOut(10)
-					}, 200)
+						$(".bot-alert-box").fadeOut(10);
+					},200)
 				}
-			}
+			},
 		},
 	}
 </script>
@@ -187,7 +165,29 @@
 		left: 1%;
 		top: 4%;
 	}
-
+	.pro_msg{
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-top:2vmin;
+		font-size: 15px;
+		color: #fff;
+	}
+	.head_crad_text{
+		width: 98vw;
+		margin: 0 auto;
+		height: 36vmin;
+		margin-top: 8vmin;
+	}
+	.head_card_left{
+		width:50vmin;
+		width: 59vmin;
+		height: 20vh;
+		position: absolute;
+		right: 5vh;
+		// background: pink;
+		top: 8vh;
+	}
 	.container {
 		width: 100%;
 		height: 100%;
@@ -209,7 +209,7 @@
 		min-height: 18vmin;
 	}
 
-	.step-item-box .step-circle-undo.step-item-left:after {
+	.step-item-box:last-child .step-item-left:after {
 		border: none;
 	}
 
@@ -268,23 +268,23 @@
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
 	}
-
+	
 	.step-right-title span:first-child {
 		font-size: 14px;
 		color: #333;
 	}
-
+	
 	.step-right-title span:nth-child(2) {
 		font-size: 12px;
 		color: #999;
 		margin-left: 1vmin;
 	}
-
+	
 	.step-right-cont p {
 		font-size: 12px;
 		color: #999;
 	}
-
+	
 	.step-right-cont p span.cont-circle {
 		display: inline-block;
 		width: 1vmin;
@@ -294,8 +294,7 @@
 		margin-right: 1vmin;
 		vertical-align: middle;
 	}
-
-
+	
 	.bot-alert-box {
 		position: fixed;
 		bottom: 0;
@@ -305,7 +304,7 @@
 		display: none;
 		z-index: 999
 	}
-
+	
 	.pop-mask {
 		position: absolute;
 		width: 100%;
@@ -313,7 +312,7 @@
 		background: black;
 		opacity: .5;
 	}
-
+	
 	.pop-body {
 		height: 40vh;
 		background: white;
@@ -324,33 +323,33 @@
 
 		display: none;
 	}
-
+	
 	.close-icon {
 		width: 5vmin;
 		height: 5vmin;
 		position: absolute;
 		left: 6vmin;
 	}
-
+	
 	.alert-title {
 		text-align: center;
 		line-height: 15vmin;
 		font-size: 23px;
 	}
-
+	
 	.alert-body {
 		text-align: center;
 		position: absolute;
 		bottom: 6vh;
 		width: 100%
 	}
-
+	
 	.alert-body-inp {
 		width: 80%;
 		height: 100%;
 		margin-top: 5%;
 	}
-
+	
 	.alert-foot-del {
 		width: 50%;
 		background: #666;
@@ -359,7 +358,7 @@
 		position: absolute;
 		bottom: 0;
 	}
-
+	
 	.alert-foot-save {
 		width: 50%;
 		background: #999;
@@ -369,19 +368,19 @@
 		bottom: 0;
 		right: 0;
 	}
-
+	
 	.alert-foot-del,
 	.alert-foot-save {
 		text-align: center;
 		vertical-align: middle;
 		line-height: 5vh;
 	}
-
+	
 	.alert-foot {
 		display: flex;
 		display: -webkit-flex;
 	}
-
+	
 	#btn {
 		background: rgba(0, 0, 0, 0) !important;
 		position: relative;
@@ -389,31 +388,32 @@
 		height: 25px;
 		top: 3vh;
 	}
-
+	
 	.body_step {
 		position: absolute;
-		height: 100vh;
+		height: 60vh;
 		width: 100vw;
 		overflow: scroll;
+		-webkit-overflow-scrolling: touch;
 	}
-
+	
 	.block {
 		margin-left: 9vw;
 		margin-top: 7vh;
 	}
-
+	
 	.head_card_icon {
 		background-image: url(../../assets/image/ManageA_details_cardicon.png);
 		background-size: 100% 100%;
 		height: 10vh;
 		width: 10vh;
 		position: relative;
-		left: 5vw;
+		left: 5vh;
 		top: 5vh;
 		display: inline-block;
 
 	}
-
+	
 	.head_card {
 		background-image: url(../../assets/image/ManageA_details_cardbg.png);
 		background-size: 100% 100%;
@@ -421,7 +421,7 @@
 		margin: 0 auto;
 		height: 30vh;
 	}
-
+	
 	.head_card_title {
 		position: relative;
 		left: 5vw;
@@ -429,7 +429,7 @@
 		font-size: 16px;
 		color: #fff;
 	}
-
+	
 	.step_cicle1 {
 		width: 2vh;
 		height: 2vh;
@@ -439,7 +439,7 @@
 		text-align: center;
 		border-radius: 50%;
 	}
-
+	
 	.step_cicle2 {
 		width: 0.6vh;
 		height: 0.6vh;

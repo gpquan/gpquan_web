@@ -61,7 +61,7 @@
             <span style="text-align: center;font-size: 1rem;">已投竞品</span>
             <span class="right-body-Ricon"></span>
           </div>
-          <div class="right-item" @click="Jump_rout" v-for="(items,idx) in R_btmList" :key="idx">
+          <div class="right-item" @click="Jump_rout(items)" v-for="(items,idx) in R_btmList" :key="idx">
             <span class="item-name">{{items.name}}</span>
             <div class="right-item-portrait"></div>
             <div style="margin-left: 7vw;">
@@ -274,8 +274,8 @@ export default {
       }
  
     },
-    Jump_rout: function() {
-      this.$router.push("/accelerate/Manage/a/details");
+    Jump_rout: function(item) {
+      this.$router.push("/accelerate/Manage/a/details?id="+item.project_id);
     }
   }
 };
