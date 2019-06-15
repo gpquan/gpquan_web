@@ -205,7 +205,16 @@
         @close="switchPicker('industry1')"
         @confirm="setindustryValue"
       ></nut-picker>
-
+      <nut-picker
+        :is-visible="industry1"
+        title="请选择城市"
+        :list-data="listData"
+        :default-value-data="defaultValueData"
+        @close="switchPicker('industry1')"
+        @confirm="setChooseValue"
+        @choose="updateChooseValue"
+        @close-update="closeUpdateChooseValue"
+      ></nut-picker>
       <!-- 融资历史 -->
       <nut-dialog title="融资历史" :visible="dialogShow" @close="dialogShow=false" :onOkBtn="confirmLS">
         <nut-textinput
@@ -308,7 +317,7 @@ export default {
   data() {
     return {
       url: "https://my-json-server.typicode.com/linrufeng/demo/posts",
-      name:null,//项目名称
+      name: null, //项目名称
       dialogShow: false, //遮罩
       defaultValueData: "2010",
       rzjd: false, //融资阶段显隐
@@ -362,15 +371,33 @@ export default {
       roundsList: [], //轮次集合
       roundsId: null, //轮次ID
       lingyuId: null, //领域ID
-                  data:{
-                '北京': ['北京'],
-                '黑龙江': ['哈尔滨','绥化','漠河','大兴安岭','牡丹江','佳木斯','齐齐哈尔','大庆','五大连池'],
-                '江西': ['九江', '南昌', '赣州'],
-                '上海': ['上海'],
-                '重庆': ['重庆'],
-                '内蒙古': ['呼和浩特', '呼和浩特1','呼和浩特2', '呼和浩特3','呼和浩特4', '呼和浩特5','呼和浩特6', '呼和浩特7']
-            },
- 
+      data: {
+        北京: ["北京"],
+        黑龙江: [
+          "哈尔滨",
+          "绥化",
+          "漠河",
+          "大兴安岭",
+          "牡丹江",
+          "佳木斯",
+          "齐齐哈尔",
+          "大庆",
+          "五大连池"
+        ],
+        江西: ["九江", "南昌", "赣州"],
+        上海: ["上海"],
+        重庆: ["重庆"],
+        内蒙古: [
+          "呼和浩特",
+          "呼和浩特1",
+          "呼和浩特2",
+          "呼和浩特3",
+          "呼和浩特4",
+          "呼和浩特5",
+          "呼和浩特6",
+          "呼和浩特7"
+        ]
+      }
     };
   },
   created() {
@@ -532,9 +559,9 @@ export default {
           break;
       }
     },
-       updateChooseValue(self, index, value, cacheValueData) {
-            index < 2 && this.updateLinkage(self, value, (index + 1), null);
-        },
+    updateChooseValue(self, index, value, cacheValueData) {
+      index < 2 && this.updateLinkage(self, value, index + 1, null);
+    }
   }
 };
 </script>

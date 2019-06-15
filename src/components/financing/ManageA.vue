@@ -31,7 +31,7 @@
         <!-- 右边头部 -->
         <div class="right-box-title">
           <div class="right-title">
-            <span class="title-name">{{this.Rtop.name}}</span>
+            <router-link to="/organ"  class="title-name">{{this.Rtop.name}}</router-link>
             <div
               class="right-title-portrait"
               :style="'background-image:url('+Rtop.it_img+'/'+Rtop.img+')'"
@@ -230,8 +230,7 @@ export default {
           this.right_User_btn.push(res.data.lingyu_name[i]);
           console.log(this.right_User_btn);
         }
-        // alert(1)
-        // console.log(this.right_User_btn)
+
       });
       console.log(Pid);
       this.$post("/api/getOrganInvestAlikeProject", {
@@ -246,7 +245,6 @@ export default {
       console.log(ind);
       this.listActId = ind;
       this.getRightList(item.id);
-      // this.lyList
       for(let i=0;i<this.R_btmList2.length;i++){
          this.R_btmList2[i].ly=[]
         let arr=[]
@@ -258,17 +256,7 @@ export default {
             }else{
              arr.push(num) 
              this.R_btmList2[i].ly.push(this.lyList[num])
-            }
-            
-            console.log()
-            console.log(arr,num)
-            // if(arr.indexOf(num)!=-1){
-            //    console.log(this.lyList[num])
-            //     //  arr.push(num)
-            //     //  this.R_btmList2.push(this.lyList[num])
-            // }else{
-            //   j--
-            // }  
+            } 
           }
             arr=[]
       }

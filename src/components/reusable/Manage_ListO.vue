@@ -11,7 +11,7 @@
         <div class="title_top">
           <div class="left">
             <em class="lineEm"></em>
-            <b class="noW">{{i.name}}</b>
+            <router-link to="/organ" class="noW">{{i.name}}</router-link>
           </div>
           <div class="right">
             <!-- <b class="expedite" @click="expedite(i.lingyu_id)">加速</b> -->

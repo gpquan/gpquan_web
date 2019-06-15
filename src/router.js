@@ -27,7 +27,9 @@ import ManageP from '@/components/financing/ManageP'
 import ManageO from '@/components/financing/ManageO'
 import ManageA from '@/components/financing/ManageA'
 import ManageA_details from '@/components/financing/ManageA_details'
-
+import Organ from '@/components/organ/organ'
+import OrganDetails from '@/components/organ/organdetails'
+import Demo from '@/components/project/demo'
 
 Vue.use(Router)
 
@@ -38,6 +40,11 @@ const router = new Router({
         component: Home,
         redirect: '/accelerate',
         children: [
+            {
+                path:'/demo',
+                name:'demo',
+                component:Demo
+            },  
             {
                 path: '/project',
                 name: 'project',
@@ -69,6 +76,19 @@ const router = new Router({
                         component: ProjectPersonage
                     },
 
+                ]
+            },
+            {
+                path: '/organ',
+                name: 'organ',
+                component: Organ,
+                redirect: '/Organ/details',
+                children: [
+                    {
+                        path: '/organ/details',
+                        name: 'organDetails',
+                        component: OrganDetails,
+                    }
                 ]
             },
             {
@@ -142,6 +162,7 @@ const router = new Router({
 
                 ]
             },
+            
         ]
     },
     {
@@ -153,6 +174,7 @@ const router = new Router({
         name: 'SignIn',
         component: Sign,
     },
+  
     ]
 })
 router.beforeEach((to, from, next) => {

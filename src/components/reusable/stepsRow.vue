@@ -1,15 +1,15 @@
 <template>
     <nut-scroller>
-      <div slot="list" class="nut-hor-list-item" v-for="(item, index) of listData" :key="index" stretch=0>
+      <div slot="list" class="nut-hor-list-item" v-for="(item, index) of RZList" :key="index" stretch=0>
         <!-- <dl class="nut-scroller-item-info">
           <dt>防水升级版 蓝 迷你小音</dt>
           <dd>2018-02-25</dd>
         </!--> 
         <div class="scroll_item">
-            <span>B轮</span>
+            <span>{{item[0].stage_name}}</span>
             <span class="round_line"><em class="round"></em> <b class="line"></b></span>
-            <span class="money_num">2000万</span>
-            <span class="times_">2019.11.02</span>
+            <span class="money_num">{{item[0].financing_money+"万元"}}</span>
+            <span class="times_">{{item[0].invest}}</span>
             <span class="line_dot_line">
                <em>
                 <div class="line1"></div>
@@ -17,7 +17,7 @@
                 <div class="line1"></div>
                </em>
             </span>
-            <span class="state_List">保密</span>
+            <span class="state_List hide">{{item[0].name}}</span>
         </div>
       
       </div>
@@ -29,6 +29,7 @@
 
 <script>
 export default {
+    props:["RZList"],
     data() {
         return {
             listData: new Array(20),
@@ -166,5 +167,15 @@ export default {
 }
 .money_num{
    line-height: 24px;
+}
+.hide {
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 </style>

@@ -1,14 +1,23 @@
 <template>
-  <div class="project_detailsBox">
+  <div class="project_detailsBox" v-if="ListData!=null">
+         <nut-navbar 
+    @on-click-back="back" 
+    :leftShow="true" 
+    :rightShow="true"
+    >优广网</nut-navbar>
     <div class="top_Box">
+        <div class="h_img">
+          <img src="../../assets/image/right-title-portrait.png" alt="">
+        </div>
       <img src="../../assets/image/bg.png" alt class="top_BoxBg">
-      <div class="header">
+      <!-- <div class="header">
         <span class="backBox" @click="back">
           <img src="../../assets/image/arrow.png" alt class="left_icon">
         </span>
         <span class="sign_title">优广网</span>
         <span></span>
-      </div>
+      </div> -->
+ 
       <!-- <nut-navbar 
    
     :leftShow="true" 
@@ -21,7 +30,7 @@
           </div>
         </div>
         <div class="statusBox2">
-          <div class="statusIMG">11</div>
+          <div class="statusIMG statusIMG2">{{ListData.yongjin+"%"}}</div>
         </div>
         <div class="statusBox3">
           <div class="statusIMG"></div>
@@ -39,28 +48,29 @@
         <div class="right">
           <b class="expedite" @click="expedite(i.lingyu_id)"></b>
         </div>
-        <div class="jbxxList">
+        <div class="jbxxList" v-if="ListData!=null">
           <div>
             <span>项目名称</span>
-            <b>优广网</b>
+            <b>{{ListData.name}}</b>
           </div>
           <div class="intro">
             <span>项目简介</span>
-            <p>项目简介项目简介项目简介项目简介项目简介项目简介项目简介项目简介项目简介</p>
+            <p class="xmjj">{{ListData.description}}</p>
           </div>
           <div>
             <span>本轮融资</span>
-            <b>天使轮</b>
+            <b>{{ListData.stage_name+"万元"}}</b>
           </div>
           <div>
             <span>融资金额</span>
-            <b>1000万</b>
+            <b>{{ListData.stage_name+'万元'}}</b>
           </div>
           <div class="lingyu">
             <span>行业关键字</span>
             <b>
               <div style="padding:10px 0">
-                <em v-for="(itt,idd) in  3" :key="idd" :class="colorClass[idd]">{{lingyuName[idd]}}</em>
+                <!-- <em v-for="(itt,idd) in  ListData.lingyu_name" :key="idd" :class="colorClass[idd]">{{itt.lingyu_name}}</em> -->
+                <em :class="colorClass[0]">{{ListData.lingyu_name}}</em>
               </div>
             </b>
           </div>
@@ -77,19 +87,12 @@
         </div>
         <div class="status_box">
           <div class="steps_">
-            <StepsRow/>
+            <StepsRow :RZList="this.RZ_history"/>
           </div>
-          <!-- <nut-steps :current="current">
-            <nut-step title="已完成" content="这里是该步骤的描述信息"></nut-step>
-            <nut-step title="已完成" content="这里是该步骤的描述信息"></nut-step>
-            <nut-step title="进行中" content="这里是该步骤的描述信息"></nut-step>
-            <nut-step title="待进行" content="这里是该步骤的描述信息"></nut-step>
-            <nut-step title="待进行" content="这里是该步骤的描述信息"></nut-step>
-          </nut-steps>-->
         </div>
       </div>
     </div>
-    <div class="teamBox">
+    <div class="teamBox" v-if="ListData!=null">
       <!-- <div class="teamBox_title"> -->
       <div class="title_top">
         <div class="left">
@@ -100,18 +103,23 @@
       </div>
       <div class="teamCentent">
         <nut-scroller>
-          <div slot="list" class="nut-hor-list-item" v-for="(item, index) of 3" :key="index">
+          <div
+            slot="list"
+            class="nut-hor-list-item"
+            v-for="(item, index) of ListData.member"
+            :key="index"
+          >
             <div>
               <div class="name">
-                麻花花
-                <span class="position">投资总监</span>
+                <span>{{item.name}}</span>
+                <span class="position">{{item.job}}</span>
               </div>
-              <div class="hide">我是麻花花我是投资总监我是麻花花我是投资总监我是麻花花我是投资总监我是麻花花我是投资总监我是麻花花我是投资总监</div>
+              <div class="hide">{{item.description}}</div>
             </div>
           </div>
-          <slot slot="more">
+          <!-- <slot slot="more">
             <div class="nut-hor-jump-more">查看更多</div>
-          </slot>
+          </slot>-->
         </nut-scroller>
       </div>
     </div>
@@ -126,15 +134,17 @@
       </div>
       <div class="teamCentent">
         <nut-scroller>
-          <div slot="list" class="nut-hor-list-item" v-for="(item, index) of 3" :key="index">
+          <div slot="list" class="nut-hor-list-item" v-for="(item, index) of ProList" :key="index">
             <dl class="nut-scroller-item-info">
-              <dt><img src="../../assets/image/right-title-portrait.png" alt=""></dt>
+              <dt>
+                <img src="../../assets/image/right-title-portrait.png" alt>
+              </dt>
               <dd>
-                <div>2018-02-25</div>
-                <div>2018-02-25</div>
-                <div>2018-02-25</div>
-                <div>2018-02-25</div>
-                </dd>
+                <div>{{item.name}}</div>
+                <div class="hide">{{item.description}}</div>
+                <span :class="colorClass[0]" style="line-height:30px;">{{item.lingyu_name}}</span>
+                <div>{{"行业轮次："+item.stage_name}}</div>
+              </dd>
             </dl>
           </div>
           <slot slot="more">
@@ -154,21 +164,15 @@
       </div>
       <div class="bright_history">
         <p v-if="unfoldAll" class="hide">
-          2017年8月7号日，腾讯股盘再创历史新高加320.6港元马化腾身家361亿美元成为中国首富。[3]2018年4月，获《时代周刊》2018年全球最具影响力人物荣誉。
-          <em
-            class="unfold_All"
-            @click="unfoldShow()"
-          >
+          {{ListData.project_light}}
+          <em class="unfold_All" @click="unfoldShow()">
             展开全部
             <span class="downIcon"></span>
           </em>
         </p>
         <p v-else class="test_size">
-          2017年8月7号日，腾讯股盘再创历史新高加320.6港元马化腾身家361亿美元成为中国首富。[3]2018年4月，获《时代周刊》2018年全球最具影响力人物荣誉。
-          <em
-            class="close_All"
-            @click="unfoldNoShow()"
-          >
+          {{ListData.project_light}}
+          <em class="close_All" @click="unfoldNoShow()">
             收起
             <span class="upIcon"></span>
           </em>
@@ -219,10 +223,33 @@ export default {
       unfoldAll: true,
       listData1: new Array(2),
       colorClass: ["yd", "SAAS", "xmt"],
-      lingyuName: ["111", "222", "333"]
+      lingyuName: ["111", "222", "333"],
+      ListData: null,
+      RZ_history: null,
+      projectId: null,
+      ProList: {}
     };
   },
-  beforeMount() {},
+  beforeMount() {
+    this.$fetch("/api/getProjectDetail/" + 83291).then(res => {
+      this.ListData = res.data;
+      this.projectId = res.data.id;
+      // console.log(res)
+      this.$post("/api/getAlikeProjectList", {
+        field: "id",
+        fieldValue: this.projectId
+      }).then(res => {
+        console.log(res);
+        this.ProList = res.data;
+      });
+    });
+    this.$post("/api/projectInvestHistory", {
+      projectId: 83291
+    }).then(res => {
+      this.RZ_history = res.data;
+      // console.log(res)
+    });
+  },
   methods: {
     back() {
       this.$router.go(-1);
@@ -288,7 +315,9 @@ export default {
 }
 .top_BoxBg {
   width: 100%;
-  float: left;
+ position: absolute;
+ left:0;
+ top:0;
   max-width: 100%;
   max-height: 100%;
 }
@@ -301,7 +330,7 @@ export default {
   position: absolute;
   bottom: -20px;
   background: rgba(255, 255, 255, 1);
-  box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
+  box-shadow: 0px 0px 5px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   .statusBox1,
   .statusBox2,
@@ -331,6 +360,9 @@ export default {
     background-repeat: no-repeat;
     background-size: 100%;
   }
+}
+.statusIMG2{
+  color:#fff;
 }
 .statusIMG {
   width: 50%;
@@ -386,7 +418,10 @@ export default {
   padding: 10px 5% 0;
   background: #fff;
   margin-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+}
+.bright .hide{
+  margin-top:0;
 }
 .Bp_img {
   width: 100%;
@@ -410,14 +445,16 @@ export default {
 //    }
 // }
 .hide {
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 20px;
   word-break: break-all;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+   margin-top: 5%;
+   color: #666;
 }
 .test_size {
   font-size: 12px;
@@ -503,27 +540,53 @@ export default {
   align-items: center;
 }
 .position {
-  padding: 0 10px;
-  background: skyblue;
+  padding: 3px 10px;
+  background: rgb(239, 82, 80);
+  margin-left: 20px;
+  color: #fff;
+  border-radius: 5px;
 }
-/deep/.teamBox .nut-hor-list .nut-hor-list-item{
-  width:200px;
-  margin-left: 10px;
+/deep/.teamBox .nut-hor-list .nut-hor-list-item {
+  width: 200px;
+        margin: 10px;
+    box-shadow: 0px 0px 5px #ccc;
+    padding: 20px;
+    /* min-height: 120px; */
+    border-radius: 10px;
 }
-.ProjectList .nut-hor-list .nut-hor-list-item{
-  width:220px;
-  margin-left: 10px;
+.ProjectList .nut-hor-list .nut-hor-list-item {
+  width: 200px;
+     margin: 10px;
+    box-shadow: 0px 0px 5px #ccc; 
+    padding: 20px;
+    /* min-height: 120px; */
+    border-radius: 10px;
 }
-.ProjectList .nut-hor-list .nut-hor-list-item .nut-scroller-item-info{
-  display:flex;
-  dt{
-    width:30%;
-    img{
-      width:100%;
+.ProjectList .nut-hor-list .nut-hor-list-item .nut-scroller-item-info {
+  display: flex;
+  dt {
+    min-width: 30%;
+    img {
+      width: 100%;
     }
   }
-  dl{
-    flex:1;
+  dl {
+    flex: 1;
   }
+}
+.xmjj {
+  line-height: 20px;
+}
+.h_img{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+      align-items: center;
+      img{
+          
+    z-index: 9;
+      }
+
 }
 </style>
