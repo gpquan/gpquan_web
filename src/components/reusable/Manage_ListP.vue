@@ -27,6 +27,7 @@
         <div class="List_top" v-show="i.status==2">
           <!-- {{typeOf(i.maxLength)}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
+
             <span class="box1" @click="pro_evolve(i.organs[ind]['organ_id'])">
               <circle-progress
                 :id="i.organs[ind].progress.uniqid+1"
@@ -41,6 +42,7 @@
               ></circle-progress>
                <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
             </span>
+
                <b class="nameTIT">
               <em></em>{{i.organs[ind].name}}</b>
           </div>

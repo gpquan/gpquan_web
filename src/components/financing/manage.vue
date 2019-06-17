@@ -1,6 +1,7 @@
 <template>
   <div class="manageBox">
-    <ul class="tab">
+  <div>
+       <ul class="tab">
       <li v-for="(item,ind) in tabLink" :key="ind" @click="tabClick(ind)"  :class="IND==ind?'active':''">
         <span>
           {{item.name}}
@@ -19,12 +20,14 @@
     <router-view v-if="$route.meta.keep==2"></router-view>
      </keep-alive>
   </div>
+  </div>
 </template>
 
 <script>
 export default {
   data(){
     return{
+      show:2,
       IND:0,
       tabLink:[
         {

@@ -22,7 +22,8 @@
     </router-link>
   </div> -->
    <div class="view-footer">
-    <router-link to="/project">
+   <div class="view-footer">
+      <router-link to="/project">
       <strong :class=" !flag1?'view-li-project':'projectActive'"  @click="tagToggle(1)">
         <span class="view-font-default">精准推荐</span>
       </strong>
@@ -37,6 +38,7 @@
         <span class="view-font-default">个人中心</span>
       </strong>
     </router-link>
+   </div>
     <!-- <router-link to="/userCenter">
       <strong class="view-li-user" @click="tagToggle(4)">
         <span class="view-font-default">个人中心</span>
@@ -190,6 +192,10 @@ export default {
     background-size: 33px;
   }
   
+}
+.ff{
+  width: 100%;
+  height:100%;
 }
 </style>
 

@@ -127,7 +127,7 @@ export default {
   },
   data() {
     return {
-      listData1: new Array(5),
+      listData1: [],
       maxPages: 4,
       isUnMore1: false,
       isLoading1: false,
@@ -249,9 +249,20 @@ export default {
         }
       ]
     };
+  
   },
-
+  created(){
+    this.getList()
+  },
   methods: {
+    getList(){
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      this.$post("/api/getGoodProjectList",{
+        userId:userId
+      }).then((res)=>{
+          this.listData1= res.data
+      })
+    },
     focusFun() {
       console.log("获取焦点操作！");
     },
