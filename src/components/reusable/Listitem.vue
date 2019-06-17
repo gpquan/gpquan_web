@@ -10,9 +10,9 @@
     <div slot="list" class="nut-vert-list-panel">-->
     <!-- <div class="" >  -->
     <div class="item" v-for="(item, index) in this.Listdata" :key="index" @click="item_details">
-      <span class="item_status">
+      <!-- <span class="item_status">
         <em>已上架</em>
-      </span>
+      </span> -->
       <dl class="List_item">
         <dt class="img" @click="item_details">
           <img src="../../assets/image/user_photo.png" alt>

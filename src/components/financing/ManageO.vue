@@ -34,11 +34,13 @@
 				backgroundColor: "#FFE8CC",
 				timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
 				MaxList: [],
-				statusList: []
+				statusList: [],
+				pro_evolve_id:'',  //项目进展id
 			};
 		},
 		mounted() {
 			let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+
 			// console.log()
 			this.$post("/api/getUserOrganList", {
 				userId: 3,
@@ -63,11 +65,17 @@
 					}
 					console.log(res.data);
 					this.MaxList = res.data;
+
 					console.log(res);
 				}
 			);
 		},
 		methods: {
+			pro_evolve(id) { 
+			  //项目进展
+			  // var pro_evolve_id = this.MaxList[projects][id];
+			  this.$router.push({ name: "ManageA_details",params: {pro_evolve_id:id}});
+			},
 			reset() {
 				this.isShow = false;
 				this.$nextTick(() => {

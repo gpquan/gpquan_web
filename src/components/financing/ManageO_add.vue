@@ -86,6 +86,26 @@
 			// get(){
 			// 	console.log(this.$router.params.description);
 			// },
+			getlist(){
+				this.$post("/api/getProjectInvestProgress",{
+					save_text :this.textarea,
+					current_tip_id:this.current_tip_id,
+				}).then(
+					res =>{
+						if(res.status == 'success'){
+							alert("成功");
+							this.showPop(2);
+							this.getDetails();
+							
+						}else{
+							this.sta = true;
+							this.textarea = '';
+							alert(res.error.message);
+							this.showPop(2);
+						};
+					}
+				)
+			},
 			gopersonage() {
 			  //项目简介
 			  this.$router.push({ name: "Project_Profile"});
