@@ -377,7 +377,11 @@ export default {
     this.getroundsList();
     this.getLingyuList();
   },
+	mounted:function(){
+		
+	},
   methods: {
+
     getLingyuList() {
       //获取领域集合
       this.$post("/api/getLingyu").then(res => {
