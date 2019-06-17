@@ -5,7 +5,7 @@
 			<div>
 				<span class="head_card_title">项目名片</span>
 				<nut-button type="light" shape="circle" small id="btn">
-					皓月灰
+					删除项目
 				</nut-button>
 			</div>
 			<div class="head_crad_text">
@@ -13,7 +13,7 @@
 				<div class="head_card_left">
 					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;"></p>
 					<p v-text="progressObj.description" class="pro_msg"></p>
-					<p v-text="" style="margin-top:2vmin;color: #fff;margin-bottom:2vmin;">行业l轮次：啊啦啦啦啦</p>
+					<p v-text="" style="margin-top:2vmin;color: #fff;margin-bottom:2vmin;">行业轮次：{{progressObj.name}}</p>
 					<nut-button
 					  type="actived"
 					  shape="circle"
@@ -22,7 +22,7 @@
 					  :color="colorList[ind]"
 					  :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
 					>{{item.name}}</nut-button>
-					<p v-text="" style="margin-top: 2vmin;color: #fff;">酬劳比六：打算sad的</p>
+					<p v-if="pageType == 0" style="margin-top: 2vmin;color: #fff;">酬劳比例：{{progressObj.yongjin}}%</p>
 				</div>
 				
 			</div>
@@ -89,14 +89,20 @@
 				BGcolorList: ["#fef8e5", "#fee5e5", "#e5eefe"],
 				colorList: ["#ffa800", "#f23353", "#009cff"],
 				pro_evolve_id:'',
+				pageType:'',
 			};
 		},
 		mounted() {
 			this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 			// console.log()
+			this.getPageType();
 			this.getDetails();
 		},
 		methods: {
+			getPageType:function(){
+				this.pageType = this.$route.query.type;
+				console.log(this.pageType)
+			},
 			save_text:function(){
 				this.$post("/api/getProjectInvestProgress",{
 					save_text :this.textarea,

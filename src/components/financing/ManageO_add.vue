@@ -32,17 +32,40 @@
 			<div @click="gopersonage()">
 				<nut-cell title="项目简介" :desc="description ? description : '请输入项目简介'" :showIcon="true" class="projectJS"></nut-cell>
 			</div>
-			<div class="title3-box">
+			<div class="title3-box" @click="add_tag(1)">
 
 				<img src="../../assets/image/line1.png" alt="" class="line">
 				<span class="title-text">投资行业</span>
-
-				<span class="add-icon" @click="add_tag(1)">&nbsp;+&nbsp;</span>
+				<span class="add-icon" @click="()=>{isVisible=!isVisible}">&nbsp;+&nbsp;</span>
+				<br>
+				<el-tag
+				  v-if="true"
+				  v-for="tag in tags0"
+				  :key="tag.name"
+				  closable
+				  size="mini"
+				  :disable-transitions="false"
+				  @close="handleClose0(tag)"
+				  >
+				  {{tag}}
+				</el-tag>
 			</div>
-			<div class="title4-box">
+			<div class="title4-box" @click="add_tag(2)">
 				<img src="../../assets/image/line1.png" alt="" class="line">
 				<span class="title-text">偏好轮次</span>
-				<span class="add-icon" @click="add_tag(2)">&nbsp;+&nbsp;</span>
+				<span class="add-icon" @click="()=>{isVisible1=!isVisible1}">&nbsp;+&nbsp;</span>
+				<br>
+					<el-tag
+					  v-if="true"
+					  v-for="tag in tags"
+					  :key="tag.name"
+					  closable
+					  size="mini"
+					  :disable-transitions="false"
+					  @close="handleClose(tag)"
+					  >
+					  {{tag}}
+					</el-tag>
 			</div>
 		</div>
 		<div class="btn">
@@ -50,9 +73,28 @@
 				登录
 			</nut-button>
 		</div>
-		<nut-picker :is-visible="is_show" :default-value-data="defaultValueData1" :list-data="listData0" @close="switchPicker('isVisible1')"
+		<!-- <nut-picker :is-visible="is_show" :default-value-data="defaultValueData1" :list-data="listData0" @close="switchPicker('isVisible1')"
 		 @confirm="setYearValue">
-		</nut-picker>
+		</nut-picker> -->
+		<nut-picker
+		  :is-visible="isVisible"
+		  title="请选择投资行业"
+		  :list-data="listData"
+		  :default-value-data="defaultValueData"
+		  @close="switchPicker('isVisible')"
+		  @confirm="setChooseValue"
+		  @choose="updateChooseValue"
+		  @close-update="closeUpdateChooseValue"
+		></nut-picker>
+		<nut-picker
+		  :is-visible="isVisible1"
+		  title="请选择偏好伦次"
+		  :list-data="listData1"
+		  :default-value-data="defaultValueData1"
+		  @close="switchPicker('isVisible1')"
+		  @confirm="setChooseValue1"
+		  @close-update="closeUpdateChooseValue"
+		></nut-picker>
 
 	</div>
 </template>
@@ -65,17 +107,90 @@
 				description:'请输入项目简介',   //机构简介
 				address:'',   //机构所在地
 				imageUrl: '',
-				listData0: [
-					['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023'],
-					['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+				date: null,
+				isVisible0: false,
+				city: null,
+				isVisible: false,
+				isVisible1: false,
+				tags:[
+					
+				],//第二个
+				tags0:[],  //第一个
+				data: {
+				  //二级
+				},
+				listData: [
 				],
-				defaultValueData1: ['2012', '2'],
+				defaultValueData: null,
+				isVisible1: false,
+				defaultValueData1: null,
+				list2: {},
+				value: null,
+				value1: null,
+				MaxList:'',
+				listData1:[],
+				lyIdList0:[],
+				lyIdList1:[]
 			};
 		},
 		computed:{
 			getImgUrl:function(){
 				return this.imageUrl ? 'background-image: url('+  this.imageUrl  +');' : '';
 			}
+		},
+		created() {
+			// debugger
+			// console.log( this.listData)
+			// console.log( this.data)
+		  // this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
+		  // this.listData1 = [this.listData[0]];
+			
+		},
+		beforeMount() {
+		  this.$post("/api/getLingyu").then(res => {
+		    this.listData[0] = [];
+		    for (let i = 0; i < res.data.length; i++) {
+		      this.listData[0].push(res.data[i].name);
+		      this.lyIdList0.push(res.data[i].id);
+			  console.log(this.lyIdList0);
+		      //  console.log(res)
+		    }
+		    this.$post("/api/getLingyu", {
+		      parent_id: 1
+		    }).then(res2 => {
+		      // console.log("二级");
+		      let arr = res2.data;
+		      let arrlist = [];
+		      for (let j = 0; j < arr.length; j++) {
+		        arrlist.push(res2.data[j].name)
+				 // this.lyIdList0.push(res.data[i].id);;
+		        // console.log(this.data)
+		      }
+		      this.data[this.listData[0][0]] = arrlist;
+			  console.log(this.data)
+			  this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
+
+		      arrlist = [];
+		       // console.log(this.data)
+		    });
+		  });
+		  console.log(this.data)
+		  
+		 this.$post("/api/getStage",{
+		 }).then(
+		 	res =>{
+		 		// console.log(res.data);
+				this.listData1[0] = [];
+				for (let i = 0; i < res.data.length; i++) {
+				  this.listData1[0].push(res.data[i].name);
+				  this.lyIdList1.push(res.data[i].id);
+				  // console.log(this.lyIdList1);
+				  // this.lyIdList.push(res.data[i].id);
+				}
+		 	}
+		 )
+		  
+		  
 		},
 		mounted: function () {
 		  console.log(this.$route.params.description);
@@ -86,6 +201,14 @@
 			// get(){
 			// 	console.log(this.$router.params.description);
 			// },
+			handleClose0(tag) {
+				this.tags0.splice(this.tags0.indexOf(tag), 1);
+				console.log(this.tags0);
+			},
+			handleClose(tag) {
+				this.tags.splice(this.tags.indexOf(tag), 1);
+				console.log(this.tags);
+			},
 			getlist(){
 				this.$post("/api/getProjectInvestProgress",{
 					save_text :this.textarea,
@@ -105,6 +228,9 @@
 						};
 					}
 				)
+			},
+			getlist_picker_lingyu(){    //获取领域接口
+				
 			},
 			gopersonage() {
 			  //项目简介
@@ -150,6 +276,82 @@
 			setYearValue(chooseData) {
 				this.is_show = false;
 			},
+			getLY2(a, b) {},
+			switchPicker(param) {
+			  this[`${param}`] = !this[`${param}`];
+			},
+			setChooseValue(chooseData) {
+			  this.value = chooseData[0];
+			  this.city = `${chooseData[0]}-${chooseData[1]}${
+			    chooseData[2] ? "-" + chooseData[2] : ""
+			  }`;
+			  $(".title3-box").css('height','12vh');
+			  this.tags0.push(this.city);
+			  console.log(this.tags0);
+			},
+			setChooseValue1(chooseData){
+				this.value1 = chooseData[0];
+				// this.tag = true;
+				// alert(this.value);
+				$(".title4-box").css('height','12vh');
+				// var aaa = this.value1.id
+				console.log(this.lyIdList1);
+				this.tags.push(this.value1);
+				// console.log(this.tags);
+				// var aaa = this.value.indexOf(tags);
+				console.log(aaa);
+			},
+			updateLinkage(self, value, index, chooseValue, cacheValueData, a, b) {
+			  // console.log(a),console.log(b)
+			
+			  let num = this.listData[0].indexOf(value);
+			  let val = this.listData[0][num];
+			  console.log(this.data[val]);
+			  if (!value) {
+			    return false;
+			  }
+			  switch (index) {
+			    case 1:
+			      let i = this.listData[0].indexOf(value);
+			      if (this.data[this.listData[0][i]]) {
+			        this.listData.splice(index, 1, [...this.data[this.listData[0][i]]]);
+			      }
+			      chooseValue = chooseValue ? chooseValue : this.listData[index][0];
+			      self && self.updateChooseValue(self, index, chooseValue);
+			      break;
+			  }
+			  this.$forceUpdate();
+			},
+			
+			updateChooseValue(self, index, value, cacheValueData) {
+				// console.log(this.listData[0]);
+			
+			  let a = this.listData[0].indexOf(value);
+			  // console.log( this.lyIdList)
+			  let b = this.lyIdList0[a];
+			  this.$post("/api/getLingyu", {
+			    parent_id: b
+			  }).then(res2 => {
+			    let arr = res2.data;
+			    let list2 = {};
+			    let arrlist = [];
+			    for (let j = 0; j < arr.length; j++) {
+			      arrlist.push(res2.data[j].name);
+			      list2 = [];
+			    }
+			    this.data[this.listData[0][a]] = arrlist;
+			    //  this.updateChooseValue(self, index, chooseValue)
+			    this.$forceUpdate()
+			    arrlist = [];
+			    index < 1 && this.updateLinkage(self, value, index + 1, null, a, b);
+			  });
+			  //  setTimeout(()=>{
+			
+			  //  },300)
+			},
+			closeUpdateChooseValue(self, chooseData) {
+			  this.updateLinkage(self, chooseData[0], 1, chooseData[1], chooseData);
+			}
 
 
 		}
@@ -169,7 +371,7 @@
 		width: 60vw;
 	}
 	/deep/.nut-button {
-		background: pink;
+		background: red;
 	}
 
 	/deep/.nut-navbar {
@@ -219,6 +421,7 @@
 
 	.btn {
 		text-align: center;
+		padding-top: 2vh;
 	}
 
 	.add-icon {
