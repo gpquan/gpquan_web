@@ -18,10 +18,10 @@
 					  type="actived"
 					  shape="circle"
 					  small
-					  v-for="(item,ind) in [progressObj.lingyu_name,progressObj.stage_name]" :key="ind"
+					  v-for="(item,ind) in  (typeof(progressObj.lingyu_name) == 'string' ? [{name:progressObj.lingyu_name}] : progressObj.lingyu_name)  " :key="ind" v-if="ind < 3"
 					  :color="colorList[ind]"
 					  :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
-					>{{item}}</nut-button>
+					>{{item.name}}</nut-button>
 					<p v-text="" style="margin-top: 2vmin;color: #fff;">酬劳比六：打算sad的</p>
 				</div>
 				
@@ -88,10 +88,11 @@
 				sta :false,
 				BGcolorList: ["#fef8e5", "#fee5e5", "#e5eefe"],
 				colorList: ["#ffa800", "#f23353", "#009cff"],
+				pro_evolve_id:'',
 			};
 		},
 		mounted() {
-			let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+			this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 			// console.log()
 			this.getDetails();
 		},
@@ -119,10 +120,16 @@
 			//获取详情
 			getDetails:function(){
 				this.project_id = this.$route.query.id;
+				var type = this.$route.query.type;
+				var obj = {};
+				if(type == 1){
+					obj = {organId:this.project_id}
+				}else{
+					obj = {projectId:this.project_id}
+				}
 				// console.log(this.project_id)
-				this.$post("/api/getProjectInvestProgress", {
-					projectId: 82697,
-				}).then(
+				
+				this.$post("/api/"+['getProjectInvestProgress','getOrganInvestProgress'][type], obj).then(
 					res => {
 						this.progressObj = res.data;
 						console.log(this.progressObj);

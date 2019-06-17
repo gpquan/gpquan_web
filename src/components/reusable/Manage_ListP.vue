@@ -27,22 +27,20 @@
         <div class="List_top" v-show="i.status==2">
           <!-- {{typeOf(i.maxLength)}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-              <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id}" >
-                  <span class="box1">
-                        <circle-progress
-                          :id="i.organs[ind].progress.uniqid+1"
-                          :width="85"
-                          :radius="5"
-                          :progress="i.organs[ind].progress.rate"
-                          :delay="200"
-                          :duration="500"
-                          barColor="#F2AE57"
-                          backgroundColor="#FFE8CC"
-                          :isAnimation="true"
-                        ></circle-progress>
-                     <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
-                  </span>
-              </router-link>
+            <span class="box1" @click="pro_evolve(i.organs[ind]['organ_id'])">
+              <circle-progress
+                :id="i.organs[ind].progress.uniqid+1"
+                :width="85"
+                :radius="5"
+                :progress="i.organs[ind].progress.rate"
+                :delay="200"
+                :duration="500"
+                barColor="#F2AE57"
+                backgroundColor="#FFE8CC"
+                :isAnimation="true"
+              ></circle-progress>
+               <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
+            </span>
                <b class="nameTIT">
               <em></em>{{i.organs[ind].name}}</b>
           </div>
@@ -106,6 +104,11 @@ export default {
 
   },
   methods: {
+		pro_evolve(id) {
+			console.log(id)
+		  //项目进展
+		  this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=1');
+		},
     reset() {
       this.isShow = false;
       this.$nextTick(() => {

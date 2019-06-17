@@ -29,9 +29,9 @@
         <div class="List_top" v-show="i.status==2">
           <!-- {{I.maxLength}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-            <span class="box1">
+            <span class="box1" @click="pro_evolve(i.projects[ind]['id'])">
               <circle-progress
-                :id="i.projects[ind].progress.uniqid+1"
+                :id="i.projects[ind].progress.uniqid+1"  
                 :width="85"
                 :radius="5"
                 :progress="i.projects[ind].progress.rate"
@@ -110,6 +110,10 @@ export default {
     // console.log("=-=============")
   },
   methods: {
+		pro_evolve(id) {
+		  //项目进展
+			this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=0');
+		},
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
