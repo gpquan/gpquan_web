@@ -46,7 +46,7 @@ const router = new Router({
                 path:'/demo',
                 name:'demo',
                 component:Demo
-            },  
+            },
             {
                 path: '/project',
                 name: 'project',
@@ -172,7 +172,7 @@ const router = new Router({
 
 							}
 						},
-						
+
 
 					]
 				},
