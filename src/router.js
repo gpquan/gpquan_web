@@ -32,6 +32,11 @@ import OrganDetails from '@/components/organ/organdetails'
 import Demo from '@/components/project/demo'
 import ManageO_add from '@/components/financing/ManageO_add'
 import Project_Profile from '@/components/financing/Project_Profile'  //项目简介点击进入页面
+import Recommend from '@/components/recommend/Recommend' // fa
+import Manage2 from '@/components/manage2/manage2'
+import Manage_ListC from '@/components/manage2/Manage_ListC'
+import Manage_ListO from '@/components/manage2/Manage_ListO'
+import Manage_ListP from '@/components/manage2/Manage_ListP'
 
 Vue.use(Router)
 
@@ -176,6 +181,50 @@ const router = new Router({
 
 					]
 				},
+				{
+					path:'/recommend',
+					name:'recommend',
+					component:Recommend,
+					meta: {
+						fshow: true
+					}
+
+				},{
+					path:'/Manage2',
+					name:'manage2',
+					component:Manage2,
+					redirect:'/Manage2/C',
+					meta: {
+						fshow: true
+					},
+					children:[
+						{
+							path:'/Manage2/C',//项目竞品
+							name:'Manage2C',
+							component:Manage_ListC,
+							meta:{
+								keep:'C',
+								fshow:true
+							}
+						}, {
+							path:'/Manage2/O',
+							name:"Manage2O",
+							component:Manage_ListO,
+							meta:{
+								keep:'O',
+								fshow:true
+							}
+						  }, {
+							path:'/Manage2/P',
+							name:"Manage2P",
+							component:Manage_ListP,
+							meta:{
+								keep:'P',
+								fshow:true
+							}
+						  },
+					]
+				}
 			]
 		},
 		{

@@ -1,14 +1,5 @@
 <template>
   <div class="List_box" v-if="Listdata[0].name">
-    <!-- <nut-scroller
-      :is-un-more="isUnMore1"
-      :is-loading="isLoading1"
-      :type="'vertical'"
-      @loadMore="loadMoreVert"
-      @pulldown="pulldown"
-    > 
-    <div slot="list" class="nut-vert-list-panel">-->
-    <!-- <div class="" >  -->
     <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details">
       <span class="item_status" v-if="item.name">
         <img src="../../assets/image/listItem_status.png" alt>
@@ -44,9 +35,6 @@
         </dd>
       </dl>
     </div>
-    <!-- </div>  -->
-    <!--  </div>
-    </nut-scroller>-->
   </div>
 </template>
 
@@ -58,80 +46,9 @@ export default {
       // Listdata:{},
       textjj: "",
       jgList: [
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG",
-        "红杉资本",
-        "IDG"
       ],
       nameArr: [
-        "优广网",
-        "淘宝网",
-        "凤凰网",
-        "赶集网",
-        "飞猪",
-        "携程",
-        "优广网",
-        "淘宝网",
-        "凤凰网",
-        "赶集网",
-        "飞猪",
-        "携程",
-        "优广网",
-        "淘宝网",
-        "凤凰网",
-        "赶集网",
-        "飞猪",
-        "携程",
-        "优广网",
-        "淘宝网",
-        "凤凰网",
-        "赶集网",
-        "飞猪",
-        "携程"
       ]
-      //   listData: new Array(5),
-      //   listData1: new Array(5),
-      //   listData2: [1, 2],
-      //   listData3: [1],
-      //   maxPages: 4,
-      //   isUnMore1: false,
-      //   isLoading1: false,
-      //   page1: 2,
-      //   maxPages2: 1,
-      //   isUnMore2: false,
-      //   isLoading2: false,
-      //   page2: 2,
-      //   timers: null
     };
   },
   created() {
@@ -141,37 +58,6 @@ export default {
     item_details() {
       this.$router.push({ path: "/project/details" });
     }
-    // loadMoreVert() {
-    //   //加载列表
-    //   console.log(this.page1);
-    //   this.isLoading1 = true;
-    //   if (this.page1 > this.maxPages) {
-    //     //判断当前页 是否大于总页数
-    //     this.isUnMore1 = true;
-    //     this.isLoading1 = false;
-    //   } else {
-    //     clearTimeout(this.timers);
-    //     this.timer = setTimeout(() => {
-    //       this.isLoading1 = false;
-    //       this.isUnMore1 = false;
-    //       this.listData1 = new Array(5 * this.page1);
-    //       this.page1 = ++this.page1;
-    //     }, 300);
-    //   }
-    // },
-
-    // pulldown() {
-    //   //下拉刷新列表
-    //   this.isLoading1 = true;
-    //   clearTimeout(this.timers);
-    //   this.timer = setTimeout(() => {
-    //     //刷新列表重新给数组赋值
-    //     this.isLoading1 = false;
-    //     this.isUnMore1 = false;
-    //     this.listData1 = new Array(5);
-    //     this.page1 = 2;
-    //   }, 300);
-    // }
   },
   watch: {
     Listdata(o, n) {
@@ -253,14 +139,7 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-// .introBox{
-//   overflow: hidden;
-// text-overflow: ellipsis;
-// display: -webkit-box;
-// -webkit-line-clamp: 2;
-// display: -webkit-box;
-// -webkit-box-orient: vertical;
-// }
+
 .List_downsize {
   color: #999999;
   font-size: 11px;
@@ -268,12 +147,6 @@ export default {
 }
 .item {
   position: relative;
-  // right: 0;
-  // top: 0;
-  // height: 1.81rem;
-  // width: 1.81rem;
-  // display: flex;
-  // align-items: center;
   .item_status {
     position: absolute;
     top: 0;

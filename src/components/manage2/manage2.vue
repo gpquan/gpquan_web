@@ -9,15 +9,16 @@
           <em></em>
         </b>
         </span>
-        
+           <!-- {{$route.meta.keep}} -->
       </li>
     </ul>
     <!-- <keep-alive> -->
-   
+
     <!-- </keep-alive> -->
      <keep-alive>
-    <router-view v-if="$route.meta.keep==1"></router-view>
-    <router-view v-if="$route.meta.keep==2"></router-view>
+    <router-view v-if="$route.meta.keep"></router-view>
+    <!-- <router-view v-if="$route.meta.keep=='O'"></router-view>
+    <router-view v-if="$route.meta.keep=='P'"></router-view> -->
      </keep-alive>
   </div>
   </div>
@@ -31,12 +32,16 @@ export default {
       IND:0,
       tabLink:[
         {
+          name:"项目竞品",
+          links:'/Manage2/C'
+        },
+         {
           name:"机构管理",
-          links:'/accelerate/Manage/o'
+          links:'/Manage2/O'
         },
          {
           name:"项目管理",
-          links:'/accelerate/Manage/p'
+          links:'/Manage2/P'
         },
       ]
     }
@@ -45,7 +50,7 @@ export default {
     for (let i = 0; i < this.tabLink.length; i++) {
         if (this.$route.path == this.tabLink[i].links) {
             this.IND = i;
-          //  console.log(this.$route.meta);
+          //  console.log(this.tabInd);
         }
   }
   },
@@ -53,7 +58,7 @@ export default {
    tabClick(i){
       this.$router.push(this.tabLink[i].links)
       this.IND=i
-          console.log(this.$route.meta);
+      console.log(this.$route.meta)
    }
   },
   watch:{
@@ -63,7 +68,7 @@ export default {
       for (let i = 0; i < this.tabLink.length; i++) {
         if (this.$route.path == this.tabLink[i].links) {
             this.IND = i;
-           console.log(this.tabInd);
+          //  console.log(this.tabInd);
         }
       
   }
