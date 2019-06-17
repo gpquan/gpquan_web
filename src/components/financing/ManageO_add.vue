@@ -26,11 +26,11 @@
 			<div class="list2">
 				<div class="title2-box">
 					<img src="../../assets/image/line1.png" alt="" class="line">
-					<span class="title-text" v-model="description">机构简介</span>
+					<span class="title-text">机构简介</span>
 				</div>
 			</div>
 			<div @click="gopersonage()">
-				<nut-cell title="项目简介" desc="请输入项目简介" :showIcon="true" class="projectJS"></nut-cell>
+				<nut-cell title="项目简介" :desc="description ? description : '请输入项目简介'" :showIcon="true" class="projectJS"></nut-cell>
 			</div>
 			<div class="title3-box">
 
@@ -41,7 +41,7 @@
 			</div>
 			<div class="title4-box">
 				<img src="../../assets/image/line1.png" alt="" class="line">
-				<span class="title-text">投资行业</span>
+				<span class="title-text">偏好轮次</span>
 				<span class="add-icon" @click="add_tag(2)">&nbsp;+&nbsp;</span>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 			return {
 				is_show: false,
 				name:'',     //机构名称
-				description:'',   //机构简介
+				description:'请输入项目简介',   //机构简介
 				address:'',   //机构所在地
 				imageUrl: '',
 				listData0: [
@@ -77,7 +77,19 @@
 				return this.imageUrl ? 'background-image: url('+  this.imageUrl  +');' : '';
 			}
 		},
+		mounted: function () {
+		  console.log(this.$route.params.description);
+		  this.description = this.$route.params.description;
+		},
+
 		methods: {
+			// get(){
+			// 	console.log(this.$router.params.description);
+			// },
+			gopersonage() {
+			  //项目简介
+			  this.$router.push({ name: "Project_Profile"});
+			},
 			back() {
 				alert('header头部， 点击返回')
 			},
@@ -101,9 +113,6 @@
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
 				return isJPG && isLt2M;
-			},
-			gopersonage() {
-				console.log(11111);
 			},
 			add_tag(val) {
 				if (val == 1) {
@@ -131,7 +140,14 @@
 	/deep/.nut-button.block {
 		width: 80%;
 	}
-
+	/deep/.nut-cell-right>.nut-cell-desc{
+		overflow: hidden; 
+        text-overflow: ellipsis; 
+        -o-text-overflow: ellipsis;
+        white-space:nowrap;	
+		display: inline-block;
+		width: 60vw;
+	}
 	/deep/.nut-button {
 		background: pink;
 	}
