@@ -56,7 +56,7 @@
             <nut-icon type="minus"></nut-icon>
           </b>
           <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
-            <span class="box1">
+            <span class="box1"  @click="pro_evolve(i.projects[ind]['id'])">
               <circle-progress
                 :id="i.projects[ind].progress.uniqid+2"
                 :width="85"

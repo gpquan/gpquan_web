@@ -68,7 +68,7 @@
 					</el-tag>
 			</div>
 		</div>
-		<div class="btn">
+		<div class="btn" @click="addOrgan_fun()">
 			<nut-button block shape="circle">
 				登录
 			</nut-button>
@@ -130,7 +130,11 @@
 				MaxList:'',
 				listData1:[],
 				lyIdList0:[],
-				lyIdList1:[]
+				lyIdList1:[], 
+				User_ChossStage:'',    //用户选择轮次id
+				st_2_list:'',
+				selectJobId:'',
+				headerIconImgBase64Data:'',//base64图片logo数据
 			};
 		},
 		computed:{
@@ -152,7 +156,7 @@
 		    for (let i = 0; i < res.data.length; i++) {
 		      this.listData[0].push(res.data[i].name);
 		      this.lyIdList0.push(res.data[i].id);
-			  console.log(this.lyIdList0);
+			  // console.log(this.lyIdList0);
 		      //  console.log(res)
 		    }
 		    this.$post("/api/getLingyu", {
@@ -167,14 +171,13 @@
 		        // console.log(this.data)
 		      }
 		      this.data[this.listData[0][0]] = arrlist;
-			  console.log(this.data)
+			  // console.log(this.data)
 			  this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
 
 		      arrlist = [];
 		       // console.log(this.data)
 		    });
 		  });
-		  console.log(this.data)
 		  
 		 this.$post("/api/getStage",{
 		 }).then(
@@ -186,6 +189,7 @@
 				  this.lyIdList1.push(res.data[i].id);
 				  // console.log(this.lyIdList1);
 				  // this.lyIdList.push(res.data[i].id);
+				  // console.log(this.lyIdList1)
 				}
 		 	}
 		 )
@@ -193,21 +197,64 @@
 		  
 		},
 		mounted: function () {
-		  console.log(this.$route.params.description);
+		  // console.log(this.$route.params.description);
 		  this.description = this.$route.params.description;
 		},
 
 		methods: {
-			// get(){
-			// 	console.log(this.$router.params.description);
-			// },
+			//图片转base65
+			imgToBase64(url){
+				var baseData = "";
+				var _this = this;
+			    this.convertImgToBase64(url, function(base64Img){
+				//转化后的base64
+					_this.headerIconImgBase64Data = base64Img;
+					// console.log(_this.headerIconImgBase64Data)
+			    },'base64');      
+				// 发起异步读取文件请求，读取结果为data:url的字符串形式，
+				// return baseData
+			},
+			//实现将项目的图片转化成base64
+			convertImgToBase64 (url, callback, outputFormat){
+			   var canvas = document.createElement('CANVAS'),
+			　　ctx = canvas.getContext('2d'),
+			　　img = new Image;
+			　　img.crossOrigin = 'Anonymous';
+			　　img.onload = function(){
+				　　canvas.height = img.height;
+				　　canvas.width = img.width;
+				　　ctx.drawImage(img,0,0);
+				　　var dataURL = canvas.toDataURL('image/jpeg' || 'image/png');
+				　　callback.call(this, dataURL);
+				　　canvas = null; 
+				};
+			　　img.src = url;
+			},    
+			
+			addOrgan_fun(){
+				this.$post("/api/addOrgan", {
+				  img: this.headerIconImgBase64Data,
+				  name:this.name,
+				  address:this.address,
+				  description:this.description,
+				  lingyu_id:this.selectJobId,
+				  stage_id:this.User_ChossStage
+				}).then(res => {
+				  // console.log(res);
+				  for (let i = 0; i < res.data.length; i++) {
+				    res.data[i].tjcode = false;
+				  }
+				  this.leftList = res.data;
+				  this.getRightList(3)
+				});
+			},
 			handleClose0(tag) {
 				this.tags0.splice(this.tags0.indexOf(tag), 1);
-				console.log(this.tags0);
+				// console.log(this.tags0);
 			},
 			handleClose(tag) {
 				this.tags.splice(this.tags.indexOf(tag), 1);
-				console.log(this.tags);
+				// console.log(this.tags);
 			},
 			getlist(){
 				this.$post("/api/getProjectInvestProgress",{
@@ -247,6 +294,8 @@
 			},
 			handleAvatarSuccess(res, file) {
 				this.imageUrl = URL.createObjectURL(file.raw);
+				
+				this.imgToBase64(this.imageUrl);
 			},
 			beforeAvatarUpload(file) {
 				const isJPG = file.type === 'image/jpeg';
@@ -262,7 +311,7 @@
 			},
 			add_tag(val) {
 				if (val == 1) {
-					console.log(111);
+					// console.log(111);
 					this.is_show = true;
 				} else if (val == 2) {
 					this.is_show = true;
@@ -281,13 +330,28 @@
 			  this[`${param}`] = !this[`${param}`];
 			},
 			setChooseValue(chooseData) {
+				// console.log(chooseData)
 			  this.value = chooseData[0];
 			  this.city = `${chooseData[0]}-${chooseData[1]}${
 			    chooseData[2] ? "-" + chooseData[2] : ""
 			  }`;
 			  $(".title3-box").css('height','12vh');
 			  this.tags0.push(this.city);
-			  console.log(this.tags0);
+			  // console.log(this.tags0);
+			  
+			  var step_2_val = chooseData[1];
+			  var step_2_list = JSON.parse(JSON.stringify(this.st_2_list.data));
+			  var indexId = '';
+			  debugger
+			  for(var i in step_2_list){
+				  if(step_2_list[i]['name'] == step_2_val){
+					  indexId = step_2_list[i]['id']
+					  // console.log(step_2_list[i]['id'])
+					  break;
+				  }
+			  }
+			  this.selectJobId = indexId;	//选的行业id
+			  console.log(this.selectJobId);
 			},
 			setChooseValue1(chooseData){
 				this.value1 = chooseData[0];
@@ -295,18 +359,20 @@
 				// alert(this.value);
 				$(".title4-box").css('height','12vh');
 				// var aaa = this.value1.id
-				console.log(this.lyIdList1);
 				this.tags.push(this.value1);
 				// console.log(this.tags);
+				// console.log(this.tags);
 				// var aaa = this.value.indexOf(tags);
-				console.log(aaa);
+				// console.log(aaa);
+				this.User_ChossStage = this.listData1[0].indexOf(this.value1);
+				console.log(this.User_ChossStage);
 			},
 			updateLinkage(self, value, index, chooseValue, cacheValueData, a, b) {
 			  // console.log(a),console.log(b)
 			
 			  let num = this.listData[0].indexOf(value);
 			  let val = this.listData[0][num];
-			  console.log(this.data[val]);
+			  // console.log(this.data[val]);
 			  if (!value) {
 			    return false;
 			  }
@@ -325,13 +391,14 @@
 			
 			updateChooseValue(self, index, value, cacheValueData) {
 				// console.log(this.listData[0]);
-			
 			  let a = this.listData[0].indexOf(value);
 			  // console.log( this.lyIdList)
 			  let b = this.lyIdList0[a];
+			// console.log(cacheValueData)
 			  this.$post("/api/getLingyu", {
 			    parent_id: b
 			  }).then(res2 => {
+				  // console.log(res2)
 			    let arr = res2.data;
 			    let list2 = {};
 			    let arrlist = [];
@@ -339,6 +406,9 @@
 			      arrlist.push(res2.data[j].name);
 			      list2 = [];
 			    }
+				if(index == 0){
+					this.st_2_list = JSON.parse(JSON.stringify(res2));
+				}
 			    this.data[this.listData[0][a]] = arrlist;
 			    //  this.updateChooseValue(self, index, chooseValue)
 			    this.$forceUpdate()
