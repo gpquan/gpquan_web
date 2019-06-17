@@ -55,6 +55,7 @@ export default {
         console.log(res.data);
         this.MaxList = res.data;
         console.log(res);
+				// let Project = JSON.parse(sessionStorage.setItem("userInfo")).id;
       }
     );
   },

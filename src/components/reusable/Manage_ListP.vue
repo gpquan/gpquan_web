@@ -106,6 +106,11 @@ export default {
 
   },
   methods: {
+		pro_evolve(id) {
+			console.log(id)
+		  //项目进展
+		  this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=1');
+		},
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
