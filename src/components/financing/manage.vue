@@ -1,6 +1,6 @@
 <template>
   <div class="manageBox">
-  <div v-if="show==1">
+  <div>
        <ul class="tab">
       <li v-for="(item,ind) in tabLink" :key="ind" @click="tabClick(ind)"  :class="IND==ind?'active':''">
         <span>
