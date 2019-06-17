@@ -30,6 +30,8 @@ import ManageA_details from '@/components/financing/ManageA_details'
 import Organ from '@/components/organ/organ'
 import OrganDetails from '@/components/organ/organdetails'
 import Demo from '@/components/project/demo'
+import ManageO_add from '@/components/financing/ManageO_add'
+
 
 Vue.use(Router)
 
@@ -140,7 +142,7 @@ const router = new Router({
                                     keep: 2,
                                     fshow:true
                                 }
-                            }
+                            },
                         ]
                     },
                     {
@@ -158,7 +160,14 @@ const router = new Router({
 						meta:{
 						    fshow:true
 						},
-                      },
+                      },{
+								path: '/accelerate/Manage/o/add', //添加机构
+								name: 'ManageO_add',
+								component: ManageO_add,
+								meta: {
+									
+								}
+							},
 
                 ]
             },
