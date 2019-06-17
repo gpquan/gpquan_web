@@ -16,7 +16,7 @@
       </span>
       <dl class="List_item">
         <dt class="img" @click="item_details">
-          <img src="../../assets/image/user_photo.png" alt>
+          <img :src="item.logo" alt>
           <div></div>
         </dt>
         <dd>
