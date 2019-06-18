@@ -75,7 +75,7 @@
       </ul>
     </div>
     <p class="P_set">
-      <router-link to="/login">
+      <router-link to="/userCenter/set">
         <span>
           <i class="set_icon"></i>
         </span>

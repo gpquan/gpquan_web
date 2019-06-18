@@ -18,6 +18,9 @@ import addProject from '@/components/project/add_project'
 import ProjectPersonage from './components/project/ProjectPersonage'
 import FA from './components/FA/FA'
 import UserCenter from './components/userCenter/user'
+import UserCenterA from './components/userCenter/userAll'
+import UserCenterSet from './components/userCenter/userSet'
+
 import Login from './components/logins/login'
 import Sign from './components/logins/sign'
 import accelerate from './components/financing/accelerate'
@@ -108,11 +111,30 @@ const router = new Router({
 			},
 			{
 				path: '/userCenter',
-				name: 'user',
-				component: UserCenter,
+				name: 'userA',
+				component: UserCenterA,
+				redirect:'/userCenter/a',
 				meta: {
 					fshow: true
-				}
+				},
+				children:[
+					{
+						path:"/userCenter/a",
+						name: 'user',
+						component: UserCenter,
+						meta: {
+							fshow: true
+						},
+					},{
+						path:"/userCenter/Set",
+						name: 'userset',
+						component: UserCenterSet,
+						meta: {
+							fshow: true
+						},
+					}
+				],
+				
 
 			},
 

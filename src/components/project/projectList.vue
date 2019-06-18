@@ -7,8 +7,8 @@
       @loadMore="loadMoreVert"
       @pulldown="pulldown">
     <div slot="list" class="nut-vert-list-panel">
-      <div class="view-project nut-vert-list-item">
-        <div class="header">
+   <div class="view-project nut-vert-list-item">
+         <!--   <div class="header">
           <nut-searchbar
             placeText="ERP/姓名/邮箱"
             :hasIcon="true"
@@ -17,7 +17,7 @@
             customClass="search_demo"
           ></nut-searchbar>
           <div>Q</div>
-        </div>
+        </div> -->
 
         <div class="banner">
           <nut-swiper
@@ -46,7 +46,7 @@
             </div>
           </nut-swiper>
         </div>
-        <div class="screen">
+        <!-- <div class="screen">
           <div class="scrennBox">
             <div
               class="scrennitem"
@@ -109,7 +109,7 @@
             @ok="ok"
             @maxTip="maxTip"
           ></nut-menu>
-        </div>
+        </div> -->
         <div class="nav"></div>
         <div class="List">
           <ListItem :Listdata="listData1"/>
