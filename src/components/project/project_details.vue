@@ -250,6 +250,15 @@ export default {
       // console.log(res)
     });
   },
+	created() {
+	  // organId
+		let id = this.$route.query.id;
+		// console.log(id);
+	  this.$fetch("/api/getProjectDetail/"+id).then(res => {
+	    if (res.status == "success") this.ListData = res.data;
+	    console.log(this.ListData);
+	  });
+	},
   methods: {
     back() {
       this.$router.go(-1);

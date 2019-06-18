@@ -10,7 +10,7 @@
         <div class="title_top">
           <div class="left">
             <em class="lineEm"></em>
-            <b class="noW">{{i.name}}</b>
+            <b class="noW" @click="pro_details(i.projectId)">{{i.name}}</b>
           </div>
 
         </div>
@@ -111,6 +111,13 @@ export default {
 		  //项目进展
 		  this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=1');
 		},
+		pro_details(id) {
+		  // 跳详情
+			this.$router.push({path:'/project/details',query:{
+		      id:id
+		    }});
+			console.log(id);
+		},
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
@@ -134,7 +141,7 @@ export default {
       // }).then(res => {
       //   console.log(res);
       // });
-      // this.$router.push({path:"/accelerate/Manage/a",query:{lyid:lyid}})
+      this.$router.push({path:"/accelerate/Manage/a",query:{lyid:lyid}})
     }
   }
 };

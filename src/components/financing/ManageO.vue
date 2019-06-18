@@ -54,19 +54,20 @@
 						} else {
 							res.data[i].maxLength = 3;
 						}
+						// console.log(res);
 					}
 					for (let i = 0; i < res.data.length; i++) {
 						//    this.statusList.show
 						this.statusList.push(0)
-						console.log(res.data)
+						// console.log(res.data)
 						// this.statusList[i].length=this.ListData.length
 						//    this.ListData[i].ISshow=false
 						// console.log(this.ListData[i])
 					}
-					console.log(res.data);
+					// console.log(res.data);
 					this.MaxList = res.data;
 
-					console.log(res);
+					console.log(this.MaxList);
 				}
 			);
 		},

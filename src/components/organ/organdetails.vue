@@ -186,14 +186,16 @@ export default {
   },
   created() {
     // organId
-    this.$fetch("/api/getOrganDetail/" + 1).then(res => {
+		let id = this.$route.query.id;
+		// console.log(id);
+    this.$fetch("/api/getOrganDetail/"+id).then(res => {
       if (res.status == "success") this.ListData = res.data;
-      console.log(this.ListData.description);
+      console.log(this.ListData);
     });
   },
   methods: {
     back(){
-      this.$router.go(-1)
+      this.$router.go(-1);
     },
     unfoldShow() {
       this.unfoldAll = false;
