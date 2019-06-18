@@ -1,16 +1,16 @@
 <template>
   <div>
     <ul class="Max_list">
-      <li class="list_Item" v-for="(item,ind) in 3" :key="ind">
+      <li class="list_Item" v-for="(item,ind) in dataList" :key="ind">
         <dl class="list_DL">
           <dt>
             <div class="box_1" :key="ind">
               <span class="box1">
                 <circle-progress
-                  :id="11"
+                  :id="item.progress.uniqid"
                   :width="85"
                   :radius="5"
-                  :progress="70"
+                  :progress="item.progress.rate"
                   :delay="200"
                   :duration="500"
                   barColor="#F2AE57"
@@ -18,24 +18,24 @@
                   :isAnimation="true"
                 ></circle-progress>
                 <span class="dhwb">
-                  <img src="../../assets/image/ManageA_details_cardicon.png" alt>
+                  <img :src="item.it_img" alt>
                 </span>
               </span>
               <b class="nameTIT">
                 <em></em>
-                {{111}}
+                {{item.progress_name}}
               </b>
             </div>
           </dt>
           <dd>
             <div>
-              <span class="name">{{"红杉资本"}}</span>
+              <span class="name">{{item.name}}</span>
             </div>
             <div>
-              <span class="hide">简介:大数据库里发生金龙大厦就打开了撒旦教卡加了咖啡阿萨德阿萨德啊</span>
+              <span class="hide">简介:{{item.description}}</span>
             </div>
             <div class="ly">
-                <span class="yd">电子商务</span>
+              <span class="yd" v-for=" (itmes,ind) in 3" :key="ind">{{item.lingyu_name[ind].name}}</span>
             </div>
           </dd>
         </dl>
@@ -52,15 +52,19 @@ export default {
   },
   data() {
     return {
-      dataList: [
-        {
-          name: "红杉资本",
-          jj:
-            "红杉资本成立于1999年红杉资本成立于1999年红杉资本成立于1999年红杉资本成立于1999年",
-          ly_name: "移动互联网"
-        }
-      ]
+      dataList: []
     };
+  },
+  mounted() {
+    let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+
+    // console.log()
+    this.$post("/api/getUserOrganList", {
+      userId: 4,
+      page: "1"
+    }).then(res => {
+      this.dataList = res.data;
+    });
   },
   methods: {
     getList() {}
@@ -95,7 +99,22 @@ export default {
   dl {
     flex: 1;
   }
+  dt {
+    min-width: 75px;
+    height: 100%;
+    padding-right: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
 }
+
 .box_1 {
   display: flex;
   flex-direction: column;
@@ -136,6 +155,7 @@ export default {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     text-align: center;
+    border-radius: 50%;
   }
 }
 .nameTIT {
@@ -168,8 +188,8 @@ export default {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
-.ly{
-    margin-top:10px;
+.ly {
+  margin-top: 10px;
 }
 .yd,
 .SAAS,

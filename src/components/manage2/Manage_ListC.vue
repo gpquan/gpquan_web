@@ -3,14 +3,14 @@
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(item,idx) in ListData" :key="idx">
       <dl class="List_item">
-        <dt class="img" @click="item_details">
+        <dt class="img">
           <img :src="item.logo" alt>
           <!-- <img src="../../assets/image/right-title-portrait.png" alt=""> -->
           <div></div>
         </dt>
         <dd>
           <div>
-            <span class="name">{{item.name}}</span>
+            <span class="name" @click="Jump_details(item)">{{item.name}}</span>
           </div>
           <div class="List_downsize" style="padding-bottom: 10px;">
             <span class="hide1">简介:{{item.description}}</span>
@@ -20,18 +20,18 @@
             <span class="SAAS">SAAS</span>
             <span class="xmt">新媒体</span>
           </div>
-          <div class="introBox">
-            <div class="intro" :title="textjj">{{textjj}}</div>
-          </div>
+          <!-- <div class="introBox">
+            <div class="intro" :title="textjj">{{}}</div>
+          </div> -->
           <div class="List_downsize">
             投资机构：
             <span>{{}}</span>
           </div>
-          <div class="List_downsize">
+          <!-- <div class="List_downsize">
             <span>{{item.lingyu_name}}</span>|电子商务
-            <!-- <span>Pre-A</span>|
-            <span>北京市</span>-->
-          </div>
+            <span>Pre-A</span>|
+            <span>北京市</span>
+          </div> -->
         </dd>
       </dl>
     </li>
@@ -70,6 +70,15 @@ export default {
     this.getList();
   },
   methods: {
+    Jump_details(item){
+      console.log(item)
+      this.$router.push({
+        path:'/project/details',
+        query:{
+           id:item.id
+        }
+      })
+    },
     getList() {
       this.$post("/api/getAlikeProjectList", {
         field: "id",
@@ -135,6 +144,7 @@ export default {
   margin-top: 15px;
   display: flex;
   padding: 10px;
+  padding-top:0;
   //   border-radius: 10px;
   //   padding: 10px;
 }
@@ -291,7 +301,7 @@ export default {
   display: flex;
   // padding: 23px 15px;
   dt {
-    min-width: 99px;
+    min-width: 75px;
     height: 100%;
     padding-right: 15px;
     display: flex;
@@ -299,8 +309,10 @@ export default {
     justify-content: center;
     img {
       // max-width: 100%;
-      min-width: 99px;
-      height: 99px;
+      min-width: 80px;
+      min-height: 80px;
+      max-width: 80px;
+      max-height: 80px;
       // height: 100%;
       border-radius: 50% 50%;
       border:1px solid #ccc;
@@ -308,8 +320,8 @@ export default {
   }
   dd {
     .name {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 18px;
+      font-weight: 600;
       color: #333;
       line-height: 5vh;
     }
@@ -419,7 +431,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 </style>

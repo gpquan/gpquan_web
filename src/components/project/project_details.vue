@@ -1,14 +1,10 @@
 <template>
   <div class="project_detailsBox" v-if="ListData!=null">
-         <nut-navbar 
-    @on-click-back="back" 
-    :leftShow="true" 
-    :rightShow="true"
-    >{{ListData.name}}</nut-navbar>
+    <nut-navbar @on-click-back="back" :leftShow="true" :rightShow="true">{{ListData.name}}</nut-navbar>
     <div class="top_Box">
-        <div class="h_img">
-          <img src="../../assets/image/right-title-portrait.png" alt="">
-        </div>
+      <div class="h_img">
+        <img src="../../assets/image/right-title-portrait.png" alt>
+      </div>
       <img src="../../assets/image/bg.png" alt class="top_BoxBg">
       <!-- <div class="header">
         <span class="backBox" @click="back">
@@ -16,8 +12,8 @@
         </span>
         <span class="sign_title">优广网</span>
         <span></span>
-      </div> -->
- 
+      </div>-->
+
       <!-- <nut-navbar 
    
     :leftShow="true" 
@@ -250,16 +246,16 @@ export default {
       // console.log(res)
     });
   },
-	created() {
+  created() {
     // organId
-    console.log(this.$route.query.id)
-		let id = this.$route.query.id;
-		// console.log(id);
-	  this.$fetch("/api/getProjectDetail/"+id).then(res => {
-	    if (res.status == "success") this.ListData = res.data;
-	    console.log(this.ListData);
-	  });
-	},
+    console.log(this.$route.query.id);
+    let id = this.$route.query.id;
+    // console.log(id);
+    this.$fetch("/api/getProjectDetail/" + id).then(res => {
+      if (res.status == "success") this.ListData = res.data;
+      console.log(this.ListData);
+    });
+  },
   methods: {
     back() {
       this.$router.go(-1);
@@ -279,11 +275,14 @@ export default {
     back() {
       this.$router.go(-1);
     },
-    Pushme(item){
-      this.$router.push({path:'/project/details',query:{query:item.id}})
+    Pushme(item) {
+      this.$router.push({
+        path: "/project/details",
+        query: { query: item.id }
+      });
       // this.$forceUpdate()
     }
-  } 
+  }
 };
 </script>
 
@@ -321,7 +320,7 @@ export default {
 .top_Box {
   // background-image: url("../../assets/image/bg.png");
   width: 100%;
-  height: 274px;
+  height: 200px;
   background-size: 100% 90%;
   background-repeat: no-repeat;
   position: relative;
@@ -329,9 +328,9 @@ export default {
 }
 .top_BoxBg {
   width: 100%;
- position: absolute;
- left:0;
- top:0;
+  position: absolute;
+  left: 0;
+  top: 0;
   max-width: 100%;
   max-height: 100%;
 }
@@ -375,8 +374,8 @@ export default {
     background-size: 100%;
   }
 }
-.statusIMG2{
-  color:#fff;
+.statusIMG2 {
+  color: #fff;
 }
 .statusIMG {
   width: 50%;
@@ -434,8 +433,8 @@ export default {
   margin-top: 10px;
   padding-bottom: 20px;
 }
-.bright .hide{
-  margin-top:0;
+.bright .hide {
+  margin-top: 0;
 }
 .Bp_img {
   width: 100%;
@@ -467,8 +466,8 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-   margin-top: 5%;
-   color: #666;
+  margin-top: 5%;
+  color: #666;
 }
 .test_size {
   font-size: 12px;
@@ -562,19 +561,19 @@ export default {
 }
 /deep/.teamBox .nut-hor-list .nut-hor-list-item {
   width: 200px;
-        margin: 10px;
-    box-shadow: 0px 0px 5px #ccc;
-    padding: 20px;
-    /* min-height: 120px; */
-    border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0px 0px 5px #ccc;
+  padding: 20px;
+  /* min-height: 120px; */
+  border-radius: 10px;
 }
 .ProjectList .nut-hor-list .nut-hor-list-item {
   width: 200px;
-     margin: 10px;
-    box-shadow: 0px 0px 5px #ccc; 
-    padding: 20px;
-    /* min-height: 120px; */
-    border-radius: 10px;
+  margin: 10px;
+  box-shadow: 0px 0px 5px #ccc;
+  padding: 20px;
+  /* min-height: 120px; */
+  border-radius: 10px;
 }
 .ProjectList .nut-hor-list .nut-hor-list-item .nut-scroller-item-info {
   display: flex;
@@ -591,16 +590,15 @@ export default {
 .xmjj {
   line-height: 20px;
 }
-.h_img{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-      align-items: center;
-      img{
-          
+.h_img {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    margin-bottom: 30%;
     z-index: 9;
-      }
-
+  }
 }
 </style>

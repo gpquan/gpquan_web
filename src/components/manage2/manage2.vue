@@ -58,13 +58,13 @@ export default {
    tabClick(i){
       this.$router.push(this.tabLink[i].links)
       this.IND=i
-      console.log(this.$route.meta)
+      // console.log(this.$route.meta)
    }
   },
   watch:{
     $route(n, o) {
       // this.routeCchange(n);
-      console.log(this.$route.path)
+      // console.log(this.$route.path)
       for (let i = 0; i < this.tabLink.length; i++) {
         if (this.$route.path == this.tabLink[i].links) {
             this.IND = i;

@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="contentBox">
-        <p v-for="(item,ind) in LXRlist" :key="ind">{{ind+':'+item}}</p>
+        <p v-for="(item,ind) in LXRlist" :key="ind">{{ind+1+':'+item}}</p>
       </div>
     </div>
     <!-- 备注 -->
@@ -174,7 +174,7 @@ export default {
       unfoldAll2: true,
       unfoldAll3: true,
       ListData: {},
-      BZList: ["吃饱喝足"],
+      BZList: [],
       bz: "",
       dialogShowBZ: false,
       dialogShowLXR: false,

@@ -3,7 +3,7 @@
     <div class="view-footer" v-if="footerShow==1">
       <router-link to="/project">
         <strong :class=" !flag1?'view-li-project':'projectActive'" @click="tagToggle(1)">
-          <span class="view-font-default">项目管理</span>
+          <span class="view-font-default">精准推荐</span>
         </strong>
       </router-link>
       <router-link to="/accelerate">
@@ -24,9 +24,9 @@
           <span class="view-font-default">融资助手</span>
         </strong>
       </router-link>
-      <router-link to="/recommend">
-        <strong :class=" !flag1?'view-li-project':'projectActive'" @click="tagToggle(1)">
-          <span class="view-font-default">融资加速</span>
+      <router-link to="/speed">
+        <strong :class=" !flag1?'view-li-xmjs':'xmjsActive'" @click="tagToggle(1)">
+          <span class="view-font-default">项目加速</span>
         </strong>
       </router-link>
   
@@ -50,8 +50,8 @@ export default {
     return {
       Ind: 1,
       flag1: true,
-      flag2: true,
-      flag3: true,
+      flag2: false,
+      flag3: false,
       footerShow: null
       //  2 1 3 2
     };
@@ -114,48 +114,44 @@ export default {
   // position: absolute;
   strong {
     flex: 1;
-    padding-top: 30px;
+    padding-top: 35px;
     font-size: 12px;
     display: inherit;
     span.view-font-default {
-      color: #333;
+      color: #777;
     }
     span.view-font-default.on {
       color: orangered;
     }
   }
   strong.view-li-accelerate {
-    background: url("../../assets/image/home_default.png") no-repeat center 5px;
+    background: url("../../assets/image/rzzs.png") no-repeat center 5px;
     background-size: 20px;
-  }
-  strong.view-li-accelerate.on {
-    background: url("../../assets/image/home.png") no-repeat center 5px;
-    background-size: 34px;
   }
   strong.view-li-project {
     background: url("../../assets/image/file_default.png") no-repeat center 6px;
     background-size: 20px;
   }
-  strong.view-li-project.on {
-    background: url("../../assets/image/file.png") no-repeat center 3px;
-    background-size: 32px;
-  }
+  // strong.view-li-project.on {
+  //   background: url("../../assets/image/file.png") no-repeat center 3px;
+  //   background-size: 32px;
+  // }
   strong.view-li-FA {
     background: url("../../assets/image/FA_default.png") no-repeat center 5px;
     background-size: 22px;
   }
-  strong.view-li-FA.on {
-    background: url("../../assets/image/FA.png") no-repeat center 5px;
-    background-size: 34px;
-  }
+  // strong.view-li-FA.on {
+  //   background: url("../../assets/image/FA.png") no-repeat center 5px;
+  //   background-size: 34px;
+  // }
   strong.view-li-userCenter {
     background: url("../../assets/image/user_default.png") no-repeat center 5px;
     background-size: 24px;
   }
-  strong.view-li-userCenter.on {
-    background: url("../../assets/image/user.png") no-repeat center 5px;
-    background-size: 33px;
-  }
+  // strong.view-li-userCenter.on {
+  //   background: url("../../assets/image/user.png") no-repeat center 5px;
+  //   background-size: 33px;
+  // }
   strong.userActive {
     background: url("../../assets/image/user.png") no-repeat center 5px;
     background-size: 33px;
@@ -165,8 +161,22 @@ export default {
     background-size: 33px;
   }
   strong.accelerateActive {
-    background: url("../../assets/image/home.png") no-repeat center 5px;
+    background: url("../../assets/image/rzzs_ACT.png") no-repeat center 5px;
     background-size: 33px;
+  }
+  strong.view-li-tj{
+    background: url("../../assets/image/jztj.png") no-repeat center 5px;
+     background-size: 24px;
+  }
+  strong.tjActive{
+    background: url("../../assets/image/jztj_ACT.png") no-repeat center 5px;
+    background-size: 33px;
+  }
+  strong.xmjsActive{
+
+  }
+  .view-li-xmjs{
+
   }
 }
 .ff {

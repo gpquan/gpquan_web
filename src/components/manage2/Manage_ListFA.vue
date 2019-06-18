@@ -2,7 +2,6 @@
   <!-- 项目管理 列表项 -->
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-      {{i.organs[0].lenght}}
       <b
         class="icon_Box"
         @click="ListShow(idx)"
@@ -14,11 +13,11 @@
         <div class="title_top">
           <div class="left">
             <em class="lineEm"></em>
-            <b class="noW">{{i.name}}</b>
+            <b class="noW">{{i.username}}</b>
           </div>
         </div>
         <div class="right">
-          <b class="expedite" @click="expedite(i.lingyu_id)"></b>
+          <!-- <b class="expedite" @click="expedite(i.lingyu_id)"></b> -->
         </div>
         <div class="title_Bottm">
           <div style="padding:10px 0">
@@ -37,7 +36,7 @@
             <router-link
               tag="span"
               class
-              :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}"
+              :to="{path :'/accelerate/Manage/a/details',query:{id:i.organs[ind].id,type:1,userId:i.fa_id}}"
             >
               <span class="box1">
                 <circle-progress
@@ -118,11 +117,13 @@ export default {
       //  statusList:[]
     };
   },
-  beforeMount() {},
+  beforeMount() {
+    
+  },
   mounted() {
     let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
     // console.log()
-    this.$post("/api/getUserProjectList", { userId: 3, page: "1" }).then(
+    this.$post("/api/getUserFaList", { userId: 4, page: "1" }).then(
       res => {
         for (let i = 0; i < res.data.length; i++) {
           res.data[i].status = 2;

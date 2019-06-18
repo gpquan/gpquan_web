@@ -11,9 +11,9 @@
 			<div class="head_crad_text">
 				<div class="head_card_icon" :style="'background-image:url('+progressObj[imgArr[this.$route.query.type]]+')'"></div>
 				<div class="head_card_left">
-					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;"></p>
+					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;" @click="Jump_organ(progressObj.organ_id)"></p>
 					<p v-text="progressObj.description" class="pro_msg"></p>
-					<p v-text="" style="margin-top:2vmin;color: #fff;margin-bottom:2vmin;">行业轮次：{{progressObj.name}}</p>
+					<p style="margin-top:2vmin;color: #fff;margin-bottom:2vmin;">行业轮次：{{progressObj.name}}</p>
 					<nut-button
 					  type="actived"
 					  shape="circle"
@@ -22,7 +22,7 @@
 					  :color="colorList[ind]"
 					  :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
 					>{{item.name}}</nut-button>
-					<p v-if="pageType == 0" style="margin-top: 2vmin;color: #fff;">酬劳比例：{{progressObj.yongjin}}%</p>
+					<p v-if="pageType == 0" style="margin-top: 2vmin;color: #fff;">佣金比例：{{progressObj.yongjin}}%</p>
 				</div>
 				
 			</div>
@@ -94,6 +94,7 @@
 			};
 		},
 		mounted() {
+			// console.log(this.$route)
 			this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 			// console.log()
 			this.getPageType();
@@ -102,6 +103,14 @@
 			console.log(this.progressObj);
 		},
 		methods: {
+			Jump_organ(Oid) {
+				this.$router.push({
+					path: "/organ/details",
+					query: {
+					id:Oid
+					}
+				});
+			},
 			getPageType:function(){
 				this.pageType = this.$route.query.type;
 				console.log(this.pageType)
@@ -133,6 +142,10 @@
 				var obj = {};
 				if(type == 1){
 					obj = {organId:this.project_id}
+					console.log(this.$route.query)
+					if(this.$route.query.userId){
+						obj = {organId:this.project_id,userId:this.$route.query.userId}
+					}
 				}else{
 					obj = {projectId:this.project_id}
 				}

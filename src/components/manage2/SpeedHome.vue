@@ -171,7 +171,8 @@ export default {
     };
   },
   created() {
-    this.lyid = this.$route.query.lyid;
+    // this.lyid = this.$route.query.lyid;
+    this.lyid=115
     console.log(this.lyid);
   },
   beforeMount() {},

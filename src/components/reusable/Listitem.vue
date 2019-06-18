@@ -3,7 +3,7 @@
     <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details(item)">
       <span class="item_status" v-if="item.name">
         <img src="../../assets/image/listItem_status.png" alt>
-        <em class="item_status_text">{{item.name}}</em>
+        <em class="item_status_text hide1">{{item.name}}</em>
       </span>
       <dl class="List_item">
         <dt class="img">
@@ -21,15 +21,15 @@
             <div class="intro" :title="textjj">{{textjj}}</div>
           </div>
           <div class="List_downsize">
-            <span class="hide">    简介:{{item.description}}</span>
+            <span class="hide">简介:{{item.description}}</span>
           </div>
           <div class="List_downsize">
             <span>{{item.lingyu_name}}</span>|
             <!-- <span>Pre-A</span>|
-            <span>北京市</span> -->
+            <span>北京市</span>-->
           </div>
           <div class="List_downsize">
-            佣金占比：
+            佣金比例：
             <span>{{item.yongjin}}%</span>
           </div>
         </dd>
@@ -45,10 +45,8 @@ export default {
     return {
       // Listdata:{},
       textjj: "",
-      jgList: [
-      ],
-      nameArr: [
-      ]
+      jgList: [],
+      nameArr: []
     };
   },
   created() {
@@ -56,9 +54,12 @@ export default {
   },
   methods: {
     item_details(item) {
-      this.$router.push({ path: "/project/details",query:{
-        id:item.id
-      }});
+      this.$router.push({
+        path: "/project/details",
+        query: {
+          id: item.id
+        }
+      });
     }
   },
   watch: {
@@ -156,8 +157,8 @@ export default {
     background-image: url("../../assets/image/listItem_status.png"); // width: 0;
     background-size: 100%;
     background-repeat: no-repeat;
-    width: 20%;
-    height: 100%;
+    width: 15%;
+    height: 70%;
 
     img {
       width: 20%;
@@ -183,6 +184,16 @@ export default {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.hide1 {
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:1;
   -webkit-box-orient: vertical;
 }
 </style>

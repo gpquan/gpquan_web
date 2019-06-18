@@ -10,7 +10,7 @@
         <div class="title_top">
           <div class="left">
             <em class="lineEm"></em>
-            <b class="noW" @click="pro_details(i.projectId)">{{i.name}}</b>
+            <b class="noW" @click="pro_details(i)">{{i.name}}</b>
           </div>
 
         </div>
@@ -121,12 +121,12 @@ export default {
 		  //项目进展
 		  this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=1');
 		},
-		pro_details(id) {
+		pro_details(i) {
 		  // 跳详情
 			this.$router.push({path:'/project/details',query:{
-		      id:id
+		      id:i.project_id
 		    }});
-			console.log(id);
+			console.log(i);
 		},
     reset() {
       this.isShow = false;
