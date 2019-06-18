@@ -25,13 +25,17 @@ export default {
     return {
       status:null,
 	  description:'',   //机构简介
+		rou_name:'',
       // lightspot:"",//亮点
     }
   }, 
   methods: {
     saveText() {
       // console.log("保存");
-      this.$router.push({ name: 'ManageO_add',params: {description: this.description}});
+		  this.rou_name = this.$route.params.rou_name;
+      this.$router.push({ name: this.rou_name,params: {description: this.description}});
+			// this.$router.push({ name: 'ManageP_add',params: {description: this.description}});
+
     },
     back() {
       // alert('header头部， 点击返回')

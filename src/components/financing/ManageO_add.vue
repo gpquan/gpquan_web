@@ -135,6 +135,7 @@
 				st_2_list:'',
 				selectJobId:'',
 				headerIconImgBase64Data:'',//base64图片logo数据
+				rou_name:'ManageO_add',
 			};
 		},
 		computed:{
@@ -281,7 +282,9 @@
 			},
 			gopersonage() {
 			  //项目简介
-			  this.$router.push({ name: "Project_Profile"});
+			  this.$router.push({
+			  	name: "Project_Profile",params: {rou_name: this.rou_name}
+			  });
 			},
 			back() {
 				alert('header头部， 点击返回')
