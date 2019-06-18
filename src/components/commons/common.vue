@@ -102,67 +102,14 @@ export default {
       }
     },
     tab(el) {
-      // el.addClass("on")
-      //   .parent()
-      //   .siblings()
-      //   .children()
-      //   .removeClass("on");
-      // el.children("span")
-      //   .addClass("on")
-      //   .end()
-      //   .parent()
-      //   .siblings()
-      //   .children()
-      //   .find("span")
-      //   .removeClass("on")
     }
   },
   created() {
     this.Ind = sessionStorage.getItem("routeInd");
-    let n = this.$router;
-    if (n.path == "/project" || "/recommend") {
-      this.flag1 = true;
-      this.flag2 = false;
-      this.flag3 = false;
-    } else if (n.path == "/accelerate" || "Manage2") {
-      this.flag1 = false;
-      this.flag2 = true;
-      this.flag3 = false;
-    } else if (n.path == "/userCenter") {
-      this.flag1 = false;
-      this.flag2 = false;
-      this.flag3 = true;
-    }
+
   },
   watch: {
     $route(n, o) {
-      console.log(n.path);
-      if (n.path == "/project" || "/recommend") {
-        this.flag1 = true;
-        this.flag2 = false;
-        this.flag3 = false;
-      } else if (n.path.indexOf("accelerate")!=-1 || n.path.indexOf("Manage2")!=-1) {
-        this.flag1 = false;
-        this.flag2 = true;
-        this.flag3 = false;
-      } else if (n.path == "/userCenter") {
-        this.flag1 = false;
-        this.flag2 = false;
-        this.flag3 = true;
-      }
-      // if (n.name == 'user') {
-      //   sessionStorage.setItem('routeInd', 4)
-      //   this.tab($(".view-li-user"));
-      // } else if (n.name == 'FA') {
-      //   sessionStorage.setItem('routeInd', 3)
-      //    this.tab($(".view-li-FA"));
-      // } else if (n.name == 'project') {
-      //   sessionStorage.setItem('routeInd', 2)
-      //   this.tab($(".view-li-project"));
-      // } else if (n.name == 'home') {
-      //   sessionStorage.setItem('routeInd', 1)
-      //   this.tab($(".view-li-first"));
-      // }
     }
   }
 };

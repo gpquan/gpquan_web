@@ -143,7 +143,7 @@
 			}
 		},
 		created() {
-			// debugger
+			
 			// console.log( this.listData)
 			// console.log( this.data)
 		  // this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
@@ -342,7 +342,6 @@
 			  var step_2_val = chooseData[1];
 			  var step_2_list = JSON.parse(JSON.stringify(this.st_2_list.data));
 			  var indexId = '';
-			  debugger
 			  for(var i in step_2_list){
 				  if(step_2_list[i]['name'] == step_2_val){
 					  indexId = step_2_list[i]['id']
