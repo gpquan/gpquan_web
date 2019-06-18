@@ -11,6 +11,11 @@
         <dd>
           <div>
             <span class="name">{{item.name}}</span>
+          </div>
+          <div class="List_downsize" style="padding-bottom: 10px;">
+            <span class="hide1">简介:{{item.description}}</span>
+          </div>
+          <div>
             <span class="yd">{{item.lingyu_name}}</span>
             <span class="SAAS">SAAS</span>
             <span class="xmt">新媒体</span>
@@ -19,16 +24,13 @@
             <div class="intro" :title="textjj">{{textjj}}</div>
           </div>
           <div class="List_downsize">
-            <span class="hide">简介:{{item.description}}</span>
+            投资机构：
+            <span>{{}}</span>
           </div>
           <div class="List_downsize">
-            <span>{{item.lingyu_name}}</span>|
+            <span>{{item.lingyu_name}}</span>|电子商务
             <!-- <span>Pre-A</span>|
             <span>北京市</span>-->
-          </div>
-          <div class="List_downsize">
-            佣金占比：
-            <span>{{item.yongjin}}%</span>
           </div>
         </dd>
       </dl>
@@ -136,6 +138,14 @@ export default {
   //   border-radius: 10px;
   //   padding: 10px;
 }
+// .List_item{
+//       min-width: 99px;
+//     height: 99px;
+//     padding-right: 15px;
+//     img{
+//       width: 100%;;
+//     }
+// }
 .icon_Box {
   position: absolute;
   top: 60%;
@@ -276,27 +286,32 @@ export default {
   background: #fff;
   display: flex;
 }
-.List_box {
-  background: #f5f6fa;
-  dl {
+
+.List_item {
+  display: flex;
+  // padding: 23px 15px;
+  dt {
+    min-width: 99px;
+    height: 100%;
+    padding-right: 15px;
     display: flex;
-    padding: 23px 15px;
-    dt {
+    align-items: center;
+    justify-content: center;
+    img {
+      // max-width: 100%;
       min-width: 99px;
       height: 99px;
-      padding-right: 15px;
-      img {
-        max-width: 100%;
-        height: 100%;
-        border-radius: 50% 50%;
-      }
+      // height: 100%;
+      border-radius: 50% 50%;
+      border:1px solid #ccc;
     }
-    dd {
-      .name {
-        font-size: 14px;
-        font-weight: 500;
-        color: #333;
-      }
+  }
+  dd {
+    .name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      line-height: 5vh;
     }
   }
 }
@@ -395,6 +410,16 @@ export default {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.hide1 {
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
 </style>

@@ -36,7 +36,7 @@ import Recommend from '@/components/recommend/Recommend' // fa
 import Manage2 from '@/components/manage2/manage2'
 import Manage_ListC from '@/components/manage2/Manage_ListC'
 import Manage_ListO from '@/components/manage2/Manage_ListO'
-import Manage_ListP from '@/components/manage2/Manage_ListP'
+import Manage_ListFA from '@/components/manage2/Manage_ListFA'
 
 Vue.use(Router)
 
@@ -215,11 +215,11 @@ const router = new Router({
 								fshow:true
 							}
 						  }, {
-							path:'/Manage2/P',
-							name:"Manage2P",
-							component:Manage_ListP,
+							path:'/Manage2/FA',
+							name:"Manage2FA",
+							component:Manage_ListFA,
 							meta:{
-								keep:'P',
+								keep:'FA',
 								fshow:true
 							}
 						  },

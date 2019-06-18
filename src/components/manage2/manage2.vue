@@ -16,9 +16,9 @@
 
     <!-- </keep-alive> -->
      <keep-alive>
-    <router-view v-if="$route.meta.keep"></router-view>
-    <!-- <router-view v-if="$route.meta.keep=='O'"></router-view>
-    <router-view v-if="$route.meta.keep=='P'"></router-view> -->
+    <router-view v-if="$route.meta.keep=='C'"></router-view>
+    <router-view v-if="$route.meta.keep=='O'"></router-view>
+    <router-view v-if="$route.meta.keep=='FA'"></router-view>
      </keep-alive>
   </div>
   </div>
@@ -40,8 +40,8 @@ export default {
           links:'/Manage2/O'
         },
          {
-          name:"项目管理",
-          links:'/Manage2/P'
+          name:"FA管理",
+          links:'/Manage2/FA'
         },
       ]
     }

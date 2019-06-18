@@ -39,6 +39,7 @@
         </strong>
       </router-link>
     </div>
+
     <div class="view-footer" v-if="footerShow==2">
       <router-link to="/recommend">
         <strong :class=" !flag1?'view-li-project':'projectActive'" @click="tagToggle(1)">
@@ -72,7 +73,7 @@ export default {
       flag1: true,
       flag2: true,
       flag3: true,
-      footerShow:2,
+      footerShow: 2
     };
   },
   methods: {
@@ -118,9 +119,37 @@ export default {
   },
   created() {
     this.Ind = sessionStorage.getItem("routeInd");
+    let n = this.$router;
+    if (n.path == "/project" || "/recommend") {
+      this.flag1 = true;
+      this.flag2 = false;
+      this.flag3 = false;
+    } else if (n.path == "/accelerate" || "Manage2") {
+      this.flag1 = false;
+      this.flag2 = true;
+      this.flag3 = false;
+    } else if (n.path == "/userCenter") {
+      this.flag1 = false;
+      this.flag2 = false;
+      this.flag3 = true;
+    }
   },
   watch: {
     $route(n, o) {
+      console.log(n.path);
+      if (n.path == "/project" || "/recommend") {
+        this.flag1 = true;
+        this.flag2 = false;
+        this.flag3 = false;
+      } else if (n.path.indexOf("accelerate")!=-1 || n.path.indexOf("Manage2")!=-1) {
+        this.flag1 = false;
+        this.flag2 = true;
+        this.flag3 = false;
+      } else if (n.path == "/userCenter") {
+        this.flag1 = false;
+        this.flag2 = false;
+        this.flag3 = true;
+      }
       // if (n.name == 'user') {
       //   sessionStorage.setItem('routeInd', 4)
       //   this.tab($(".view-li-user"));
