@@ -11,7 +11,7 @@
         <div class="title_top">
           <div class="left">
             <em class="lineEm"></em>
-            <router-link to="/organ" class="noW">{{i.name}}</router-link>
+            <span class="noW" @click="pro_details(i.organ_id)">{{i.name}}</span>
           </div>
           <div class="right">
             <!-- <b class="expedite" @click="expedite(i.lingyu_id)">加速</b> -->
@@ -42,10 +42,10 @@
                 :isAnimation="true"
               ></circle-progress>
               <span class="dhwb">
-                <em>{{i.projects[ind].progress_name}}</em>
+                <em >{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
-            <b class="nameTIT">
+            <b class="nameTIT" @click="Org_details(i.projects[ind].id)">
               <em></em>
               {{i.projects[ind].name}}
             </b>
@@ -113,6 +113,24 @@ export default {
 		pro_evolve(id) {
 		  //项目进展
 			this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=0');
+		},
+		pro_details(id) {
+		  // 项目跳详情
+			// var o_details = "/Organ/details/"+id;
+			
+			// this.$router.push{ name:o_details, query:{ o_id: id }};
+			this.$router.push({path:'/Organ/details',query:{
+          id:id
+        }});
+			console.log(id);
+			// this.$router.push('/Organ/details/'+id);
+		},
+		Org_details(id){
+			// 机构跳详情
+			this.$router.push({path:'/project/details',query:{
+			    id:id
+			  }});
+			console.log(id);
 		},
     reset() {
       this.isShow = false;

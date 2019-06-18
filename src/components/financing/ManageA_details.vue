@@ -127,7 +127,6 @@
 			},
 			//获取详情
 			getDetails:function(){
-				debugger
 				this.project_id = this.$route.query.id;
 				var type = this.$route.query.type;
 				var obj = {};

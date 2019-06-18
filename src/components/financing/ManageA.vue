@@ -263,7 +263,7 @@ export default {
  
     },
     Jump_rout: function(item) {
-      this.$router.push("/accelerate/Manage/a/details?id="+item.project_id);
+      // this.$router.push("/accelerate/Manage/a/details?id="+item.project_id);
     }
   }
 };
