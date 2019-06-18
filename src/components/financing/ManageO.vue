@@ -67,7 +67,7 @@
 					// console.log(res.data);
 					this.MaxList = res.data;
 
-					console.log(this.MaxList);
+					// console.log(this.MaxList);
 				}
 			);
 		},

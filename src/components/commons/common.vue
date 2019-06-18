@@ -1,26 +1,4 @@
 <template>
-  <!-- <div class="view-footer">
-    <router-link to="/">
-      <strong class="view-li-first" @click="tagToggle(1)">
-        <span class="view-font-default">首页</span>
-      </strong>
-    </router-link>
-    <router-link to="/project">
-      <strong class="view-li-project" @click="tagToggle(2)">
-        <span class="view-font-default">项目池</span>
-      </strong>
-    </router-link>
-    <router-link to="/FA">
-      <strong class="view-li-FA" @click="tagToggle(3)">
-        <span class="view-font-default">FA大联盟</span>
-      </strong>
-    </router-link>
-    <router-link to="/userCenter">
-      <strong class="view-li-user" @click="tagToggle(4)">
-        <span class="view-font-default">个人中心</span>
-      </strong>
-    </router-link>
-  </div>-->
   <div class="view-footer">
     <div class="view-footer" v-if="footerShow==1">
       <router-link to="/project">
@@ -41,16 +19,17 @@
     </div>
 
     <div class="view-footer" v-if="footerShow==2">
-      <router-link to="/recommend">
-        <strong :class=" !flag1?'view-li-project':'projectActive'" @click="tagToggle(1)">
-          <span class="view-font-default">精准推荐</span>
-        </strong>
-      </router-link>
-      <router-link to="/Manage2">
+          <router-link to="/Manage2">
         <strong :class=" !flag2?'view-li-accelerate':'accelerateActive'" @click="tagToggle(2)">
           <span class="view-font-default">融资助手</span>
         </strong>
       </router-link>
+      <router-link to="/recommend">
+        <strong :class=" !flag1?'view-li-project':'projectActive'" @click="tagToggle(1)">
+          <span class="view-font-default">融资加速</span>
+        </strong>
+      </router-link>
+  
       <router-link to="/userCenter">
         <strong :class=" !flag3?'view-li-userCenter':'userActive'" @click="tagToggle(3)">
           <span class="view-font-default">个人中心</span>
@@ -73,8 +52,12 @@ export default {
       flag1: true,
       flag2: true,
       flag3: true,
-      footerShow: 2
+      footerShow: null
+      //  2 1 3 2
     };
+  },
+  beforeMount(){
+    this.footerShow=JSON.parse(sessionStorage.getItem("userInfo")).role;
   },
   methods: {
     tagToggle(num) {

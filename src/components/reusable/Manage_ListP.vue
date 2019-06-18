@@ -2,7 +2,7 @@
   <!-- 项目管理 列表项 -->
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-      {{i.organs[0].lenght}}
+      <!-- {{i.organs[0].lenght}} -->
       <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>3">
         <nut-icon type="more"></nut-icon>
       </b>
@@ -27,7 +27,7 @@
         <div class="List_top" v-show="i.status==2">
           <!-- {{typeOf(i.maxLength)}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-              <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}" >
+              <!-- <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}" > -->
                   <span class="box1">
                         <circle-progress
                           :id="i.organs[ind].progress.uniqid+1"
@@ -40,9 +40,9 @@
                           backgroundColor="#FFE8CC"
                           :isAnimation="true"
                         ></circle-progress>
-                     <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
+                     <span class="dhwb"><em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em></span>
                   </span>
-              </router-link>
+              <!-- </router-link> -->
                <b class="nameTIT">
               <em></em>{{i.organs[ind].name}}</b>
           </div>
@@ -64,7 +64,7 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb"><em>{{i.organs[ind].progress_name}}</em></span>
+              <span class="dhwb"><em  @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em></span>
             </span>
                <b class="nameTIT">
               <em></em>{{i.organs[ind].name}}</b>
@@ -106,6 +106,16 @@ export default {
 
   },
   methods: {
+    jump_(item){
+      this.$router.push({
+        path : '/accelerate/Manage/a/details',
+        query:{
+          id:item.id,
+          type:1
+        }
+      })
+      // :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'
+    },
 		pro_evolve(id) {
 			console.log(id)
 		  //项目进展

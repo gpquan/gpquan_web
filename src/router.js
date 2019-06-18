@@ -37,209 +37,206 @@ import Manage2 from '@/components/manage2/manage2'
 import Manage_ListC from '@/components/manage2/Manage_ListC'
 import Manage_ListO from '@/components/manage2/Manage_ListO'
 import Manage_ListFA from '@/components/manage2/Manage_ListFA'
-
 Vue.use(Router)
 
 const router = new Router({
-    routes: [{
-        path: '/',
-        name: 'home',
-        component: Home,
-        redirect: '/accelerate',
-        children: [
-            {
-                path:'/demo',
-                name:'demo',
-                component:Demo
-            },
-            {
-                path: '/project',
-                name: 'project',
-                component: Project,
-                redirect: '/project/List',
-                children: [
-                    {
-                        path: '/project/List',
-                        name: 'projectList',
-                        component: ProjectList,
-                        meta:{
-                            fshow:true
-                        },
-                    },
-                    {
-                        path: '/project/details',
-                        name: 'projectDetails',
-                        component: ProjectDetails
-
+	routes: [{
+		path: '/',
+		name: 'home',
+		component: Home,
+		redirect: '/accelerate',
+		children: [
+			{
+				path: '/demo',
+				name: 'demo',
+				component: Demo
+			},
+			{
+				path: '/project',
+				name: 'project',
+				component: Project,
+				redirect: '/project/List',
+				children: [
+					{
+						path: '/project/List',
+						name: 'projectList',
+						component: ProjectList,
+						meta: {
+							fshow: true
 						},
-						{
-							path: '/project/addProject',
-							name: 'addProject',
-							component: addProject,
-						},
-						{
-							path: '/project/personage',
-							name: 'personage',
-							component: ProjectPersonage
-						},
+					},
+					{
+						path: '/project/details',
+						name: 'projectDetails',
+						component: ProjectDetails
 
-                ]
-            },
-            {
-                path: '/organ',
-                name: 'organ',
-                component: Organ,
-                redirect: '/Organ/details',
-                children: [
-                    {
-                        path: '/organ/details',
-                        name: 'organDetails',
-                        component: OrganDetails,
-                    }
-                ]
-            },
-            {
-                path: '/FA',
-                name: 'FA',
-                component: FA,
-                meta: {
-                    fshow: true
-                }
+					},
+					{
+						path: '/project/addProject',
+						name: 'addProject',
+						component: addProject,
+					},
+					{
+						path: '/project/personage',
+						name: 'personage',
+						component: ProjectPersonage
+					},
 
-				},
-				{
-					path: '/userCenter',
-					name: 'user',
-					component: UserCenter,
-					meta: {
-						fshow: true
+				]
+			},
+			{
+				path: '/organ',
+				name: 'organ',
+				component: Organ,
+				redirect: '/Organ/details',
+				children: [
+					{
+						path: '/organ/details',
+						name: 'organDetails',
+						component: OrganDetails,
 					}
+				]
+			},
+			{
+				path: '/FA',
+				name: 'FA',
+				component: FA,
+				meta: {
+					fshow: true
+				}
 
-				},
+			},
+			{
+				path: '/userCenter',
+				name: 'user',
+				component: UserCenter,
+				meta: {
+					fshow: true
+				}
 
-				{
-					path: '/accelerate',
-					name: 'accelerate',
-					component: accelerateHome,
-					redirect: '/accelerate/Manage',
+			},
 
+			{
+				path: '/accelerate',
+				name: 'accelerate',
+				component: accelerateHome,
+				redirect: '/accelerate/Manage',
+
+				children: [{
+					path: '/accelerate/Manage',
+					name: 'manage',
+					component: Manage,
+					redirect: '/accelerate/Manage/o',
 					children: [{
-							path: '/accelerate/Manage',
-							name: 'manage',
-							component: Manage,
-							redirect: '/accelerate/Manage/o',
-							children: [{
-								path: '/accelerate/Manage/p', //项目
-								name: 'ManageP',
-								component: ManageP,
-								meta: {
-									keep: 1,
-									fshow: true
-								}
+						path: '/accelerate/Manage/p', //项目
+						name: 'ManageP',
+						component: ManageP,
+						meta: {
+							keep: 1,
+							fshow: true
+						}
 
-							}, {
-								path: '/accelerate/Manage/o', //机构
-								name: 'ManageO',
-								component: ManageO,
-								meta: {
-									keep: 2,
-									fshow: true
-								}
-							}, ]
-						},
-						{
-							path: '/accelerate/Manage/a', //融资加速
-							name: 'ManageA',
-							component: ManageA,
-							meta: {
-								fshow: true
-							},
-						},
-						{
-							path: '/accelerate/Manage/a/details', //融资加速详情
-							name: 'ManageA_details',
-							component: ManageA_details,
-							meta: {
-								fshow: true
-							},
-						}, {
-							path: '/accelerate/Manage/o/add', //添加机构
-							name: 'ManageO_add',
-							component: ManageO_add,
-							meta: {
-
-							}
-						},{
-							path: '/accelerate/Manage/o/Project_Profile', //添加机构中的机构简介
-							name: 'Project_Profile',
-							component: Project_Profile,
-							meta: {
-
-							}
-						},
-
-
-					]
+					}, {
+						path: '/accelerate/Manage/o', //机构
+						name: 'ManageO',
+						component: ManageO,
+						meta: {
+							keep: 2,
+							fshow: true
+						}
+					},]
 				},
 				{
-					path:'/recommend',
-					name:'recommend',
-					component:Recommend,
-					meta: {
-						fshow: true
-					}
-
-				},{
-					path:'/Manage2',
-					name:'manage2',
-					component:Manage2,
-					redirect:'/Manage2/C',
+					path: '/accelerate/Manage/a', //融资加速
+					name: 'ManageA',
+					component: ManageA,
 					meta: {
 						fshow: true
 					},
-					children:[
-						{
-							path:'/Manage2/C',//项目竞品
-							name:'Manage2C',
-							component:Manage_ListC,
-							meta:{
-								keep:'C',
-								fshow:true
-							}
-						}, {
-							path:'/Manage2/O',
-							name:"Manage2O",
-							component:Manage_ListO,
-							meta:{
-								keep:'O',
-								fshow:true
-							}
-						  }, {
-							path:'/Manage2/FA',
-							name:"Manage2FA",
-							component:Manage_ListFA,
-							meta:{
-								keep:'FA',
-								fshow:true
-							}
-						  },
-					]
+				},
+				{
+					path: '/accelerate/Manage/a/details', //融资加速详情
+					name: 'ManageA_details',
+					component: ManageA_details,
+					meta: {
+						fshow: true
+					},
+				}, {
+					path: '/accelerate/Manage/o/add', //添加机构
+					name: 'ManageO_add',
+					component: ManageO_add,
+					meta: {
+
+					}
+				}, {
+					path: '/accelerate/Manage/o/Project_Profile', //添加机构中的机构简介
+					name: 'Project_Profile',
+					component: Project_Profile,
+					meta: {
+
+					}
+				},
+				]
+			},
+			{
+				path: '/recommend',
+				name: 'recommend',
+				component: Recommend,
+				meta: {
+					fshow: true
 				}
-			]
-		},
-		{
-			path: '/login',
-			name: 'log',
-			component: Login,
-		}, {
-			path: '/Sign',
-			name: 'SignIn',
-			component: Sign,
-		},
+
+			}, {
+				path: '/Manage2',
+				name: 'manage2',
+				component: Manage2,
+				redirect: '/Manage2/C',
+				meta: {
+					fshow: true
+				},
+				children: [
+					{
+						path: '/Manage2/C',//项目竞品
+						name: 'Manage2C',
+						component: Manage_ListC,
+						meta: {
+							keep: 'C',
+							fshow: true
+						}
+					}, {
+						path: '/Manage2/O',
+						name: "Manage2O",
+						component: Manage_ListO,
+						meta: {
+							keep: 'O',
+							fshow: true
+						}
+					}, {
+						path: '/Manage2/FA',
+						name: "Manage2FA",
+						component: Manage_ListFA,
+						meta: {
+							keep: 'FA',
+							fshow: true
+						}
+					},
+				]
+			}
+		]
+	},
+	{
+		path: '/login',
+		name: 'log',
+		component: Login,
+	}, {
+		path: '/Sign',
+		name: 'SignIn',
+		component: Sign,
+	},
 	]
 })
 router.beforeEach((to, from, next) => {
-	// console.log(to)
+	console.log(to)
 	if (!JSON.parse(sessionStorage.getItem("userInfo"))) {
 		console.log("未登录")
 		if (to.name == 'log') {
@@ -251,8 +248,25 @@ router.beforeEach((to, from, next) => {
 			})
 		}
 	} else {
-		next()
+		if ((to.name == 'ManageO'||to.name == 'home')) {
+			console.log(JSON.parse(sessionStorage.getItem("userInfo")).role)
+			if (JSON.parse(sessionStorage.getItem("userInfo")).role == 1&&(to.name == 'ManageO'||to.name == 'home')) {
+				next()
+			} else if(JSON.parse(sessionStorage.getItem("userInfo")).role == 2&&(to.name == 'ManageO'||to.name == 'home')){
+				next({
+					path: '/Manage2',
+					query: {}
+				})
+			}
+		}
+		else{
+			next()
+		}
+		
 		console.log("已登录")
 	}
+})
+router.afterEach((to, from, next) => {
+
 })
 export default router

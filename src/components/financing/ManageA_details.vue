@@ -9,7 +9,7 @@
 				</nut-button>
 			</div>
 			<div class="head_crad_text">
-				<div class="head_card_icon" :style="'background-image:url('+progressObj.logo+')'"></div>
+				<div class="head_card_icon" :style="'background-image:url('+progressObj[imgArr[this.$route.query.type]]+')'"></div>
 				<div class="head_card_left">
 					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;"></p>
 					<p v-text="progressObj.description" class="pro_msg"></p>
@@ -29,7 +29,7 @@
 		</div>
 		<div class="body_step" id="body_step">
 			<div class="opcity-bg">
-				<div class="step-item-box" v-for="item in progressObj.progress">
+				<div class="step-item-box" v-for="(item,ind) in progressObj.progress" :key="ind">
 					<!-- -->
 					<div class="step-item-left"
 						:class="item.id >progressObj.progress_id ? 'step-circle-undo' : (item.id == progressObj.progress_id ? 'step-circle-doing' : 'step-circle-done') "   
@@ -90,6 +90,7 @@
 				colorList: ["#ffa800", "#f23353", "#009cff"],
 				pro_evolve_id:'',
 				pageType:'',
+				imgArr:['logo','it_img']
 			};
 		},
 		mounted() {

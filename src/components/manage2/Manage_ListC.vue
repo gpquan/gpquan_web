@@ -75,7 +75,7 @@ export default {
         field: "id",
         fieldValue: 82696
       }).then(res => {
-        console.log(res);
+        // console.log(res);
         this.ListData = res.data;
       });
     }

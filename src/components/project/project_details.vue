@@ -4,7 +4,7 @@
     @on-click-back="back" 
     :leftShow="true" 
     :rightShow="true"
-    >优广网</nut-navbar>
+    >{{ListData.name}}</nut-navbar>
     <div class="top_Box">
         <div class="h_img">
           <img src="../../assets/image/right-title-portrait.png" alt="">
@@ -140,7 +140,7 @@
                 <img src="../../assets/image/right-title-portrait.png" alt>
               </dt>
               <dd>
-                <div>{{item.name}}</div>
+                <div @click="Pushme(item)">{{item.name}}</div>
                 <div class="hide">{{item.description}}</div>
                 <span :class="colorClass[0]" style="line-height:30px;">{{item.lingyu_name}}</span>
                 <div>{{"行业轮次："+item.stage_name}}</div>
@@ -231,18 +231,18 @@ export default {
     };
   },
   beforeMount() {
-    this.$fetch("/api/getProjectDetail/" + 83291).then(res => {
-      this.ListData = res.data;
-      this.projectId = res.data.id;
-      // console.log(res)
-      this.$post("/api/getAlikeProjectList", {
-        field: "id",
-        fieldValue: this.projectId
-      }).then(res => {
-        console.log(res);
-        this.ProList = res.data;
-      });
-    });
+    // this.$fetch("/api/getProjectDetail/" + 83291).then(res => {
+    //   this.ListData = res.data;
+    //   this.projectId = res.data.id;
+    //   // console.log(res)
+    //   this.$post("/api/getAlikeProjectList", {
+    //     field: "id",
+    //     fieldValue: this.projectId
+    //   }).then(res => {
+    //     console.log(res);
+    //     this.ProList = res.data;
+    //   });
+    // });
     this.$post("/api/projectInvestHistory", {
       projectId: 83291
     }).then(res => {
@@ -251,7 +251,8 @@ export default {
     });
   },
 	created() {
-	  // organId
+    // organId
+    console.log(this.$route.query.id)
 		let id = this.$route.query.id;
 		// console.log(id);
 	  this.$fetch("/api/getProjectDetail/"+id).then(res => {
@@ -277,8 +278,12 @@ export default {
     },
     back() {
       this.$router.go(-1);
+    },
+    Pushme(item){
+      this.$router.push({path:'/project/details',query:{query:item.id}})
+      // this.$forceUpdate()
     }
-  }
+  } 
 };
 </script>
 

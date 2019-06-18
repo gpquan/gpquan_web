@@ -99,8 +99,10 @@ export default {
                 JSON.stringify(res.data)
               );
              this.$router.push('/')
-          if(res.role==1){
+          if(res.data.role==1){
             this.$router.push('/accelerate')
+          }else if(res.data.role==2){
+            this.$router.push('/Manage2')
           }
         }
         

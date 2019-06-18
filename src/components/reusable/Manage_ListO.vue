@@ -29,7 +29,7 @@
         <div class="List_top" v-show="i.status==2">
           <!-- {{I.maxLength}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-            <span class="box1" @click="pro_evolve(i.projects[ind]['id'])">
+            <span class="box1">
               <circle-progress
                 :id="i.projects[ind].progress.uniqid+1"  
                 :width="85"
@@ -42,10 +42,10 @@
                 :isAnimation="true"
               ></circle-progress>
               <span class="dhwb">
-                <em >{{i.projects[ind].progress_name}}</em>
+                <em  @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
-            <b class="nameTIT" @click="Org_details(i.projects[ind].id)">
+            <b class="nameTIT">
               <em></em>
               {{i.projects[ind].name}}
             </b>
@@ -56,7 +56,7 @@
             <nut-icon type="minus"></nut-icon>
           </b>
           <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
-            <span class="box1"  @click="pro_evolve(i.projects[ind]['id'])">
+            <span class="box1" >
               <circle-progress
                 :id="i.projects[ind].progress.uniqid+2"
                 :width="85"
@@ -68,8 +68,8 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb">
-                <em>{{i.projects[ind].progress_name}}</em>
+              <span class="dhwb" >
+                <em  @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
             <b class="nameTIT">
@@ -125,13 +125,13 @@ export default {
 			console.log(id);
 			// this.$router.push('/Organ/details/'+id);
 		},
-		Org_details(id){
-			// 机构跳详情
-			this.$router.push({path:'/project/details',query:{
-			    id:id
-			  }});
-			console.log(id);
-		},
+		// Org_details(id){
+		// 	// 机构跳详情
+		// 	this.$router.push({path:'/project/details',query:{
+		// 	    id:id
+		// 	  }});
+		// 	console.log(id);
+		// },
     reset() {
       this.isShow = false;
       this.$nextTick(() => {

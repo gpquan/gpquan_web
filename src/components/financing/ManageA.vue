@@ -31,7 +31,7 @@
         <!-- 右边头部 -->
         <div class="right-box-title">
           <div class="right-title">
-            <router-link to="/organ"  class="title-name">{{this.Rtop.name}}</router-link>
+            <router-link :to="{path:'/organ',query:{id:this.Rtop.id}}"  class="title-name">{{this.Rtop.name}}</router-link>
             <div
               class="right-title-portrait"
               :style="'background-image:url('+Rtop.it_img+'/'+Rtop.img+')'"
@@ -62,7 +62,7 @@
             <span class="right-body-Ricon"></span>
           </div>
           <div class="right-item" @click="Jump_rout(items)" v-for="(items,idx) in R_btmList" :key="idx">
-            <span class="item-name">{{items.name}}</span>
+            <span class="item-name" @click="Jump_pro(items)">{{items.name}}</span>
             <div class="right-item-portrait"></div>
             <div style="margin-left: 7vw;">
               <nut-button
@@ -264,6 +264,11 @@ export default {
     },
     Jump_rout: function(item) {
       // this.$router.push("/accelerate/Manage/a/details?id="+item.project_id);
+    },
+    Jump_pro:function(item){
+      this.$router.push({path:'/project/details',query:{id:item.id}});
+// "/project/details?id="+item.project_id
+      // console.log(item.id)
     }
   }
 };

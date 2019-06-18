@@ -1,12 +1,12 @@
 <template>
   <div class="List_box" v-if="Listdata[0].name">
-    <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details">
+    <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details(item)">
       <span class="item_status" v-if="item.name">
         <img src="../../assets/image/listItem_status.png" alt>
         <em class="item_status_text">{{item.name}}</em>
       </span>
       <dl class="List_item">
-        <dt class="img" @click="item_details">
+        <dt class="img">
           <img :src="item.logo" alt>
           <div></div>
         </dt>
@@ -55,8 +55,10 @@ export default {
     // console.log(this.Listdata)
   },
   methods: {
-    item_details() {
-      this.$router.push({ path: "/project/details" });
+    item_details(item) {
+      this.$router.push({ path: "/project/details",query:{
+        id:item.id
+      }});
     }
   },
   watch: {
