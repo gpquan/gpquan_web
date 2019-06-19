@@ -32,7 +32,7 @@
 					<nut-textinput placeholder="请输入用户名称" label="用户名" suffix="aaa" v-model="username" />
 				</div>
 				<div class="mechanism">
-					<nut-textinput  placeholder="请输入累计融资金额" label="累计融资" suffix="aaa" @blur="onBlur1" v-model="Acc_financing" />
+					<nut-textinput placeholder="请输入累计融资金额" label="累计融资" suffix="aaa" @blur="onBlur1" v-model="Acc_financing" />
 				</div>
 				<div class="mechanism">
 					<nut-textinput placeholder="请输入签约项目数量" label="签约项目" suffix="aaa" @blur="onBlur2" v-model="Con_Projects" />
@@ -294,48 +294,60 @@
 			addOrgan_fun() {
 				if (this.headerIconImgBase64Data == '') {
 					this.$message.error('图片不能为空');
-				} else if (this.Con_Projects == "") {
-					this.$message.error('签约项目不能为空');
-				} else if (this.Acc_financing == "") {
-					this.$message.error('累计不能为空');
-				} else if (this.editDescription == "") {
-					this.$message.error('描述不能为空');
-				} else if (this.description == "") {
-					this.$message.error('描述不能为空');
-				} else if (this.selectJobId == "") {
-					this.$message.error('投资行业不能为空');
-				} else if (this.User_ChossStage == "") {
-					this.$message.error('偏好轮次不能为空');
-				} else {
-					var basic = this.User_ChossStage
-					basic = basic.substring(0, basic.lastIndexOf(','));
-					var basic1 = this.selectJobId
-					basic1 = basic1.substring(0, basic1.lastIndexOf(','));
-					var Acc_financing = this.Acc_financing;
-					Acc_financing = parseInt(Acc_financing);
-					var Con_Projects = this.Con_Projects;
-					Con_Projects = parseInt(Con_Projects);
-
-					this.$post("/api/saveUserDetail", {
-						username: this.username,
-						financing_money: Acc_financing,
-						project_num: Con_Projects,
-						description: this.description,
-						lingyu_id: basic1, //领域id
-						stage_id: basic, //阶段
-						header_img: this.headerIconImgBase64Data,
-					}).then(res => {
-						// console.log(res);
-						// for (let i = 0; i < res.data.length; i++) {
-						//   res.data[i].tjcode = false;
-						// }
-						// this.leftList = res.data;
-						// this.getRightList(3)
-						console.log(basic1);
-						console.log(basic);
-
-					});
+					return false;
 				}
+				if (this.Con_Projects == "") {
+					this.$message.error('签约项目不能为空');
+					return false;
+				}
+				if (this.Acc_financing == "") {
+					this.$message.error('累计不能为空');
+					return false;
+				}
+				if (this.editDescription == "") {
+					this.$message.error('描述不能为空');
+					return false;
+				}
+				if (this.description == "") {
+					this.$message.error('描述不能为空');
+					return false;
+				}
+				if (this.selectJobId == "") {
+					this.$message.error('投资行业不能为空');
+					return false;
+				}
+				if (this.User_ChossStage == "") {
+					this.$message.error('偏好轮次不能为空');
+					return false;
+				}
+				var basic = this.User_ChossStage
+				basic = basic.substring(0, basic.lastIndexOf(','));
+				var basic1 = this.selectJobId
+				basic1 = basic1.substring(0, basic1.lastIndexOf(','));
+				var Acc_financing = this.Acc_financing;
+				Acc_financing = parseInt(Acc_financing);
+				var Con_Projects = this.Con_Projects;
+				Con_Projects = parseInt(Con_Projects);
+
+				this.$post("/api/saveUserDetail", {
+					username: this.username,
+					financing_money: Acc_financing,
+					project_num: Con_Projects,
+					description: this.description,
+					lingyu_id: basic1, //领域id
+					stage_id: basic, //阶段
+					header_img: this.headerIconImgBase64Data,
+				}).then(res => {
+					// console.log(res);
+					// for (let i = 0; i < res.data.length; i++) {
+					//   res.data[i].tjcode = false;
+					// }
+					// this.leftList = res.data;
+					// this.getRightList(3)
+					console.log(basic1);
+					console.log(basic);
+
+				});
 				console.log('--------------')
 				console.log(this.username);
 				console.log(this.headerIconImgBase64Data);
@@ -389,10 +401,10 @@
 			},
 			back() {
 				// alert('header头部， 点击返回')
-				if(this.pageStep == 2){
+				if (this.pageStep == 2) {
 					this.description = this.editDescription;
 					this.pageStep = 1;
-				}else{
+				} else {
 					this.$router.go(-1);
 				}
 			},
@@ -676,8 +688,8 @@
 	.title-box,
 	.title2-box,
 	.title3-box,
-	.title4-box ,
-	.title5-box{
+	.title4-box,
+	.title5-box {
 		margin-top: 3%;
 		padding-left: 3%;
 		border-bottom: 1px solid #efefef;

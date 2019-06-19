@@ -231,44 +231,57 @@
 				console.log(this.headerIconImgBase64Data);
 				if(this.headerIconImgBase64Data == ''){
 					this.$message.error('图片不能为空');
-				}else if(this.name == ""){
-					this.$message.error('名称不能为空');
-				}else if(this.address == ""){
-					this.$message.error('地址不能为空');
-				}else if(this.editDescription == ""){
-					this.$message.error('描述不能为空');
-				}else if(this.description == ""){
-					this.$message.error('描述不能为空');
-				}else if(this.selectJobId == ""){
-					this.$message.error('投资行业不能为空');
-				}else if(this.User_ChossStage == ""){
-					this.$message.error('偏好轮次不能为空');
-				}else{
-					var basic = this.User_ChossStage 
-					basic = basic.substring(0, basic.lastIndexOf(','));  
-					var basic1 = this.selectJobId
-					basic1 = basic1.substring(0, basic1.lastIndexOf(','));  
-					// basic1 = parseInt(basic1);
-					// basic = parseInt(basic);
-					this.$post("/api/addOrgan", {
-						img: this.headerIconImgBase64Data,
-						name: this.name,
-						address: this.address,
-						description: this.description,
-						lingyu_id: basic1,
-						stage_id: basic,
-					}).then(res => {
-						// console.log(res);
-						// for (let i = 0; i < res.data.length; i++) {
-						//   res.data[i].tjcode = false;
-						// }
-						// this.leftList = res.data;
-						// this.getRightList(3)
-						console.log(basic1);
-						console.log(res);
-
-					});
+					return false;
 				}
+				
+				if(this.name == ""){
+					this.$message.error('名称不能为空');
+					return false;
+				}
+				if(this.address == ""){
+					this.$message.error('地址不能为空');
+					return false;
+				} 
+				if(this.editDescription == ""){
+					this.$message.error('描述不能为空');
+					return false;
+				} 
+				if(this.description == ""){
+					this.$message.error('描述不能为空');
+					return false;
+				} 
+				if(this.selectJobId == ""){
+					this.$message.error('投资行业不能为空');
+					return false;
+				} 
+				if(this.User_ChossStage == ""){
+					this.$message.error('偏好轮次不能为空');
+					return false;
+				}
+				var basic = this.User_ChossStage 
+				basic = basic.substring(0, basic.lastIndexOf(','));  
+				var basic1 = this.selectJobId
+				basic1 = basic1.substring(0, basic1.lastIndexOf(','));  
+				// basic1 = parseInt(basic1);
+				// basic = parseInt(basic);
+				this.$post("/api/addOrgan", {
+					img: this.headerIconImgBase64Data,
+					name: this.name,
+					address: this.address,
+					description: this.description,
+					lingyu_id: basic1,
+					stage_id: basic,
+				}).then(res => {
+					// console.log(res);
+					// for (let i = 0; i < res.data.length; i++) {
+					//   res.data[i].tjcode = false;
+					// }
+					// this.leftList = res.data;
+					// this.getRightList(3)
+					console.log(basic1);
+					console.log(res);
+
+				});
 				console.log(this.headerIconImgBase64Data);
 				console.log(this.name)
 				console.log(this.address)
