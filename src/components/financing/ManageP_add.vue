@@ -53,6 +53,25 @@
 					</el-input>
 					<el-button v-else class="button-new-tag" size="small" @click="showInput0">+点击添加标签</el-button>
 				</div>
+				
+				<div class="title3-box" @click="add_tag(1)">
+					<!-- <img src="../../assets/image/line1.png" alt="" class="line"> -->
+					<span class="title-text">投资行业</span>
+					<span class="add-icon" @click="()=>{isVisible=!isVisible}">&nbsp;+&nbsp;</span>
+					<br>
+					<el-tag
+					  v-if="true"
+					  v-for="tag in tags0"
+					  :key="tag.name"
+					  closable
+					  size="mini"
+					  :disable-transitions="false"
+					  @close="handleClose0(tag)"
+					  >
+					  {{tag}}
+					</el-tag>
+				</div>
+				
 				<div class="mechanism title4-box" @click="add_tag(2)">
 					<span class="title-text">偏好轮次</span>
 					<span class="add-icon" @click="()=>{isVisible1=!isVisible1}">&nbsp;+&nbsp;</span>
@@ -75,6 +94,16 @@
 				登录
 			</nut-button>
 		</div>
+		<nut-picker
+		  :is-visible="isVisible"
+		  title="请选择投资行业"
+		  :list-data="listData"
+		  :default-value-data="defaultValueData"
+		  @close="switchPicker('isVisible')"
+		  @confirm="setChooseValue"
+		  @choose="updateChooseValue"
+		  @close-update="closeUpdateChooseValue"
+		></nut-picker>
 		<nut-picker :is-visible="isVisible1" title="请选择偏好伦次" :list-data="listData1" :default-value-data="defaultValueData1"
 		 @close="switchPicker('isVisible1')" @confirm="setChooseValue1" @close-update="closeUpdateChooseValue"></nut-picker>
 
@@ -107,6 +136,10 @@
 				isVisible: false,
 				isVisible1: false,
 				tags: [], //第二个
+				tags0:[],  //第一个
+				data: {
+				  //二级
+				},
 				listData: [],
 				defaultValueData: null,
 				isVisible1: false,
@@ -132,16 +165,50 @@
 
 		},
 		beforeMount() {
-			this.$post("/api/getStage", {}).then(
-				res => {
-					// console.log(res.data);
-					this.listData1[0] = [];
-					for (let i = 0; i < res.data.length; i++) {
-						this.listData1[0].push(res.data[i].name);
-						this.lyIdList1.push(res.data[i].id);
-					}
+		  this.$post("/api/getLingyu").then(res => {
+		    this.listData[0] = [];
+		    for (let i = 0; i < res.data.length; i++) {
+		      this.listData[0].push(res.data[i].name);
+		      this.lyIdList0.push(res.data[i].id);
+			  // console.log(this.lyIdList0);
+		      //  console.log(res)
+		    }
+		    this.$post("/api/getLingyu", {
+		      parent_id: 1
+		    }).then(res2 => {
+		      // console.log("二级");
+		      let arr = res2.data;
+		      let arrlist = [];
+		      for (let j = 0; j < arr.length; j++) {
+		        arrlist.push(res2.data[j].name)
+				 // this.lyIdList0.push(res.data[i].id);;
+		        // console.log(this.data)
+		      }
+		      this.data[this.listData[0][0]] = arrlist;
+			  // console.log(this.data)
+			  this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
+		
+		      arrlist = [];
+		       // console.log(this.data)
+		    });
+		  });
+		  
+		 this.$post("/api/getStage",{
+		 }).then(
+		 	res =>{
+		 		// console.log(res.data);
+				this.listData1[0] = [];
+				for (let i = 0; i < res.data.length; i++) {
+				  this.listData1[0].push(res.data[i].name);
+				  this.lyIdList1.push(res.data[i].id);
+				  // console.log(this.lyIdList1);
+				  // this.lyIdList.push(res.data[i].id);
+				  // console.log(this.lyIdList1)
 				}
-			)
+		 	}
+		 )
+		  
+		  
 		},
 		mounted: function() {
 			this.description = this.$route.params.description;
@@ -214,6 +281,10 @@
 					this.getRightList(3)
 				});
 			},
+			// handleClose0(tag) {
+			// 	this.tags0.splice(this.tags0.indexOf(tag), 1);
+			// 	// console.log(this.tags0);
+			// },
 			handleClose(tag) {
 				this.tags.splice(this.tags.indexOf(tag), 1);
 			},
@@ -271,13 +342,14 @@
 				const isJPG = file.type === 'image/jpeg';
 				const isLt2M = file.size / 1024 / 1024 < 2;
 
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
-				}
+				// if (!isJPG) {
+				// 	this.$message.error('上传头像图片只能是 JPG 格式!');
+				// }
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
-				return isJPG && isLt2M;
+				return  isLt2M;
+				//isJPG &&
 			},
 			switchPicker(param) {
 				this.is_show = false;
@@ -288,6 +360,29 @@
 			getLY2(a, b) {},
 			switchPicker(param) {
 				this[`${param}`] = !this[`${param}`];
+			},
+			setChooseValue(chooseData) {
+				// console.log(chooseData)
+			  this.value = chooseData[0];
+			  this.city = `${chooseData[0]}-${chooseData[1]}${
+			    chooseData[2] ? "-" + chooseData[2] : ""
+			  }`;
+			  $(".title3-box").css('height','12vh');
+			  this.tags0.push(this.city);
+			  console.log(this.tags0);
+			  
+			  var step_2_val = chooseData[1];
+			  var step_2_list = JSON.parse(JSON.stringify(this.st_2_list.data));
+			  var indexId = '';
+			  for(var i in step_2_list){
+				  if(step_2_list[i]['name'] == step_2_val){
+					  indexId = step_2_list[i]['id']
+					  // console.log(step_2_list[i]['id'])
+					  break;
+				  }
+			  }
+			  this.selectJobId = indexId;	//选的行业id
+			  console.log(this.selectJobId);
 			},
 			setChooseValue1(chooseData) {
 				this.value1 = chooseData[0];

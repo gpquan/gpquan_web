@@ -22,6 +22,7 @@ import UserCenterA from './components/userCenter/userAll'
 import UserCenterSet from './components/userCenter/userSet'
 import UserSet_about_as from './components/userCenter/UserSet_about_as'
 import User_message from './components/userCenter/User_message'
+import User_details from './components/userCenter/User_details'
 
 import Login from './components/logins/login'
 import Sign from './components/logins/sign'
@@ -105,19 +106,6 @@ const router = new Router({
 					}
 				]
 			},
-			// {
-			// 	path: '/project',
-			// 	name: 'project',
-			// 	component: project,
-			// 	redirect: '/project/details',
-			// 	children: [
-			// 		{
-			// 			path: '/project/details',
-			// 			name: 'projectDetails',
-			// 			component: projectDetails,
-			// 		}
-			// 	]
-			// },
 			{
 				path: '/FA',
 				name: 'FA',
@@ -166,7 +154,15 @@ const router = new Router({
 							fshow: false
 						},
 						
-					}
+					},{
+						path:"/userCenter/User_details",
+						name: 'User_details',
+						component: User_details,
+						meta: {
+							fshow: false
+						},
+						
+					},
 				],
 				
 
@@ -233,7 +229,7 @@ const router = new Router({
 					}
 				},
 				{
-					path: '/accelerate/Manage/p/add', //添加机构
+					path: '/accelerate/Manage/p/add', //添加项目
 					name: 'ManageP_add',
 					component: ManageP_add,
 					meta: {

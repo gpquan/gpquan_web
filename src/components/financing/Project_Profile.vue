@@ -1,22 +1,5 @@
 <template>
-  <div class="personage" >
-        <div class="Project">
-          <nut-navbar @on-click-back="back"  @on-click-more="more" title="机构简介" >
-          <a slot="more-icon" @click="saveText()">保存</a>
-        </nut-navbar>
-          <div class="personageBox">
-            <textarea class="xmjs" placeholder="请输入机构简介" v-model="description"></textarea>
-          </div>
-        </div>
-   <!-- <div class="lightspotBox">
-         <nut-navbar @on-click-back="back"  @on-click-more="more" title="项目亮点" >
-          <a slot="more-icon" @click="saveText()">保存</a>
-        </nut-navbar>
-          <div class="personageBox">
-            <textarea class="xmjs" placeholder="请输入项目亮点" v-model="lightspot"></textarea>
-          </div>
-    </div> -->
-  </div>
+ 
 </template>
 
 <script>
@@ -33,7 +16,8 @@ export default {
     saveText() {
       // console.log("保存");
 		  this.rou_name = this.$route.params.rou_name;
-      this.$router.push({ name: this.rou_name,params: {description: this.description}});
+      // this.$router.push({ name: this.rou_name,params: {description: this.description}});
+			this.$router.go(-1)
 			// this.$router.push({ name: 'ManageP_add',params: {description: this.description}});
 
     },

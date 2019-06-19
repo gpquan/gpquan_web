@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="pageStep == 1">
 		<nut-navbar @on-click-back="back" @on-click-title="title" @on-click-more="more" :leftShow="true" :rightShow="false">添加机构</nut-navbar>
 		<div class="list-body">
 			<div class="list1">
@@ -10,7 +10,7 @@
 				<div class="up-image">
 					<span style="" class="list-left">上传图片</span>
 					<el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false"
-					 :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" style="text-align: right;">
+					 :on-success="handleAvatarSuccess" :on-progress="up_img" :before-upload="beforeAvatarUpload" :on-error="miss" style="text-align: right;">
 						<!-- <img v-else src="../../assets/image/up-image.jpg" alt="" class="up-img-icon"> -->
 						<div class="up-img-icon" style="height: 5vh;" :style="getImgUrl"></div>
 					</el-upload>
@@ -38,16 +38,8 @@
 				<span class="title-text">投资行业</span>
 				<span class="add-icon" @click="()=>{isVisible=!isVisible}">&nbsp;+&nbsp;</span>
 				<br>
-				<el-tag
-				  v-if="true"
-				  v-for="tag in tags0"
-				  :key="tag.name"
-				  closable
-				  size="mini"
-				  :disable-transitions="false"
-				  @close="handleClose0(tag)"
-				  >
-				  {{tag}}
+				<el-tag v-for="tag in tags0" :key="tag.name" closable size="mini" :disable-transitions="false" @close="handleClose0(tag)">
+					{{tag}}
 				</el-tag>
 			</div>
 			<div class="title4-box" @click="add_tag(2)">
@@ -55,17 +47,9 @@
 				<span class="title-text">偏好轮次</span>
 				<span class="add-icon" @click="()=>{isVisible1=!isVisible1}">&nbsp;+&nbsp;</span>
 				<br>
-					<el-tag
-					  v-if="true"
-					  v-for="tag in tags"
-					  :key="tag.name"
-					  closable
-					  size="mini"
-					  :disable-transitions="false"
-					  @close="handleClose(tag)"
-					  >
-					  {{tag}}
-					</el-tag>
+				<el-tag v-for="tag in tags" :key="tag.name" closable size="mini" :disable-transitions="false" @close="handleClose(tag)">
+					{{tag}}
+				</el-tag>
 			</div>
 		</div>
 		<div class="btn" @click="addOrgan_fun()">
@@ -76,178 +60,218 @@
 		<!-- <nut-picker :is-visible="is_show" :default-value-data="defaultValueData1" :list-data="listData0" @close="switchPicker('isVisible1')"
 		 @confirm="setYearValue">
 		</nut-picker> -->
-		<nut-picker
-		  :is-visible="isVisible"
-		  title="请选择投资行业"
-		  :list-data="listData"
-		  :default-value-data="defaultValueData"
-		  @close="switchPicker('isVisible')"
-		  @confirm="setChooseValue"
-		  @choose="updateChooseValue"
-		  @close-update="closeUpdateChooseValue"
-		></nut-picker>
-		<nut-picker
-		  :is-visible="isVisible1"
-		  title="请选择偏好伦次"
-		  :list-data="listData1"
-		  :default-value-data="defaultValueData1"
-		  @close="switchPicker('isVisible1')"
-		  @confirm="setChooseValue1"
-		  @close-update="closeUpdateChooseValue"
-		></nut-picker>
+		<nut-picker :is-visible="isVisible" title="请选择投资行业" :list-data="listData" :default-value-data="defaultValueData"
+		 @close="switchPicker('isVisible')" @confirm="setChooseValue" @choose="updateChooseValue" @close-update="closeUpdateChooseValue"></nut-picker>
+		<nut-picker :is-visible="isVisible1" title="请选择偏好伦次" :list-data="listData1" :default-value-data="defaultValueData1"
+		 @close="switchPicker('isVisible1')" @confirm="setChooseValue1" @close-update="closeUpdateChooseValue"></nut-picker>
 
 	</div>
+
+
+	<div class="personage" v-else>
+		<div class="Project">
+			<nut-navbar @on-click-back="back" @on-click-more="more" title="机构简介">
+				<a slot="more-icon" @click="saveText()">保存</a>
+			</nut-navbar>
+			<div class="personageBox">
+				<textarea class="xmjs" placeholder="请输入机构简介" v-model="editDescription"></textarea>
+			</div>
+		</div>
+		<!-- <div class="lightspotBox">
+	       <nut-navbar @on-click-back="back"  @on-click-more="more" title="项目亮点" >
+	        <a slot="more-icon" @click="saveText()">保存</a>
+	      </nut-navbar>
+	        <div class="personageBox">
+	          <textarea class="xmjs" placeholder="请输入项目亮点" v-model="lightspot"></textarea>
+	        </div>
+	  </div> -->
+	</div>
+
 </template>
 <script>
 	export default {
 		data() {
 			return {
+				pageStep: 1, //页面步骤
 				is_show: false,
-				name:'',     //机构名称
-				description:'请输入项目简介',   //机构简介
-				address:'',   //机构所在地
+				name: '', //机构名称
+				editDescription: '',
+				description: '请输入项目简介', //机构简介
+				address: '', //机构所在地
 				imageUrl: '',
 				date: null,
 				isVisible0: false,
 				city: null,
 				isVisible: false,
 				isVisible1: false,
-				tags:[
-					
-				],//第二个
-				tags0:[],  //第一个
+				tags: [
+
+				], //第二个
+				tags0: [], //第一个
 				data: {
-				  //二级
+					//二级
 				},
-				listData: [
-				],
+				listData: [],
 				defaultValueData: null,
 				isVisible1: false,
 				defaultValueData1: null,
 				list2: {},
 				value: null,
 				value1: null,
-				MaxList:'',
-				listData1:[],
-				lyIdList0:[],
-				lyIdList1:[], 
-				User_ChossStage:'',    //用户选择轮次id
-				st_2_list:'',
-				selectJobId:'',
-				headerIconImgBase64Data:'',//base64图片logo数据
-				rou_name:'ManageO_add',
+				MaxList: '',
+				listData1: [],
+				lyIdList0: [],
+				lyIdList1: [],
+				User_ChossStage: '', //用户选择轮次id
+				st_2_list: '',
+				selectJobId: [],
+				headerIconImgBase64Data: '', //base64图片logo数据
+				rou_name: 'ManageO_add',
+
+				status: null,
+				description: '', //机构简介
+				rou_name: '',
+				// lightspot:"",//亮点
 			};
 		},
-		computed:{
-			getImgUrl:function(){
-				return this.imageUrl ? 'background-image: url('+  this.imageUrl  +');' : '';
+		computed: {
+			getImgUrl: function() {
+				return this.imageUrl ? 'background-image: url(' + this.imageUrl + ');' : '';
 			}
 		},
 		created() {
-			
+
 			// console.log( this.listData)
 			// console.log( this.data)
-		  // this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
-		  // this.listData1 = [this.listData[0]];
-			
+			// this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
+			// this.listData1 = [this.listData[0]];
+
 		},
 		beforeMount() {
-		  this.$post("/api/getLingyu").then(res => {
-		    this.listData[0] = [];
-		    for (let i = 0; i < res.data.length; i++) {
-		      this.listData[0].push(res.data[i].name);
-		      this.lyIdList0.push(res.data[i].id);
-			  // console.log(this.lyIdList0);
-		      //  console.log(res)
-		    }
-		    this.$post("/api/getLingyu", {
-		      parent_id: 1
-		    }).then(res2 => {
-		      // console.log("二级");
-		      let arr = res2.data;
-		      let arrlist = [];
-		      for (let j = 0; j < arr.length; j++) {
-		        arrlist.push(res2.data[j].name)
-				 // this.lyIdList0.push(res.data[i].id);;
-		        // console.log(this.data)
-		      }
-		      this.data[this.listData[0][0]] = arrlist;
-			  // console.log(this.data)
-			  this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
-
-		      arrlist = [];
-		       // console.log(this.data)
-		    });
-		  });
-		  
-		 this.$post("/api/getStage",{
-		 }).then(
-		 	res =>{
-		 		// console.log(res.data);
-				this.listData1[0] = [];
+			this.$post("/api/getLingyu").then(res => {
+				this.listData[0] = [];
 				for (let i = 0; i < res.data.length; i++) {
-				  this.listData1[0].push(res.data[i].name);
-				  this.lyIdList1.push(res.data[i].id);
-				  // console.log(this.lyIdList1);
-				  // this.lyIdList.push(res.data[i].id);
-				  // console.log(this.lyIdList1)
+					this.listData[0].push(res.data[i].name);
+					this.lyIdList0.push(res.data[i].id);
+					// console.log(this.lyIdList0);
+					//  console.log(res)
 				}
-		 	}
-		 )
-		  
-		  
+				this.$post("/api/getLingyu", {
+					parent_id: 1
+				}).then(res2 => {
+					// console.log("二级");
+					let arr = res2.data;
+					let arrlist = [];
+					for (let j = 0; j < arr.length; j++) {
+						arrlist.push(res2.data[j].name)
+						// this.lyIdList0.push(res.data[i].id);;
+						// console.log(this.data)
+					}
+					this.data[this.listData[0][0]] = arrlist;
+					// console.log(this.data)
+					this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
+
+					arrlist = [];
+					// console.log(this.data)
+				});
+			});
+
+			this.$post("/api/getStage", {}).then(
+				res => {
+					// console.log(res.data);
+					this.listData1[0] = [];
+					for (let i = 0; i < res.data.length; i++) {
+						this.listData1[0].push(res.data[i].name);
+						this.lyIdList1.push(res.data[i].id);
+						// console.log(this.lyIdList1);
+						// this.lyIdList.push(res.data[i].id);
+						// console.log(this.lyIdList1)
+					}
+				}
+			)
+
+
 		},
-		mounted: function () {
-		  // console.log(this.$route.params.description);
-		  this.description = this.$route.params.description;
+		mounted: function() {
+			// console.log(this.$route.params.description);
+			this.description = this.$route.params.description;
 		},
 
 		methods: {
 			//图片转base65
-			imgToBase64(url){
+			imgToBase64(url) {
 				var baseData = "";
 				var _this = this;
-			    this.convertImgToBase64(url, function(base64Img){
-				//转化后的base64
+				this.convertImgToBase64(url, function(base64Img) {
+					//转化后的base64
 					_this.headerIconImgBase64Data = base64Img;
 					// console.log(_this.headerIconImgBase64Data)
-			    },'base64');      
+				}, 'base64');
 				// 发起异步读取文件请求，读取结果为data:url的字符串形式，
 				// return baseData
 			},
 			//实现将项目的图片转化成base64
-			convertImgToBase64 (url, callback, outputFormat){
-			   var canvas = document.createElement('CANVAS'),
-			　　ctx = canvas.getContext('2d'),
-			　　img = new Image;
-			　　img.crossOrigin = 'Anonymous';
-			　　img.onload = function(){
-				　　canvas.height = img.height;
-				　　canvas.width = img.width;
-				　　ctx.drawImage(img,0,0);
-				　　var dataURL = canvas.toDataURL('image/jpeg' || 'image/png');
-				　　callback.call(this, dataURL);
-				　　canvas = null; 
+			convertImgToBase64(url, callback, outputFormat) {
+				var canvas = document.createElement('CANVAS'),
+					ctx = canvas.getContext('2d'),
+					img = new Image;
+				img.crossOrigin = 'Anonymous';
+				img.onload = function() {
+					canvas.height = img.height;
+					canvas.width = img.width;
+					ctx.drawImage(img, 0, 0);
+					var dataURL = canvas.toDataURL('image/jpeg' || 'image/png');
+					callback.call(this, dataURL);
+					canvas = null;
 				};
-			　　img.src = url;
-			},    
-			
-			addOrgan_fun(){
-				this.$post("/api/addOrgan", {
-				  img: this.headerIconImgBase64Data,
-				  name:this.name,
-				  address:this.address,
-				  description:this.description,
-				  lingyu_id:this.selectJobId,
-				  stage_id:this.User_ChossStage
-				}).then(res => {
-				  // console.log(res);
-				  for (let i = 0; i < res.data.length; i++) {
-				    res.data[i].tjcode = false;
-				  }
-				  this.leftList = res.data;
-				  this.getRightList(3)
-				});
+				img.src = url;
+			},
+
+			addOrgan_fun() {
+				if(this.headerIconImgBase64Data == ''){
+					this.$message.error('图片不能为空');
+				}else if(this.name == ""){
+					this.$message.error('名称不能为空');
+				}else if(this.address == ""){
+					this.$message.error('地址不能为空');
+				}else if(this.editDescription == ""){
+					this.$message.error('描述不能为空');
+				}else if(this.description == ""){
+					this.$message.error('描述不能为空');
+				}else if(this.selectJobId == ""){
+					this.$message.error('投资行业不能为空');
+				}else if(this.User_ChossStage == ""){
+					this.$message.error('偏好轮次不能为空');
+				}else{
+					var basic = this.User_ChossStage 
+					basic = basic.substring(0, basic.lastIndexOf(','));  
+					var basic1 = this.selectJobId
+					basic1 = basic1.substring(0, basic1.lastIndexOf(','));  
+					this.$post("/api/addOrgan", {
+						img: this.headerIconImgBase64Data,
+						name: this.name,
+						address: this.address,
+						description: this.description,
+						lingyu_id: basic1,
+						stage_id: basic,
+					}).then(res => {
+						// console.log(res);
+						// for (let i = 0; i < res.data.length; i++) {
+						//   res.data[i].tjcode = false;
+						// }
+						// this.leftList = res.data;
+						// this.getRightList(3)
+						console.log(basic1);
+						console.log(basic);
+
+					});
+				}
+				console.log(this.headerIconImgBase64Data);
+				console.log(this.name)
+				console.log(this.address)
+				console.log(this.description)
+				console.log(this.selectJobId)
+				console.log(this.User_ChossStage)
 			},
 			handleClose0(tag) {
 				this.tags0.splice(this.tags0.indexOf(tag), 1);
@@ -257,18 +281,33 @@
 				this.tags.splice(this.tags.indexOf(tag), 1);
 				// console.log(this.tags);
 			},
-			getlist(){
-				this.$post("/api/getProjectInvestProgress",{
-					save_text :this.textarea,
-					current_tip_id:this.current_tip_id,
+			saveText() {
+				this.description = this.editDescription;
+				this.pageStep = 1;
+			},
+			back() {
+				this.pageStep = 1;
+				// this.$router.back();
+			},
+			title() {
+				// alert('header头部， 点击title')
+			},
+
+			more() {
+				// alert('header头部， 点击更多')
+			},
+			getlist() {
+				this.$post("/api/getProjectInvestProgress", {
+					save_text: this.textarea,
+					current_tip_id: this.current_tip_id,
 				}).then(
-					res =>{
-						if(res.status == 'success'){
+					res => {
+						if (res.status == 'success') {
 							alert("成功");
 							this.showPop(2);
 							this.getDetails();
-							
-						}else{
+
+						} else {
 							this.sta = true;
 							this.textarea = '';
 							alert(res.error.message);
@@ -277,14 +316,23 @@
 					}
 				)
 			},
-			getlist_picker_lingyu(){    //获取领域接口
-				
+			getlist_picker_lingyu() { //获取领域接口
+
 			},
 			gopersonage() {
-			  //项目简介
-			  this.$router.push({
-			  	name: "Project_Profile",params: {rou_name: this.rou_name}
-			  });
+				// beforeRouteLeave (to, from, next){
+				// 	to.meta.keepAlive = true;
+				// 	if(this.reload){
+				// 	to.meta.keepAlive = false;
+				// 	}
+				// 	next();
+				// }
+
+				//项目简介
+				// this.$router.push({
+				// 	name: "Project_Profile",params: {rou_name: this.rou_name}
+				// });
+				this.pageStep = 2;
 			},
 			back() {
 				alert('header头部， 点击返回')
@@ -297,20 +345,34 @@
 			},
 			handleAvatarSuccess(res, file) {
 				this.imageUrl = URL.createObjectURL(file.raw);
-				
+
 				this.imgToBase64(this.imageUrl);
+				this.$message({
+					message: '上传成功',
+					type: 'success'
+				});
+			},
+			miss(){
+				this.$message.error('上传失败');
+			},
+			up_img(){
+				// this.$message({
+				// 	message: '正在上传',
+				// 	type: 'success'
+				// });
 			},
 			beforeAvatarUpload(file) {
-				const isJPG = file.type === 'image/jpeg';
+				const isJPG = file.type === /^image\/(jpeg|png|jpg)$/;
 				const isLt2M = file.size / 1024 / 1024 < 2;
 
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
-				}
+				// if (!isJPG) {
+				// 	this.$message.error('上传格式不正确');
+				// }
 				if (!isLt2M) {
-					this.$message.error('上传头像图片大小不能超过 2MB!');
+					this.$message.error('上传图片大小不能超过 2MB!');
 				}
-				return isJPG && isLt2M;
+				return isLt2M;
+				// isJPG &&
 			},
 			add_tag(val) {
 				if (val == 1) {
@@ -330,99 +392,101 @@
 			},
 			getLY2(a, b) {},
 			switchPicker(param) {
-			  this[`${param}`] = !this[`${param}`];
+				this[`${param}`] = !this[`${param}`];
 			},
 			setChooseValue(chooseData) {
 				// console.log(chooseData)
-			  this.value = chooseData[0];
-			  this.city = `${chooseData[0]}-${chooseData[1]}${
+				this.value = chooseData[0];
+				this.city = `${chooseData[0]}-${chooseData[1]}${
 			    chooseData[2] ? "-" + chooseData[2] : ""
 			  }`;
-			  $(".title3-box").css('height','12vh');
-			  this.tags0.push(this.city);
-			  // console.log(this.tags0);
-			  
-			  var step_2_val = chooseData[1];
-			  var step_2_list = JSON.parse(JSON.stringify(this.st_2_list.data));
-			  var indexId = '';
-			  for(var i in step_2_list){
-				  if(step_2_list[i]['name'] == step_2_val){
-					  indexId = step_2_list[i]['id']
-					  // console.log(step_2_list[i]['id'])
-					  break;
-				  }
-			  }
-			  this.selectJobId = indexId;	//选的行业id
-			  console.log(this.selectJobId);
+				$(".title3-box").css('height', '12vh');
+				this.tags0.push(this.city);
+				// console.log(this.tags0);
+
+				var step_2_val = chooseData[1];
+				var step_2_list = JSON.parse(JSON.stringify(this.st_2_list.data));
+				var indexId = '';
+				for (var i in step_2_list) {
+					if (step_2_list[i]['name'] == step_2_val) {
+						indexId = step_2_list[i]['id']
+						// console.log(step_2_list[i]['id'])
+						break;
+					}
+				}
+				this.selectJobId += indexId + ','; //选的行业id
+
+				// this.selectJobId.push(indexId);
+				console.log(this.selectJobId);
 			},
-			setChooseValue1(chooseData){
+			setChooseValue1(chooseData) {
 				this.value1 = chooseData[0];
 				// this.tag = true;
 				// alert(this.value);
-				$(".title4-box").css('height','12vh');
+				$(".title4-box").css('height', '12vh');
 				// var aaa = this.value1.id
 				this.tags.push(this.value1);
 				// console.log(this.tags);
 				// console.log(this.tags);
 				// var aaa = this.value.indexOf(tags);
 				// console.log(aaa);
-				this.User_ChossStage = this.listData1[0].indexOf(this.value1);
+				this.User_ChossStage += this.listData1[0].indexOf(this.value1) + ',';
 				console.log(this.User_ChossStage);
 			},
 			updateLinkage(self, value, index, chooseValue, cacheValueData, a, b) {
-			  // console.log(a),console.log(b)
-			
-			  let num = this.listData[0].indexOf(value);
-			  let val = this.listData[0][num];
-			  // console.log(this.data[val]);
-			  if (!value) {
-			    return false;
-			  }
-			  switch (index) {
-			    case 1:
-			      let i = this.listData[0].indexOf(value);
-			      if (this.data[this.listData[0][i]]) {
-			        this.listData.splice(index, 1, [...this.data[this.listData[0][i]]]);
-			      }
-			      chooseValue = chooseValue ? chooseValue : this.listData[index][0];
-			      self && self.updateChooseValue(self, index, chooseValue);
-			      break;
-			  }
-			  this.$forceUpdate();
+				// console.log(a),console.log(b)
+
+				let num = this.listData[0].indexOf(value);
+				let val = this.listData[0][num];
+				// console.log(this.data[val]);
+				if (!value) {
+					return false;
+				}
+				switch (index) {
+					case 1:
+						let i = this.listData[0].indexOf(value);
+						if (this.data[this.listData[0][i]]) {
+							this.listData.splice(index, 1, [...this.data[this.listData[0][i]]]);
+						}
+						chooseValue = chooseValue ? chooseValue : this.listData[index][0];
+						self && self.updateChooseValue(self, index, chooseValue);
+						break;
+				}
+				this.$forceUpdate();
 			},
-			
+
 			updateChooseValue(self, index, value, cacheValueData) {
 				// console.log(this.listData[0]);
-			  let a = this.listData[0].indexOf(value);
-			  // console.log( this.lyIdList)
-			  let b = this.lyIdList0[a];
-			// console.log(cacheValueData)
-			  this.$post("/api/getLingyu", {
-			    parent_id: b
-			  }).then(res2 => {
-				  // console.log(res2)
-			    let arr = res2.data;
-			    let list2 = {};
-			    let arrlist = [];
-			    for (let j = 0; j < arr.length; j++) {
-			      arrlist.push(res2.data[j].name);
-			      list2 = [];
-			    }
-				if(index == 0){
-					this.st_2_list = JSON.parse(JSON.stringify(res2));
-				}
-			    this.data[this.listData[0][a]] = arrlist;
-			    //  this.updateChooseValue(self, index, chooseValue)
-			    this.$forceUpdate()
-			    arrlist = [];
-			    index < 1 && this.updateLinkage(self, value, index + 1, null, a, b);
-			  });
-			  //  setTimeout(()=>{
-			
-			  //  },300)
+				let a = this.listData[0].indexOf(value);
+				// console.log( this.lyIdList)
+				let b = this.lyIdList0[a];
+				// console.log(cacheValueData)
+				this.$post("/api/getLingyu", {
+					parent_id: b
+				}).then(res2 => {
+					console.log(res2)
+					let arr = res2.data;
+					let list2 = {};
+					let arrlist = [];
+					for (let j = 0; j < arr.length; j++) {
+						arrlist.push(res2.data[j].name);
+						list2 = [];
+					}
+					if (index == 0) {
+						this.st_2_list = JSON.parse(JSON.stringify(res2));
+					}
+					this.data[this.listData[0][a]] = arrlist;
+					//  this.updateChooseValue(self, index, chooseValue)
+					this.$forceUpdate()
+					arrlist = [];
+					index < 1 && this.updateLinkage(self, value, index + 1, null, a, b);
+				});
+				//  setTimeout(()=>{
+
+				//  },300)
 			},
 			closeUpdateChooseValue(self, chooseData) {
-			  this.updateLinkage(self, chooseData[0], 1, chooseData[1], chooseData);
+				this.updateLinkage(self, chooseData[0], 1, chooseData[1], chooseData);
 			}
 
 
@@ -434,14 +498,20 @@
 	/deep/.nut-button.block {
 		width: 80%;
 	}
-	/deep/.nut-cell-right>.nut-cell-desc{
-		overflow: hidden; 
-        text-overflow: ellipsis; 
-        -o-text-overflow: ellipsis;
-        white-space:nowrap;	
+
+	/deep/.nut-cell-right>.nut-cell-desc {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		-o-text-overflow: ellipsis;
+		white-space: nowrap;
 		display: inline-block;
 		width: 60vw;
 	}
+
+	/deep/.el-tag--mini {
+		margin: 0 0 5px 0;
+	}
+
 	/deep/.nut-button {
 		background: red;
 	}
@@ -552,7 +622,7 @@
 		margin-top: 3%;
 		padding-left: 3%;
 		border-bottom: 1px solid #efefef;
-		height: 8vh;
+		min-height: 8vh;
 		background: #fff;
 	}
 
@@ -572,9 +642,11 @@
 		width: 100%;
 		height: 80vh;
 	}
-	.avatar-uploader{
+
+	.avatar-uploader {
 		text-align: left;
 	}
+
 	.avatar-uploader .el-upload {
 		border: 1px dashed #d9d9d9;
 		border-radius: 6px;
@@ -600,8 +672,49 @@
 		width: 20%;
 		display: block;
 	}
-	/deep/.nut-textinput .nut-textinput-clear{
+
+	/deep/.nut-textinput .nut-textinput-clear {
 		top: inherit;
 		transform: translateY(-70%);
+	}
+
+	.personage {
+		height: 100%;
+	}
+
+	.personageBox {
+		// padding: 30px 5% 0;
+		height: 100%;
+		background: #fff;
+		margin-top: 13px;
+	}
+
+	.top_line {
+		padding: 0 5%;
+		width: 90%;
+		height: 1px;
+		background: rgba(102, 102, 102, 1);
+		opacity: 0.15;
+	}
+
+	/deep/.nut-textinput input {
+		text-align: right;
+		// padding-right: 0;
+	}
+
+	.xmjs {
+		height: 45%;
+		width: 90%;
+		border: none;
+		border-bottom: 1px solid #ccc;
+		padding-left: 0;
+		resize: none;
+		margin-left: 5%;
+		padding-top: 5%;
+	}
+
+	.lightspotBox,
+	.Project {
+		height: 100%;
 	}
 </style>
