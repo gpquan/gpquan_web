@@ -7,6 +7,9 @@
       <ManageList :ListData="ListData"/>
       <ManageList :ListData="ListData"/>
       <ManageList :ListData="ListData"/>-->
+			<div class="add_btn" @click="push_route">
+				<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
+			</div>
     </div>
     <nut-backtop></nut-backtop>
   </div>
@@ -60,6 +63,9 @@ export default {
     );
   },
   methods: {
+		push_route(){
+			this.$router.push({path:"/accelerate/Manage/p/add"})
+		},
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
@@ -77,6 +83,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.add_btn{
+		background-image: url("../../assets/image/add_bth.png");
+		width: 30px;
+		height: 30px;
+		background-size: 100%;
+		position: fixed;
+		right: 5%;
+		bottom: 10%;
+	}
 .List_gather {
   display: flex;
   flex-direction: row;

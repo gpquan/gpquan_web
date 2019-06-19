@@ -186,12 +186,12 @@ export default {
   },
   created() {
     // organId
-		let id = this.$route.query.id;
-		// console.log(id);
-    this.$fetch("/api/getOrganDetail/"+id).then(res => {
-      if (res.status == "success") this.ListData = res.data;
-      console.log(this.ListData);
-    });
+		// let id = this.$route.query.id;
+		// // console.log(id);
+  //   this.$fetch("/api/getOrganDetail/"+id).then(res => {
+  //     if (res.status == "success") this.ListData = res.data;
+  //     console.log(this.ListData);
+  //   });
   },
   methods: {
     back(){
