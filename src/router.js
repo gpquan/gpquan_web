@@ -34,16 +34,17 @@ import ManageA from '@/components/financing/ManageA'
 import ManageA_details from '@/components/financing/ManageA_details'
 import Organ from '@/components/organ/organ'
 import OrganDetails from '@/components/organ/organdetails'
+
+
 import Demo from '@/components/project/demo'
 import ManageO_add from '@/components/financing/ManageO_add'
+import ManageP_add from '@/components/financing/ManageP_add'
 import Project_Profile from '@/components/financing/Project_Profile'  //项目简介点击进入页面
 import Recommend from '@/components/recommend/Recommend' // fa
 import Manage2 from '@/components/manage2/manage2'
 import Manage_ListC from '@/components/manage2/Manage_ListC'
 import Manage_ListO from '@/components/manage2/Manage_ListO'
 import Manage_ListFA from '@/components/manage2/Manage_ListFA'
-import Speed from '@/components/manage2/Speed'
-import SpeedHome from '@/components/manage2/SpeedHome'
 Vue.use(Router)
 
 const router = new Router({
@@ -104,6 +105,19 @@ const router = new Router({
 					}
 				]
 			},
+			// {
+			// 	path: '/project',
+			// 	name: 'project',
+			// 	component: project,
+			// 	redirect: '/project/details',
+			// 	children: [
+			// 		{
+			// 			path: '/project/details',
+			// 			name: 'projectDetails',
+			// 			component: projectDetails,
+			// 		}
+			// 	]
+			// },
 			{
 				path: '/FA',
 				name: 'FA',
@@ -218,26 +232,23 @@ const router = new Router({
 
 					}
 				},
+				{
+					path: '/accelerate/Manage/p/add', //添加机构
+					name: 'ManageP_add',
+					component: ManageP_add,
+					meta: {
+				
+					}
+				},
 				]
 			},
 			{
-				path: '/speed',
-				name: 'speed',
-				component: Speed,
-				redirect:'/speed/home',
+				path: '/recommend',
+				name: 'recommend',
+				component: Recommend,
 				meta: {
 					fshow: true
-				},
-				children:[
-					{
-						path:'/speed/home',
-						name: 'Speedhome',
-						component: SpeedHome,
-						meta: {
-							fshow: true
-						},
-					}
-				]
+				}
 
 			}, {
 				path: '/Manage2',
@@ -289,9 +300,9 @@ const router = new Router({
 	]
 })
 router.beforeEach((to, from, next) => {
-	// console.log(to)
+	console.log(to)
 	if (!JSON.parse(sessionStorage.getItem("userInfo"))) {
-		// console.log("未登录")
+		console.log("未登录")
 		if (to.name == 'log') {
 			next()
 		} else {
@@ -302,7 +313,7 @@ router.beforeEach((to, from, next) => {
 		}
 	} else {
 		if ((to.name == 'ManageO'||to.name == 'home')) {
-			// console.log(JSON.parse(sessionStorage.getItem("userInfo")).role)
+			console.log(JSON.parse(sessionStorage.getItem("userInfo")).role)
 			if (JSON.parse(sessionStorage.getItem("userInfo")).role == 1&&(to.name == 'ManageO'||to.name == 'home')) {
 				next()
 			} else if(JSON.parse(sessionStorage.getItem("userInfo")).role == 2&&(to.name == 'ManageO'||to.name == 'home')){
@@ -316,7 +327,7 @@ router.beforeEach((to, from, next) => {
 			next()
 		}
 		
-		// console.log("已登录")
+		console.log("已登录")
 	}
 })
 router.afterEach((to, from, next) => {
