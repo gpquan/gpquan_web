@@ -228,6 +228,7 @@
 			},
 
 			addOrgan_fun() {
+				console.log(this.headerIconImgBase64Data);
 				if(this.headerIconImgBase64Data == ''){
 					this.$message.error('图片不能为空');
 				}else if(this.name == ""){
@@ -247,6 +248,8 @@
 					basic = basic.substring(0, basic.lastIndexOf(','));  
 					var basic1 = this.selectJobId
 					basic1 = basic1.substring(0, basic1.lastIndexOf(','));  
+					// basic1 = parseInt(basic1);
+					// basic = parseInt(basic);
 					this.$post("/api/addOrgan", {
 						img: this.headerIconImgBase64Data,
 						name: this.name,
@@ -262,7 +265,7 @@
 						// this.leftList = res.data;
 						// this.getRightList(3)
 						console.log(basic1);
-						console.log(basic);
+						console.log(res);
 
 					});
 				}
@@ -286,8 +289,12 @@
 				this.pageStep = 1;
 			},
 			back() {
-				this.pageStep = 1;
-				// this.$router.back();
+				if(this.pageStep == 2){
+					this.description = this.editDescription;
+					this.pageStep = 1;
+				}else{
+					this.$router.go(-1);
+				}
 			},
 			title() {
 				// alert('header头部， 点击title')
@@ -333,9 +340,6 @@
 				// 	name: "Project_Profile",params: {rou_name: this.rou_name}
 				// });
 				this.pageStep = 2;
-			},
-			back() {
-				alert('header头部， 点击返回')
 			},
 			title() {
 				alert('header头部， 点击title')
@@ -506,6 +510,7 @@
 		white-space: nowrap;
 		display: inline-block;
 		width: 60vw;
+		text-align: right;
 	}
 
 	/deep/.el-tag--mini {
