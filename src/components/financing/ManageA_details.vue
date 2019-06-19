@@ -13,7 +13,7 @@
 				<div class="head_card_left">
 					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;" @click="Jump_organ(progressObj.organ_id)"></p>
 					<p v-text="progressObj.description" class="pro_msg"></p>
-					<p style="margin-top:2vmin;color: #fff;margin-bottom:2vmin;">行业轮次：{{progressObj.name}}</p>
+					<p style="margin-top:1vmin;color: #fff;margin-bottom:1vmin;">行业轮次：{{progressObj.name}}</p>
 					<nut-button
 					  type="actived"
 					  shape="circle"
@@ -22,7 +22,7 @@
 					  :color="colorList[ind]"
 					  :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
 					>{{item.name}}</nut-button>
-					<p v-if="pageType == 0" style="margin-top: 2vmin;color: #fff;">佣金比例：{{progressObj.yongjin}}%</p>
+					<p v-if="pageType == 0" style="margin-top: 1vmin;color: #fff;">佣金比例：{{progressObj.yongjin}}%</p>
 				</div>
 				
 			</div>
@@ -107,7 +107,7 @@
 				this.$router.push({
 					path: "/organ/details",
 					query: {
-					id:Oid
+						id:Oid
 					}
 				});
 			},
@@ -198,7 +198,7 @@
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		margin-top:2vmin;
+		margin-top:1vmin;
 		font-size: 15px;
 		color: #fff;
 	}
@@ -413,7 +413,7 @@
 	#btn {
 		background: rgba(0, 0, 0, 0) !important;
 		position: relative;
-		left: 54vw;
+		left: 48vw;
 		height: 25px;
 		top: 3vh;
 	}
@@ -437,7 +437,7 @@
 		height: 10vh;
 		width: 10vh;
 		position: relative;
-		left: 5vh;
+		left: 5vw;
 		top: 5vh;
 		display: inline-block;
 
@@ -448,7 +448,7 @@
 		background-size: 100% 100%;
 		width: 98vw;
 		margin: 0 auto;
-		height: 30vh;
+		min-height: 28vh;
 	}
 	
 	.head_card_title {
