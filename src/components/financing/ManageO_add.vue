@@ -54,7 +54,7 @@
 		</div>
 		<div class="btn" @click="addOrgan_fun()">
 			<nut-button block shape="circle">
-				登录
+				提交审核
 			</nut-button>
 		</div>
 		<!-- <nut-picker :is-visible="is_show" :default-value-data="defaultValueData1" :list-data="listData0" @close="switchPicker('isVisible1')"
@@ -531,7 +531,7 @@
 	}
 
 	/deep/.nut-button {
-		background: red;
+		background: #1CC6BB;
 	}
 
 	/deep/.nut-navbar {

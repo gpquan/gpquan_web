@@ -84,7 +84,7 @@
 		</div>
 		<div class="btn" @click="addOrgan_fun()">
 			<nut-button block shape="circle">
-				登录
+				提交审核
 			</nut-button>
 		</div>
 
@@ -566,7 +566,7 @@
 	}
 
 	/deep/.nut-button {
-		background: red;
+		background: #1CC6BB;
 	}
 
 	/deep/.nut-navbar {
