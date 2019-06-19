@@ -87,7 +87,10 @@ const router = new Router({
 					{
 						path: '/project/personage',
 						name: 'personage',
-						component: ProjectPersonage
+						component: ProjectPersonage,
+						meta:{
+							keep:'bz'
+						}
 					},
 
 				]

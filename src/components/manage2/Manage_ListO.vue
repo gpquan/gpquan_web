@@ -29,7 +29,7 @@
           </dt>
           <dd>
             <div>
-              <span class="name">{{item.name}}</span>
+              <span class="name" @click="Jump_Odetails(item)">{{item.name}}</span>
             </div>
             <div>
               <span class="hide">简介:{{item.description}}</span>
@@ -67,7 +67,11 @@ export default {
     });
   },
   methods: {
-    getList() {}
+    getList() {},
+    Jump_Odetails(item){
+      console.log(item.organ_id)
+      this.$router.push({path:'/organ/details',query:{id:item.organ_id}})
+    }
   }
 };
 </script>
@@ -173,8 +177,8 @@ export default {
   }
 }
 .name {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   color: #333;
   line-height: 5vh;
 }

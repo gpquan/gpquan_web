@@ -23,10 +23,10 @@
           <!-- <div class="introBox">
             <div class="intro" :title="textjj">{{}}</div>
           </div> -->
-          <div class="List_downsize">
+          <!-- <div class="List_downsize">
             投资机构：
             <span>{{}}</span>
-          </div>
+          </div> -->
           <!-- <div class="List_downsize">
             <span>{{item.lingyu_name}}</span>|电子商务
             <span>Pre-A</span>|

@@ -1,5 +1,10 @@
 <template>
-        <router-view ></router-view >
+       <div>
+            <!-- <keep-alive v-if="$route.meta.keep!='bz'">
+            <router-view ></router-view >
+        </keep-alive> -->
+         <router-view ></router-view >
+       </div>
 </template>
 
 <script>
