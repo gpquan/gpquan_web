@@ -20,6 +20,8 @@ import FA from './components/FA/FA'
 import UserCenter from './components/userCenter/user'
 import UserCenterA from './components/userCenter/userAll'
 import UserCenterSet from './components/userCenter/userSet'
+import UserSet_about_as from './components/userCenter/UserSet_about_as'
+import User_message from './components/userCenter/User_message'
 
 import Login from './components/logins/login'
 import Sign from './components/logins/sign'
@@ -132,8 +134,24 @@ const router = new Router({
 						name: 'userset',
 						component: UserCenterSet,
 						meta: {
-							fshow: true
+							fshow: false
 						},
+					},{
+						path:"/userCenter/Set_about",
+						name: 'UserSet_about_as',
+						component: UserSet_about_as,
+						meta: {
+							fshow: false
+						},
+						
+					},{
+						path:"/userCenter/User_message",
+						name: 'User_message',
+						component: User_message,
+						meta: {
+							fshow: false
+						},
+						
 					}
 				],
 				

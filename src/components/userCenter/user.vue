@@ -27,7 +27,7 @@
             <i class="lxr"></i>
             <p>联系人资料</p>
           </div>
-          <div>
+          <div class="message" @click="message_show">
             <i class="xx_icon">
               <em class="xxnum">999</em>
             </i>
@@ -101,7 +101,12 @@ export default {
   beforeMount() {
     this.isURL = true;
     console.log(this.isURL);
-  }
+  },
+	methods: {
+		message_show() {
+			this.$router.push({ name: "User_message"});
+		}
+	},
 };
 </script>
 
