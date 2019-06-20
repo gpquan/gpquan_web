@@ -3,7 +3,7 @@
     <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details(item)">
       <span class="item_status" v-if="item.name">
         <img src="../../assets/image/listItem_status.png" alt>
-        <em class="item_status_text hide1">{{item.name}}</em>
+        <em class="item_status_text hide1">红杉资本</em>
       </span>
       <dl class="List_item">
         <dt class="img">

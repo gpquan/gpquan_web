@@ -172,11 +172,13 @@ export default {
     background: url("../../assets/image/jztj_ACT.png") no-repeat center 5px;
     background-size: 33px;
   }
-  strong.xmjsActive{
-
-  }
   .view-li-xmjs{
-
+      background: url("../../assets/image/js.png") no-repeat center 5px;
+    background-size: 33px;
+  }
+    strong.xmjsActive{
+      background: url("../../assets/image/js.png") no-repeat center 5px;
+    background-size: 33px;
   }
 }
 .ff {

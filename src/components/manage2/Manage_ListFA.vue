@@ -240,6 +240,10 @@ export default {
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
+  .left{
+    display: flex;
+    align-items: center;
+  }
   //   .nut-button,
   //   .primary {
   //     background-image: url("../../assets/image/btn.png");
@@ -282,7 +286,7 @@ export default {
   padding: 10px;
   span {
     position: absolute;
-    top: 7%;
+    top: 0%;
     width: 80%;
     height: 80%;
     display: flex;
