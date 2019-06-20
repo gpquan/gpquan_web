@@ -60,7 +60,7 @@ export default {
 
     // console.log()
     this.$post("/api/getUserOrganList", {
-      userId: 4,
+      userId: userId,
       page: "1"
     }).then(res => {
       this.dataList = res.data;
@@ -73,8 +73,8 @@ export default {
       this.$router.push({path:'/organ/details',query:{id:item.organ_id}})
     },
     Jump_card(item){
-        let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-      this.$router.push({path:'/accelerate/Manage/a/details',query:{id:item.organ_id,type:1,userId:userId}})
+        // let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      this.$router.push({path:'/accelerate/Manage/a/details',query:{id:item.organ_id,type:1,userId:item.user_id}})
     }
   }
 };
