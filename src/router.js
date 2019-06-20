@@ -320,9 +320,9 @@ const router = new Router({
 	]
 })
 router.beforeEach((to, from, next) => {
-	console.log(to)
+	// console.log(to)
 	if (!JSON.parse(sessionStorage.getItem("userInfo"))) {
-		console.log("未登录")
+		// console.log("未登录")
 		if (to.name == 'log') {
 			next()
 		} else {
@@ -347,7 +347,7 @@ router.beforeEach((to, from, next) => {
 			next()
 		}
 		
-		console.log("已登录")
+		// console.log("已登录")
 	}
 })
 router.afterEach((to, from, next) => {

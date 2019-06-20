@@ -634,7 +634,7 @@ export default {
   justify-content: center;
   align-items: center;
   img {
-    margin-bottom: 30%;
+    margin-bottom: 20%;
     z-index: 9;
   }
 }

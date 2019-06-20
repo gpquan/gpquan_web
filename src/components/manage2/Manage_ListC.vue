@@ -77,6 +77,9 @@ export default {
     this.getList();
   },
   methods: {
+    push_route(){
+			this.$router.push({path:"/project/addProject"})
+		},
     Jump_details(item){
       console.log(item)
       this.$router.push({

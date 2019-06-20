@@ -52,8 +52,10 @@ export default {
       flag1: true,
       flag2: false,
       flag3: false,
-      footerShow: null
+      footerShow: null,
       //  2 1 3 2
+      LiksList:['/Manage2','/Speed','/userCenter'],
+      LiksList2:['/project','/accelerate','/userCenter']
     };
   },
   beforeMount(){
@@ -92,7 +94,18 @@ export default {
 
   },
   watch: {
-    $route(n, o) {
+    $route(to, from) {
+      // for(let i;i<this.LiksList.length;i++){
+       if( this.LiksList.indexOf(to.path)!=-1){
+         let num =this.LiksList.indexOf(to.path)
+         console.log(num)
+         this.tagToggle(num)
+       }else if(this.LiksList2.indexOf(to.path)!=-1){
+        let num =this.LiksList2.indexOf(to.path)
+        console.log(num)
+         this.tagToggle(num)
+       }
+      // }
     }
   }
 };

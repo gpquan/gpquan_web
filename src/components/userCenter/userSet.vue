@@ -42,6 +42,7 @@
 			//清空缓存
 			clear_msg(){
 				sessionStorage.removeItem('userInfo');
+				this.$router.go(-1)
 				console.log("clear");
 			},
 			rou_change(){
@@ -68,7 +69,9 @@
 					  // alert("will close");  //对话框关闭回调函数，无论通过何种方式关闭都会触发
 					},
 					onOkBtn(){
-						this.clear_msg();
+							sessionStorage.removeItem('userInfo');
+							  this.close();
+							  this.$router.go(-1)
 					}
 			});
 			},

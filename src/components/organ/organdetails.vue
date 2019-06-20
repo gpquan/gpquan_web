@@ -254,8 +254,9 @@ export default {
 }
 .topBox {
   position: relative;
-  height: 30%;
+  height: 22%;
   background-image: url("../../assets/image/bg.png");
+  background-size: cover;
   .btm_BG {
     position: absolute;
     bottom: 0;
