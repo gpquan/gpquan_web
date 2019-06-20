@@ -1,4 +1,6 @@
 <template>
+	<div>
+
   <!-- 项目管理 列表项 -->
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(item,idx) in ListData" :key="idx">
@@ -36,6 +38,11 @@
       </dl>
     </li>
   </ul>
+	<div class="add_btn" @click="push_route">
+		<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
+	</div>
+			
+	</div>
 </template>
 
 <script>
@@ -93,6 +100,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.add_btn{
+		background-image: url("../../assets/image/add_bth.png");
+		width: 30px;
+		height: 30px;
+		background-size: 100%;
+		position: fixed;
+		right: 5%;
+		bottom: 10%;
+	}	
 .Max_list {
   margin-top: 10px;
   display: flex;

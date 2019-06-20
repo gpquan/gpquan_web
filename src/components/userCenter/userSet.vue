@@ -23,7 +23,7 @@
 		</div>
 		
 		<div class="recommend_Btn">
-		  <nut-button block shape="circle">安全退出</nut-button>
+		  <nut-button block shape="circle" @click="clear_msg">安全退出</nut-button>
 		</div>
     </div>
 </template>
@@ -39,13 +39,18 @@
 			
 		  },
 		methods: {
+			//清空缓存
+			clear_msg(){
+				sessionStorage.removeItem('userInfo');
+				console.log("clear");
+			},
 			rou_change(){
 				this.$router.push({ name: "UserSet_about_as"});
 			},
 			alert_bloack(){
 				this.$dialog({
-					title: "自定义Dialog标题",
-					content: "小屏或移动端浏览效果最佳",
+					title: "清空缓存",
+					content: "是否要清空缓存",
 					closeBtn:true,  //显式右上角关闭按钮
 					onOkBtn(event) {  //确定按钮点击事件
 					  // alert("okBtn");
@@ -61,6 +66,9 @@
 					},
 					closeCallback(target) {
 					  // alert("will close");  //对话框关闭回调函数，无论通过何种方式关闭都会触发
+					},
+					onOkBtn(){
+						this.clear_msg();
 					}
 			});
 			},
@@ -91,7 +99,7 @@
 				});
 			},
 			back(){
-				alert('header头部， 点击返回')
+				this.$router.go(-1);
 			},
 			title(){
 				alert('header头部， 点击title')

@@ -346,6 +346,13 @@
 					// this.getRightList(3)
 					console.log(basic1);
 					console.log(basic);
+					if(res.status == 'success'){
+						// console.log("成功")
+						this.$message({
+							message: '提交成功',
+							type: 'success'
+						});
+					}
 
 				});
 				console.log('--------------')
@@ -554,7 +561,9 @@
 	/deep/.nut-button.block {
 		width: 80%;
 	}
-
+	.line{
+		height: 5vmin;
+	}
 	/deep/.nut-cell-right>.nut-cell-desc {
 		overflow: hidden;
 		text-overflow: ellipsis;

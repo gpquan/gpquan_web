@@ -41,6 +41,9 @@
         </dl>
       </li>
     </ul>
+		<div class="add_btn" @click="push_route">
+			<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
+		</div>
   </div>
 </template>
 
@@ -67,6 +70,9 @@ export default {
     });
   },
   methods: {
+		push_route(){
+			this.$router.push({path:"/accelerate/Manage/o/add"})
+		},
     getList() {},
     Jump_Odetails(item){
       console.log(item.organ_id)
@@ -81,6 +87,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.add_btn{
+		background-image: url("../../assets/image/add_bth.png");
+		width: 30px;
+		height: 30px;
+		background-size: 100%;
+		position: fixed;
+		right: 5%;
+		bottom: 10%;
+	}
 .list_Item {
   width: 80%;
   //   height: 108px;

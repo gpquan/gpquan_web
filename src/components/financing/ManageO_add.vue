@@ -279,7 +279,14 @@
 					// this.leftList = res.data;
 					// this.getRightList(3)
 					console.log(basic1);
-					console.log(res);
+					console.log(res.status);
+					if(res.status == 'success'){
+						// console.log("成功")
+						this.$message({
+							message: '提交成功',
+							type: 'success'
+						});
+					}
 
 				});
 				console.log(this.headerIconImgBase64Data);
@@ -515,7 +522,9 @@
 	/deep/.nut-button.block {
 		width: 80%;
 	}
-
+	.line{
+		height: 5vmin;
+	}
 	/deep/.nut-cell-right>.nut-cell-desc {
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -548,6 +557,7 @@
 
 	/deep/.nut-cell-box {
 		margin-left: -2vh;
+		line-height: 8vh;
 	}
 
 	/deep/.nut-uploader {
@@ -562,21 +572,21 @@
 
 	/deep/.nut-textinput span {
 		line-height: 8vh;
-		font-size: 16px;
+		font-size: 14px;
 		margin-left: 2vw;
 	}
 
 	/deep/.nut-textinput>input {
 		text-align: right;
-		font-size: 16px;
+		font-size: 13px;
 	}
 
 	/deep/.nut-cell-left>span {
-		font-size: 16px !important;
+		font-size: 14px !important;
 	}
 
 	/deep/.nut-cell-right>span {
-		font-size: 16px;
+		font-size: 13px;
 	}
 
 	.btn {
@@ -599,7 +609,7 @@
 
 	.list-left {
 		line-height: 8vh;
-		font-size: 16px;
+		font-size: 14px;
 		margin-left: 2vw;
 	}
 
@@ -647,7 +657,7 @@
 	.list1 {
 		background: #fff;
 		width: 100%;
-		height: 45%;
+		height: 32vh;
 	}
 
 	.up-image {
