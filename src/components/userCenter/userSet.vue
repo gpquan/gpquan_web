@@ -68,7 +68,9 @@
 					  // alert("will close");  //对话框关闭回调函数，无论通过何种方式关闭都会触发
 					},
 					onOkBtn(){
-						this.clear_msg();
+						sessionStorage.removeItem('userInfo');
+						this.close(); //关闭对话框
+
 					}
 			});
 			},

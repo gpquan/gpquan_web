@@ -53,6 +53,7 @@
 
 			</div>
 		</div>
+		
 
 		<div class="bot-alert-box">
 			<div class="pop-mask"></div>
@@ -74,6 +75,12 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		
+		<div class="btn" @click="back">
+			<nut-button block shape="circle">
+				返回
+			</nut-button>
 		</div>
 	</div>
 </template>
@@ -104,6 +111,9 @@
 			console.log(this.progressObj);
 		},
 		methods: {
+			back(){
+				this.$router.go(-1);
+			},
 			Jump_organ(Oid) {
 				this.$router.push({
 					path: "/organ/details",
@@ -421,10 +431,23 @@
 		height: 25px;
 		top: 3vh;
 	}
-	
+	.btn {
+		text-align: center;
+		padding-top: 2vh;
+		margin-top: 2vh;
+		position: absolute;
+		bottom: 55px;
+		/* margin: 0 auto; */
+		width: 100%;
+		margin: 0 auto;
+	}
+	.btn>.nut-button{
+		width: 80%;
+		margin: 0 auto;
+	}
 	.body_step {
 		position: absolute;
-		height: 60vh;
+		height: 55vh;
 		width: 100vw;
 		overflow: scroll;
 		-webkit-overflow-scrolling: touch;

@@ -64,7 +64,7 @@ export default {
   },
   methods: {
 		push_route(){
-			this.$router.push({path:"/accelerate/Manage/p/add"})
+			this.$router.push({path:"/project/addProject"})
 		},
     reset() {
       this.isShow = false;
