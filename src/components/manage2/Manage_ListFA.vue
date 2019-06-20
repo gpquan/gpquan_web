@@ -11,7 +11,7 @@
         <div class="title_top">
           <div class="left">
             <em class="lineEm"></em>
-            <b class="noW">{{i.username}}</b>
+            <b class="noW" @click="route_return(i.fa_id)">{{i.username}}</b>
           </div>
         </div>
         <div class="right">
@@ -141,6 +141,19 @@ export default {
     });
   },
   methods: {
+		route_return(val){
+			// if(res.data.)
+			if(val){
+				// console.log("su");
+				// console.log(val);
+				this.$router.push({path:"/userCenter/User_details",query:{userId:val}});
+			}else{
+				// console.log("fail");
+				var id = sessionStorage.getItem('userInfo[id]');
+				this.$router.push({path:"/userCenter/User_details",query:{userId:id}});
+				// console.log(222);
+			}
+		},
 		push_route(){
 			this.$router.push({path:"/accelerate/Manage/p/add"})
 		},

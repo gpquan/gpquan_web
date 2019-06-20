@@ -317,7 +317,7 @@ export default {
 }
 .topBox {
   position: relative;
-  height: 30%;
+  height: 11rem;
   background-image: url("../../assets/image/bg.png");
   background-size: cover;
   .btm_BG {
