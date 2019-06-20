@@ -18,7 +18,8 @@
 					  type="actived"
 					  shape="circle"
 					  small
-					  v-for="(item,ind) in  (typeof(progressObj.lingyu_name) == 'string' ? [{name:progressObj.lingyu_name}] : progressObj.lingyu_name)  " :key="ind" v-if="ind < 3"
+					  v-for="(item,ind) in  (typeof(progressObj.lingyu_name) == 'string' ? [{name:progressObj.lingyu_name}] : progressObj.lingyu_name)  " :key="ind"
+					  v-if="ind < 3"
 					  :color="colorList[ind]"
 					  :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
 					>{{item.name}}</nut-button>
@@ -187,6 +188,9 @@
 		width: 90%;
 		margin: 0 auto;
 		font-size: 16px;
+	}
+	/deep/.nut-button.light{
+		color: #fff;
 	}
 
 	/deep/.close-icon {
@@ -438,7 +442,7 @@
 		width: 10vh;
 		position: relative;
 		left: 5vw;
-		top: 5vh;
+		top: 2vh;
 		display: inline-block;
 
 	}
