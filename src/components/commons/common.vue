@@ -173,8 +173,8 @@ export default {
     background-size: 33px;
   }
   .view-li-xmjs{
-      background: url("../../assets/image/js.png") no-repeat center 5px;
-    background-size: 33px;
+      background: url("../../assets/image/js1.png") no-repeat center 5px;
+    background-size: 24px;
   }
     strong.xmjsActive{
       background: url("../../assets/image/js.png") no-repeat center 5px;
