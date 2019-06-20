@@ -136,7 +136,7 @@
           <div slot="list" class="nut-hor-list-item" v-for="(item, index) of ProList" :key="index">
             <dl class="nut-scroller-item-info">
               <dt>
-                <img src="../../assets/image/right-title-portrait.png" alt>
+                <img :src="item.logo" alt>
               </dt>
               <dd>
                 <div @click="Pushme(item)">{{item.name}}</div>
@@ -616,6 +616,9 @@ export default {
   display: flex;
   dt {
     min-width: 30%;
+    padding-right: 5vw;
+    display:flex;
+    align-items: center;
     img {
       width: 100%;
     }

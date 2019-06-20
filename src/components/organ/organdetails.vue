@@ -1,17 +1,16 @@
 <template>
   <div>
- 
     <div class="topBox">
-         <nut-navbar 
-    @on-click-back="back" 
-    :leftShow="true" 
-    :rightShow="true"
-    style="background:rgba(255,255,255,0);color:#fff;"
->{{ListData.name}}</nut-navbar>
+      <nut-navbar
+        @on-click-back="back"
+        :leftShow="true"
+        :rightShow="true"
+        style="background:rgba(255,255,255,0);color:#fff;"
+      >{{ListData.name}}</nut-navbar>
       <img src="../../assets/image/organ_top.png" alt class="btm_BG">
       <div class="box_BTM">
         <div class="Box_1" style="display:flex;flex-direction: column;">
-         <span>3</span>
+          <span>3</span>
           <span style="color:#666">机构联系人</span>
         </div>
         <div class="Box_1 headIMG">
@@ -123,6 +122,57 @@
         <p v-for="(item,ind) in LXRlist" :key="ind">{{ind+1+':'+item}}</p>
       </div>
     </div>
+    <div class="lxr">
+      <div class="title_top titletwo">
+        <div class="left">
+          <em class="lineEm"></em>
+          <b class="noW">已投项目</b>
+        </div>
+        <!-- <div class="right">
+          <span @click="addLxr()">+</span>
+        </div>-->
+      </div>
+      <div class="contentBox">
+        <div class="List_box" v-if="Listdata1!=[]">
+          <div
+            class="item"
+            v-for="(item, index) in Listdata1"
+            :key="index"
+            @click="item_details(item)"
+          >
+            <dl class="List_item">
+              <dt class="img">
+                <img :src="item.logo" alt>
+                <div></div>
+              </dt>
+              <dd>
+                <div>
+                  <span class="name">{{item.name}}</span>
+                  <span class="yd">{{item.lingyu_name}}</span>
+                  <span class="SAAS">SAAS</span>
+                  <span class="xmt">新媒体</span>
+                </div>
+                <div class="introBox">
+                  <div class="intro" :title="textjj">{{textjj}}</div>
+                </div>
+                <div class="List_downsize">
+                  <span class="hide">简介:{{item.description}}</span>
+                </div>
+                <div class="List_downsize">
+                  <span>{{item.lingyu_name}}</span>|
+                  <!-- <span>Pre-A</span>|
+                  <span>北京市</span>-->
+                </div>
+                <div class="List_downsize">
+                  佣金比例：
+                  <span>{{item.yongjin}}%</span>
+                </div>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- 备注 -->
     <nut-dialog
       title="添加备注"
@@ -181,20 +231,28 @@ export default {
       LXRlist: [],
       lxrName: "",
       lxrphone: "",
-      LCdata: ["天使轮", "A轮", "B轮", "C轮", "D轮", "E轮", "战略融资"]
+      LCdata: ["天使轮", "A轮", "B轮", "C轮", "D轮", "E轮", "战略融资"],
+      Listdata1:[]
     };
   },
   created() {
     // organId
-		let id = this.$route.query.id;
-		// console.log(id);
-    this.$fetch("/api/getOrganDetail/"+id).then(res => {
+    let id = this.$route.query.id;
+    // console.log(id);
+    this.$fetch("/api/getOrganDetail/" + id).then(res => {
       if (res.status == "success") this.ListData = res.data;
       console.log(this.ListData);
     });
+    this.$post('/api/getOrganInvestAlikeProject',{
+        organId:id,
+      
+    }).then((res)=>{
+      this.Listdata1=res.data
+      console.log(res)
+    })
   },
   methods: {
-    back(){
+    back() {
       this.$router.go(-1);
     },
     unfoldShow() {
@@ -254,7 +312,7 @@ export default {
 }
 .topBox {
   position: relative;
-  height: 22%;
+  height: 30%;
   background-image: url("../../assets/image/bg.png");
   background-size: cover;
   .btm_BG {
@@ -281,11 +339,11 @@ export default {
       position: absolute;
       bottom: 50%;
       // width: 90%;
-          min-width: 100px;
-    min-height: 100px;
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 50% 50%
+      min-width: 100px;
+      min-height: 100px;
+      max-width: 100px;
+      max-height: 100px;
+      border-radius: 50% 50%;
     }
   }
 }
@@ -384,5 +442,109 @@ export default {
 .hyshowList {
   display: flex;
   flex-wrap: wrap;
+}
+.List_box {
+  background: #f5f6fa;
+  dl {
+    display: flex;
+    padding: 23px 0;
+    dt {
+      min-width: 80px;
+      height: 80px;
+      padding-right: 15px;
+      img {
+        max-width: 100%;
+        height: 100%;
+        border-radius: 50% 50%;
+      }
+    }
+    dd {
+      .name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+      }
+    }
+  }
+}
+.List_box .List_item:nth-child(1) {
+  margin-top: 0;
+}
+.List_item {
+  margin-top: 11px;
+  background: #fff;
+}
+.yd,
+.SAAS,
+.xmt {
+  font-size: 11px;
+  height: 18px;
+  border-radius: 9px;
+  padding: 5px 5px;
+}
+.yd {
+  background: #fef8e5;
+  color: #ffa800;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.SAAS {
+  background: #fee5e5;
+  color: #f23353;
+  margin-right: 5px;
+}
+.xmt {
+  background: #e5eefe;
+  color: #009cff;
+}
+.intro {
+  // text-indent:2em;
+  padding: 5px 0 0 0;
+  color: #333333;
+  width: 85%;
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.List_downsize {
+  color: #999999;
+  font-size: 11px;
+  padding-top: 5px;
+}
+.item_status_text {
+  position: absolute;
+  top: 12%;
+  left: -12%;
+  transform: rotate(-45deg);
+  color: #fff;
+  font-size: 1vh;
+  width: 100%;
+  text-align: center;
+}
+.hide {
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.hide1 {
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient: vertical;
 }
 </style>
