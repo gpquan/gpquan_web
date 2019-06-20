@@ -12,14 +12,17 @@
             <em class="lineEm"></em>
             <b class="noW" @click="pro_details(i)">{{i.name}}</b>
           </div>
-
         </div>
-         <div class="right">
-            <b class="expedite" @click="expedite(i.lingyu_id)"></b>
-          </div>
+        <div class="right">
+          <b class="expedite" @click="expedite(i.lingyu_id)"></b>
+        </div>
         <div class="title_Bottm">
           <div style="padding:10px 0">
-            <span  v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length" :key="idd" :class="colorClass[idd]">{{i.lingyu_name[idd]}}</span>
+            <span
+              v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
+              :key="idd"
+              :class="colorClass[idd]"
+            >{{i.lingyu_name[idd]}}</span>
           </div>
         </div>
       </div>
@@ -27,24 +30,28 @@
         <div class="List_top" v-show="i.status==2">
           <!-- {{typeOf(i.maxLength)}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-              <!-- <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}" > -->
-                  <span class="box1">
-                        <circle-progress
-                          :id="i.organs[ind].progress.uniqid+1"
-                          :width="85"
-                          :radius="5"
-                          :progress="i.organs[ind].progress.rate"
-                          :delay="200"
-                          :duration="500"
-                          barColor="#F2AE57"
-                          backgroundColor="#FFE8CC"
-                          :isAnimation="true"
-                        ></circle-progress>
-                     <span class="dhwb"><em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em></span>
-                  </span>
-              <!-- </router-link> -->
-               <b class="nameTIT">
-              <em></em>{{i.organs[ind].name}}</b>
+            <!-- <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}" > -->
+            <span class="box1">
+              <circle-progress
+                :id="i.organs[ind].progress.uniqid+1"
+                :width="85"
+                :radius="5"
+                :progress="i.organs[ind].progress.rate"
+                :delay="200"
+                :duration="500"
+                barColor="#F2AE57"
+                backgroundColor="#FFE8CC"
+                :isAnimation="true"
+              ></circle-progress>
+              <span class="dhwb">
+                <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
+              </span>
+            </span>
+            <!-- </router-link> -->
+            <b class="nameTIT">
+              <em></em>
+              {{i.organs[ind].name}}
+            </b>
           </div>
         </div>
         <div class="List_gather" v-show="i.status==1">
@@ -64,10 +71,14 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb"><em  @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em></span>
+              <span class="dhwb">
+                <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
+              </span>
             </span>
-               <b class="nameTIT">
-              <em></em>{{i.organs[ind].name}}</b>
+            <b class="nameTIT">
+              <em></em>
+              {{i.organs[ind].name}}
+            </b>
           </div>
         </div>
       </div>
@@ -94,40 +105,42 @@ export default {
       barColor: "#F2AE57",
       backgroundColor: "#FFE8CC",
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
-       colorClass:["yd" ,"SAAS","xmt"],
+      colorClass: ["yd", "SAAS", "xmt"]
       //  statusList:[]
     };
   },
   beforeMount() {
-    for(let i=0;i<this.ListData.length;i++){
-          //  this.statusList[i]=false
+    for (let i = 0; i < this.ListData.length; i++) {
+      //  this.statusList[i]=false
     }
     // console.log("=-=============")
-
   },
   methods: {
-    jump_(item){
+    jump_(item) {
       this.$router.push({
-        path : '/accelerate/Manage/a/details',
-        query:{
-          id:item.id,
-          type:1
+        path: "/accelerate/Manage/a/details",
+        query: {
+          id: item.id,
+          type: 1
         }
-      })
+      });
       // :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'
     },
-		pro_evolve(id) {
-			console.log(id)
-		  //项目进展
-		  this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=1');
-		},
-		pro_details(i) {
-		  // 跳详情
-			this.$router.push({path:'/project/details',query:{
-		      id:i.project_id
-		    }});
-			console.log(i);
-		},
+    pro_evolve(id) {
+      console.log(id);
+      //项目进展
+      this.$router.push("/accelerate/Manage/a/details?id=" + id + "&type=1");
+    },
+    pro_details(i) {
+      // 跳详情
+      this.$router.push({
+        path: "/project/details",
+        query: {
+          id: i.project_id
+        }
+      });
+      console.log(i);
+    },
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
@@ -137,11 +150,11 @@ export default {
     ListShow(i) {
       this.isShow = true;
       // this.statusList[i]=true
-      this.ListData[i].status=1
+      this.ListData[i].status = 1;
     },
     closeListGather(i) {
-        //  this.statusList[i]=false
-        this.ListData[i].status=2
+      //  this.statusList[i]=false
+      this.ListData[i].status = 2;
     },
     expedite(lyid) {
       //点击加速
@@ -151,7 +164,10 @@ export default {
       // }).then(res => {
       //   console.log(res);
       // });
-      this.$router.push({path:"/accelerate/Manage/a",query:{lyid:lyid}})
+      this.$router.push({
+        path: "/accelerate/Manage/a",
+        query: { lyid: lyid }
+      });
     }
   }
 };
@@ -183,6 +199,7 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 10px 0;
+  flex-wrap: wrap;
 }
 .box_1,
 .box_2,
@@ -226,6 +243,10 @@ export default {
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
+  .left {
+    display: flex;
+    align-items: center;
+  }
   //   .nut-button,
   //   .primary {
   //     background-image: url("../../assets/image/btn.png");
@@ -276,14 +297,13 @@ export default {
     justify-content: center;
   }
 }
-.right{
-position: absolute;
-top:10%;
-right: 0%;
+.right {
+  position: absolute;
+  top: 10%;
+  right: 0%;
 }
 
-
- .expedite {
+.expedite {
   position: relative;
   padding: 5px 30px;
   width: 5px;

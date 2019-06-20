@@ -3,7 +3,7 @@
     <nut-navbar @on-click-back="back" :leftShow="true" :rightShow="true">{{ListData.name}}</nut-navbar>
     <div class="top_Box">
       <div class="h_img">
-        <img src="../../assets/image/right-title-portrait.png" alt>
+        <img :src="ListData.logo" alt class="top_headImg">
       </div>
       <img src="../../assets/image/bg.png" alt class="top_BoxBg">
       <!-- <div class="header">
@@ -24,12 +24,15 @@
           <div class="statusIMG">
             <!-- <img src="../../assets/image/h.png" alt=""> -->
           </div>
+          <div class="box_text">独家签约</div>
         </div>
         <div class="statusBox2">
           <div class="statusIMG statusIMG2">{{ListData.yongjin+"%"}}</div>
+          <div class="box_text">佣金比例</div>
         </div>
         <div class="statusBox3">
           <div class="statusIMG"></div>
+          <div class="box_text">已投资</div>
         </div>
       </div>
     </div>
@@ -223,7 +226,8 @@ export default {
       ListData: null,
       RZ_history: null,
       projectId: null,
-      ProList: {}
+      ProList: {},
+      id: null
     };
   },
   beforeMount() {
@@ -249,14 +253,34 @@ export default {
   created() {
     // organId
     console.log(this.$route.query.id);
-    let id = this.$route.query.id;
+    this.projectId = this.$route.query.id;
     // console.log(id);
-    this.$fetch("/api/getProjectDetail/" + id).then(res => {
+    this.$fetch("/api/getProjectDetail/" + this.projectId).then(res => {
       if (res.status == "success") this.ListData = res.data;
+      this.$post("/api/getAlikeProjectList", {
+        field: "id",
+        fieldValue: this.projectId
+      }).then(res => {
+        console.log(res);
+        this.ProList = res.data;
+      });
       console.log(this.ListData);
     });
   },
   methods: {
+    getList(){
+        this.$fetch("/api/getProjectDetail/" + this.projectId).then(res => {
+      if (res.status == "success") this.ListData = res.data;
+      this.$post("/api/getAlikeProjectList", {
+        field: "id",
+        fieldValue: this.projectId
+      }).then(res => {
+        console.log(res);
+        this.ProList = res.data;
+      });
+      console.log(this.ListData);
+    });
+    },
     back() {
       this.$router.go(-1);
     },
@@ -278,10 +302,18 @@ export default {
     Pushme(item) {
       this.$router.push({
         path: "/project/details",
-        query: { query: item.id }
+        query: { id: item.id }
       });
       // this.$forceUpdate()
     }
+  },
+  watch:{
+       $route(n, o) {
+         if(n.query.id!==o.query.id){
+           this.projectId = n.query.id;
+           this.getList()
+         }
+       }
   }
 };
 </script>
@@ -352,8 +384,12 @@ export default {
     text-align: center;
     height: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    .box_text {
+      line-height: 4vh;
+    }
   }
   .statusBox1 .statusIMG {
     background-image: url("../../assets/image/icon3.png");
@@ -470,8 +506,9 @@ export default {
   color: #666;
 }
 .test_size {
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  color: #666;
+  line-height: 20px;
 }
 .bright_history {
   position: relative;
@@ -600,5 +637,12 @@ export default {
     margin-bottom: 30%;
     z-index: 9;
   }
+}
+.top_headImg {
+  min-width: 80px;
+  min-height: 80px;
+  max-width: 80px;
+  max-height: 80px;
+  border-radius: 50% 50%;
 }
 </style>

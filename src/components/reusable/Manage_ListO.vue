@@ -31,7 +31,7 @@
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
             <span class="box1">
               <circle-progress
-                :id="i.projects[ind].progress.uniqid+1"  
+                :id="i.projects[ind].progress.uniqid+1"
                 :width="85"
                 :radius="5"
                 :progress="i.projects[ind].progress.rate"
@@ -42,7 +42,7 @@
                 :isAnimation="true"
               ></circle-progress>
               <span class="dhwb">
-                <em  @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
+                <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
             <b class="nameTIT">
@@ -56,7 +56,7 @@
             <nut-icon type="minus"></nut-icon>
           </b>
           <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
-            <span class="box1" >
+            <span class="box1">
               <circle-progress
                 :id="i.projects[ind].progress.uniqid+2"
                 :width="85"
@@ -68,8 +68,8 @@
                 backgroundColor="#FFE8CC"
                 :isAnimation="true"
               ></circle-progress>
-              <span class="dhwb" >
-                <em  @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
+              <span class="dhwb">
+                <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
             <b class="nameTIT">
@@ -110,28 +110,31 @@ export default {
     // console.log("=-=============")
   },
   methods: {
-		pro_evolve(id) {
-		  //项目进展
-			this.$router.push('/accelerate/Manage/a/details?id='+id+'&type=0');
-		},
-		pro_details(id) {
-		  // 项目跳详情
-			// var o_details = "/Organ/details/"+id;
-			
-			// this.$router.push{ name:o_details, query:{ o_id: id }};
-			this.$router.push({path:'/Organ/details',query:{
-          id:id
-        }});
-			console.log(id);
-			// this.$router.push('/Organ/details/'+id);
-		},
-		// Org_details(id){
-		// 	// 机构跳详情
-		// 	this.$router.push({path:'/project/details',query:{
-		// 	    id:id
-		// 	  }});
-		// 	console.log(id);
-		// },
+    pro_evolve(id) {
+      //项目进展
+      this.$router.push("/accelerate/Manage/a/details?id=" + id + "&type=0");
+    },
+    pro_details(id) {
+      // 项目跳详情
+      // var o_details = "/Organ/details/"+id;
+
+      // this.$router.push{ name:o_details, query:{ o_id: id }};
+      this.$router.push({
+        path: "/Organ/details",
+        query: {
+          id: id
+        }
+      });
+      console.log(id);
+      // this.$router.push('/Organ/details/'+id);
+    },
+    // Org_details(id){
+    // 	// 机构跳详情
+    // 	this.$router.push({path:'/project/details',query:{
+    // 	    id:id
+    // 	  }});
+    // 	console.log(id);
+    // },
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
@@ -184,6 +187,7 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 10px 0;
+  flex-wrap: wrap;
 }
 .box_1,
 .box_2,
@@ -225,6 +229,10 @@ export default {
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
+  .left {
+    display: flex;
+    align-items: center;
+  }
   //   .nut-button,
   //   .primary {
   //     background-image: url("../../assets/image/btn.png");

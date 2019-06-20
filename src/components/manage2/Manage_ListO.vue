@@ -18,7 +18,7 @@
                   :isAnimation="true"
                 ></circle-progress>
                 <span class="dhwb">
-                  <img :src="item.it_img" alt>
+                  <img :src="item.it_img" alt @click="Jump_card(item)">
                 </span>
               </span>
               <b class="nameTIT">
@@ -71,6 +71,10 @@ export default {
     Jump_Odetails(item){
       console.log(item.organ_id)
       this.$router.push({path:'/organ/details',query:{id:item.organ_id}})
+    },
+    Jump_card(item){
+        let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      this.$router.push({path:'/accelerate/Manage/a/details',query:{id:item.organ_id,type:1,userId:userId}})
     }
   }
 };

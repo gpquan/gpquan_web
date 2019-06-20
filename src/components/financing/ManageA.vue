@@ -484,5 +484,6 @@ export default {
   top: 0;
   right: 0;
   width: 50%;
+  transform: rotate(90deg)
 }
 </style>

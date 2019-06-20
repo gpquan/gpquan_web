@@ -15,7 +15,7 @@
           <span style="color:#666">机构联系人</span>
         </div>
         <div class="Box_1 headIMG">
-          <img src="../../assets/image/right-title-portrait.png" alt>
+          <img :src="ListData.it_img" alt>
         </div>
         <div class="Box_1" style="display:flex;flex-direction: column;">
           <span>12</span>
@@ -106,7 +106,7 @@
         </div>
       </div>
       <div class="contentBox">
-        <p v-for="(item,ind) in BZList" :key="ind">{{ind+':'+item}}</p>
+        <p v-for="(item,ind) in BZList" :key="ind">{{ind+1+':'+item}}</p>
       </div>
     </div>
     <div class="lxr">
@@ -186,12 +186,12 @@ export default {
   },
   created() {
     // organId
-		// let id = this.$route.query.id;
-		// // console.log(id);
-  //   this.$fetch("/api/getOrganDetail/"+id).then(res => {
-  //     if (res.status == "success") this.ListData = res.data;
-  //     console.log(this.ListData);
-  //   });
+		let id = this.$route.query.id;
+		// console.log(id);
+    this.$fetch("/api/getOrganDetail/"+id).then(res => {
+      if (res.status == "success") this.ListData = res.data;
+      console.log(this.ListData);
+    });
   },
   methods: {
     back(){
@@ -279,7 +279,12 @@ export default {
     img {
       position: absolute;
       bottom: 50%;
-      width: 90%;
+      // width: 90%;
+          min-width: 100px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50% 50%
     }
   }
 }

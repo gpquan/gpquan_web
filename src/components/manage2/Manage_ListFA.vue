@@ -2,11 +2,7 @@
   <!-- 项目管理 列表项 -->
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-      <b
-        class="icon_Box"
-        @click="ListShow(idx)"
-        v-show="i.status==2&&i.maxLength>3"
-      >
+      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>3">
         <nut-icon type="more"></nut-icon>
       </b>
       <div class="title_">
@@ -117,30 +113,26 @@ export default {
       //  statusList:[]
     };
   },
-  beforeMount() {
-    
-  },
+  beforeMount() {},
   mounted() {
     let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
     // console.log()
-    this.$post("/api/getUserFaList", { userId: 4, page: "1" }).then(
-      res => {
-        for (let i = 0; i < res.data.length; i++) {
-          res.data[i].status = 2;
-          // this.Maxnum+=res.data[i].organs.length;
-          if (res.data[i].organs.length < 3) {
-            res.data[i].maxLength = res.data[i].organs.length;
-          } else {
-            res.data[i].maxLength = 3;
-          }
+    this.$post("/api/getUserFaList", { userId: 4, page: "1" }).then(res => {
+      for (let i = 0; i < res.data.length; i++) {
+        res.data[i].status = 2;
+        // this.Maxnum+=res.data[i].organs.length;
+        if (res.data[i].organs.length < 3) {
+          res.data[i].maxLength = res.data[i].organs.length;
+        } else {
+          res.data[i].maxLength = 3;
         }
-        // res.data.Maxnum=this.Maxnum
-        console.log(res.data);
-        this.ListData = res.data;
-        console.log(res);
-        // let Project = JSON.parse(sessionStorage.setItem("userInfo")).id;
       }
-    );
+      // res.data.Maxnum=this.Maxnum
+      console.log(res.data);
+      this.ListData = res.data;
+      console.log(res);
+      // let Project = JSON.parse(sessionStorage.setItem("userInfo")).id;
+    });
   },
   methods: {
     pro_evolve(id) {
@@ -204,6 +196,7 @@ export default {
   display: flex;
   flex-direction: row;
   padding: 10px 0;
+  flex-wrap: wrap;
 }
 .box_1,
 .box_2,

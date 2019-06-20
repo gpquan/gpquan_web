@@ -101,7 +101,7 @@
             </div>
             <div style="margin-left:7vw; margin-top: 2vh;">
               <span style="font-size: 15px;color: #666;">投资总额：{{items.num}}万元</span>
-              
+
             </div>
             <div style="margin-left:7vw; margin-top: 2vh;">
             <span style="font-size: 15px;color: #666;">所属地区：{{items.area}}</span>
@@ -150,21 +150,18 @@ export default {
           ly:[],
           num:12312,
           area:'上海'
-
         },
           {
           name:"杨辉",
           ly:[],
           num:12312,
           area:'深圳'
-
         },
           {
           name:"李超",
           ly:[],
           num:12312,
           area:'东北'
-
         }
       ],
       lyList:["教育", "企业服务", "教育综合服务", "投融资", "二手车", "房产电商", "医疗器械及硬件", "景点门票", "商户服务及信息化", "游戏发行及渠道", "芯片半导体", "艺术"],
@@ -231,7 +228,6 @@ export default {
           this.right_User_btn.push(res.data.lingyu_name[i]);
           console.log(this.right_User_btn);
         }
-
       });
       console.log(Pid);
       this.$post("/api/getOrganInvestAlikeProject", {
@@ -289,7 +285,6 @@ export default {
   border-radius: 0 5px 0 0;
   overflow: hidden;
 }
-
 .list-item {
   height: 50px;
   line-height: 50px;
@@ -310,7 +305,6 @@ export default {
     text-align: center;
   }
 }
-
 .list-item.list-item-act {
   background: white !important;
   color: red !important;
@@ -340,7 +334,6 @@ export default {
   left: 4%;
   top: 10%;
 }
-
 .act-right-bar {
   font-size: 10px;
   color: red;
@@ -485,5 +478,6 @@ export default {
   top: 0;
   right: 0;
   width: 50%;
+    transform: rotate(90deg)
 }
-</style>
+</style> 

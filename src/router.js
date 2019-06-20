@@ -46,6 +46,8 @@ import Manage2 from '@/components/manage2/manage2'
 import Manage_ListC from '@/components/manage2/Manage_ListC'
 import Manage_ListO from '@/components/manage2/Manage_ListO'
 import Manage_ListFA from '@/components/manage2/Manage_ListFA'
+import Speed from '@/components/manage2/Speed'
+import SpeedHome from '@/components/manage2/SpeedHome'
 Vue.use(Router)
 
 const router = new Router({
@@ -249,7 +251,26 @@ const router = new Router({
 					fshow: true
 				}
 
-			}, {
+			}, 	{
+				path: '/speed',
+				name: 'speed',
+				component: Speed,
+				redirect:'/Speed/Home',
+				meta: {
+					fshow: true
+				},
+				children:[
+					{
+						path:'/Speed/Home',
+						name:'SpeedHome',
+						component:SpeedHome,
+						meta: {
+							fshow: true
+						},
+					}
+				]
+
+			},{
 				path: '/Manage2',
 				name: 'manage2',
 				component: Manage2,
