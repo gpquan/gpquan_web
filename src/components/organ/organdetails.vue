@@ -149,23 +149,20 @@
                 <div>
                   <span class="name">{{item.name}}</span>
                   <span class="yd">{{item.lingyu_name}}</span>
-                  <span class="SAAS">SAAS</span>
-                  <span class="xmt">新媒体</span>
-                </div>
-                <div class="introBox">
-                  <div class="intro" :title="textjj">{{textjj}}</div>
+                  <!-- <span class="SAAS">SAAS</span>
+                  <span class="xmt">新媒体</span> -->
                 </div>
                 <div class="List_downsize">
                   <span class="hide">简介:{{item.description}}</span>
                 </div>
-                <div class="List_downsize">
+                <!-- <div class="List_downsize">
                   <span>{{item.lingyu_name}}</span>|
-                  <!-- <span>Pre-A</span>|
-                  <span>北京市</span>-->
-                </div>
+                  <span>Pre-A</span>|
+                  <span>北京市</span> 
+                </div> -->
                 <div class="List_downsize">
-                  佣金比例：
-                  <span>{{item.yongjin}}%</span>
+                  当前轮次：
+                  <span>{{item.stage_name}}</span>
                 </div>
               </dd>
             </dl>
@@ -252,6 +249,14 @@ export default {
     })
   },
   methods: {
+     item_details(item) {
+      this.$router.push({
+        path: "/project/details",
+        query: {
+          id: item.id
+        }
+      });
+    },
     back() {
       this.$router.go(-1);
     },

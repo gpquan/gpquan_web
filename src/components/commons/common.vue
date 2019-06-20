@@ -19,7 +19,7 @@
     </div>
 
     <div class="view-footer" v-if="footerShow==2">
-          <router-link to="/Manage2">
+      <router-link to="/Manage2">
         <strong :class=" !flag2?'view-li-accelerate':'accelerateActive'" @click="tagToggle(2)">
           <span class="view-font-default">融资助手</span>
         </strong>
@@ -29,7 +29,7 @@
           <span class="view-font-default">项目加速</span>
         </strong>
       </router-link>
-  
+
       <router-link to="/userCenter">
         <strong :class=" !flag3?'view-li-userCenter':'userActive'" @click="tagToggle(3)">
           <span class="view-font-default">个人中心</span>
@@ -54,16 +54,29 @@ export default {
       flag3: false,
       footerShow: null,
       //  2 1 3 2
-      LiksList:['/Manage2','/Speed','/userCenter'],
-      LiksList2:['/project','/accelerate','/userCenter']
+      LiksList: ["/Manage2", "/Speed", "/userCenter"],
+      LiksList2: ["/project", "/accelerate", "/userCenter"]
     };
   },
-  beforeMount(){
-    this.footerShow=JSON.parse(sessionStorage.getItem("userInfo")).role;
+  beforeMount() {
+    this.footerShow = JSON.parse(sessionStorage.getItem("userInfo")).role;
+    let to = this.$route;
+    for (let i = 0; i < this.LiksList.length; i++) {
+      if (to.path.indexOf(this.LiksList[i]) != -1) {
+        this.Ind = i + 1;
+        // alert(this.Ind)
+      } else if (to.path.indexOf(this.LiksList2[i]) != -1) {
+        this.Ind = i + 1;
+        // alert(this.Ind)
+      }
+    }
+    this.tagToggle(this.Ind)
+    // console.log(this.Ind)
   },
   methods: {
     tagToggle(num) {
       this.Ind = num;
+
       if (this.Ind == 1) {
         // this.tab($(".view-li-project"));
         this.flag1 = true;
@@ -86,26 +99,20 @@ export default {
         this.tab($(".view-li-user"));
       }
     },
-    tab(el) {
-    }
+    tab(el) {}
   },
   created() {
     this.Ind = sessionStorage.getItem("routeInd");
-
   },
   watch: {
     $route(to, from) {
-      // for(let i;i<this.LiksList.length;i++){
-       if( this.LiksList.indexOf(to.path)!=-1){
-         let num =this.LiksList.indexOf(to.path)
-         console.log(num)
-         this.tagToggle(num)
-       }else if(this.LiksList2.indexOf(to.path)!=-1){
-        let num =this.LiksList2.indexOf(to.path)
-        console.log(num)
-         this.tagToggle(num)
-       }
-      // }
+      for (let i = 0; i < this.LiksList.length; i++) {
+      if (to.path.indexOf(this.LiksList[i]) != -1) {
+        this.Ind == i + 1;
+      } else if (to.path.indexOf(this.LiksList2[i]) != -1) {
+        this.Ind == i + 1;
+      }
+    }
     }
   }
 };
@@ -177,20 +184,20 @@ export default {
     background: url("../../assets/image/rzzs_ACT.png") no-repeat center 5px;
     background-size: 33px;
   }
-  strong.view-li-tj{
+  strong.view-li-tj {
     background: url("../../assets/image/jztj.png") no-repeat center 5px;
-     background-size: 24px;
+    background-size: 24px;
   }
-  strong.tjActive{
+  strong.tjActive {
     background: url("../../assets/image/jztj_ACT.png") no-repeat center 5px;
     background-size: 33px;
   }
-  .view-li-xmjs{
-      background: url("../../assets/image/js1.png") no-repeat center 5px;
+  .view-li-xmjs {
+    background: url("../../assets/image/js1.png") no-repeat center 5px;
     background-size: 24px;
   }
-    strong.xmjsActive{
-      background: url("../../assets/image/js.png") no-repeat center 5px;
+  strong.xmjsActive {
+    background: url("../../assets/image/js.png") no-repeat center 5px;
     background-size: 33px;
   }
 }

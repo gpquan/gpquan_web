@@ -100,7 +100,7 @@ export default {
               );
              this.$router.push('/')
           if(res.data.role==1){
-            this.$router.push('/accelerate')
+            this.$router.push('/project')
           }else if(res.data.role==2){
             this.$router.push('/Manage2')
           }

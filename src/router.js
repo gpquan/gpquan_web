@@ -333,7 +333,7 @@ router.beforeEach((to, from, next) => {
 		}
 	} else {
 		if ((to.name == 'ManageO'||to.name == 'home')) {
-			console.log(JSON.parse(sessionStorage.getItem("userInfo")).role)
+			// console.log(JSON.parse(sessionStorage.getItem("userInfo")).role)
 			if (JSON.parse(sessionStorage.getItem("userInfo")).role == 1&&(to.name == 'ManageO'||to.name == 'home')) {
 				next()
 			} else if(JSON.parse(sessionStorage.getItem("userInfo")).role == 2&&(to.name == 'ManageO'||to.name == 'home')){
