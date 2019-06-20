@@ -597,13 +597,13 @@
 
 	/deep/.nut-textinput span {
 		line-height: 8vh;
-		font-size: 16px;
+		font-size: 14px;
 		margin-left: 2vw;
 	}
 
 	/deep/.nut-textinput>input {
 		text-align: right;
-		font-size: 16px;
+		font-size: 13px;
 	}
 
 	/deep/.nut-cell-left>span {
@@ -650,7 +650,7 @@
 
 	.list-left {
 		line-height: 8vh;
-		font-size: 16px;
+		font-size: 14px;
 		margin-left: 2vw;
 	}
 
