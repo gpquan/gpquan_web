@@ -32,6 +32,9 @@
         <div class="right-box-title">
           <div class="right-title">
             <router-link :to="{path:'/organ',query:{id:this.Rtop.id}}"  class="title-name">{{this.Rtop.name}}</router-link>
+            <div style="margin-left:7vw; margin-top: 2vh;">
+              <span class="hide  aaaaaaa" style="font-size: 15px;color: #666;">简介：{{Rtop.description}}</span>
+            </div>
             <div
               class="right-title-portrait"
               :style="'background-image:url('+Rtop.it_img+'/'+Rtop.img+')'"
@@ -49,9 +52,9 @@
                 :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[idx]"
               >{{item}}</nut-button>
             </div>
-            <div style="margin-left:7vw; margin-top: 2vh;">
+          <!-- <div style="margin-left:7vw; margin-top: 2vh;">
               <span style="font-size: 18px;color: #666;">投资阶段：A轮</span>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- 右边内容 -->
@@ -73,9 +76,9 @@
                 :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[0]"
               >{{items.lingyu_name}}</nut-button>
             </div>
-            <div style="margin-left:7vw; margin-top: 2vh;">
-              <span style="font-size: 15px;color: #666;">投资阶段：{{items.stage_name}}</span>
-            </div>
+						<div style="margin-left:7vw; margin-top: 2vh;">
+						    <span style="font-size: 18px;color: #666;">投资阶段：A轮</span>
+						</div>
           </div>
         </div>
 
@@ -171,7 +174,12 @@ export default {
     };
   },
   created() {
-    this.lyid = this.$route.query.lyid;
+		if(!this.$route.query.lyid){
+			this.$router.go(-1);
+		}else{
+			this.lyid = this.$route.query.lyid;	
+			console.log("lyid")
+		}
     console.log(this.lyid);
   },
   beforeMount() {},
@@ -201,7 +209,8 @@ export default {
       this.$router.go(-1)
     },
     tjStatus() {
-      this.leftList[this.listActId].tjcode = true;
+      // this.leftList[this.listActId].tjcode = true;
+			this.leftList[this.listActId].tjcode = !this.leftList[this.listActId].tjcode;
       this.$forceUpdate()
     },
     getLeftList() {
@@ -274,7 +283,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .body-box {
   display: flex;
   display: -webkit-flex;
@@ -288,7 +297,21 @@ export default {
   border-radius: 0 5px 0 0;
   overflow: hidden;
 }
-
+.aaaaaaa{
+	
+  font-size: 14px;
+  line-height: 20px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin-top: 5%;
+  color: #666;
+}
+.hide {
+}
 .list-item {
   height: 50px;
   line-height: 50px;
@@ -357,20 +380,23 @@ export default {
 .list-item.list-item-act .act-right-bar {
   display: block !important;
 }
-.right-title {
+/deep/.right-title {
   width: 100%;
-  height: 18vh;
+  height: 22vh !important;  
 }
 .right-title-portrait {
   /* background-image: url(/img/right-title-portrait.a8b5e2b2.png); */
   background-image: url("../../assets/image/right-title-portrait.png");
   background-size: 100% 100%;
   border-radius: 50%;
-  width: 24%;
+  width: 9vh;
   height: 9vh;
   display: inline-block;
-  margin-top: -7vh;
-  margin-left: 46vw;
+  // margin-top: -7vh;
+  // margin-left: 46vw;
+	position: relative;
+	bottom: 11vh;
+	left: 3vw;
 }
 .right-box-title {
   width: 90%;
