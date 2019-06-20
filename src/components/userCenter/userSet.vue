@@ -72,6 +72,9 @@
 							sessionStorage.removeItem('userInfo');
 							  this.close();
 							  this.$router.go(-1)
+						// sessionStorage.removeItem('userInfo');
+						// this.close(); //关闭对话框
+
 					}
 			});
 			},

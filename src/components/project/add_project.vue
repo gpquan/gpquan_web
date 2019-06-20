@@ -559,6 +559,7 @@ export default {
     },
     back() {
       // alert("header头部， 点击返回");
+			this.$router.go(-1);
     },
     title() {
       // alert("header头部， 点击title");
