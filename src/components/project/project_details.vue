@@ -244,7 +244,7 @@ export default {
     //   });
     // });
     this.$post("/api/projectInvestHistory", {
-      projectId: 83291
+      projectId:this.projectId
     }).then(res => {
       this.RZ_history = res.data;
       // console.log(res)

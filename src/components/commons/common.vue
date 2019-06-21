@@ -2,7 +2,7 @@
   <div class="view-footer">
     <div class="view-footer" v-if="footerShow==1">
       <router-link to="/project">
-        <strong :class=" !flag1?'view-li-project':'projectActive'" @click="tagToggle(1)">
+        <strong :class=" !flag1?'view-li-jztj':'jztjActive'" @click="tagToggle(1)">
           <span class="view-font-default">精准推荐</span>
         </strong>
       </router-link>
@@ -20,12 +20,12 @@
 
     <div class="view-footer" v-if="footerShow==2">
       <router-link to="/Manage2">
-        <strong :class=" !flag2?'view-li-accelerate':'accelerateActive'" @click="tagToggle(2)">
+        <strong :class=" !flag1?'view-li-accelerate':'accelerateActive'" @click="tagToggle(1)">
           <span class="view-font-default">融资助手</span>
         </strong>
       </router-link>
       <router-link to="/speed">
-        <strong :class=" !flag1?'view-li-xmjs':'xmjsActive'" @click="tagToggle(1)">
+        <strong :class=" !flag2?'view-li-xmjs':'xmjsActive'" @click="tagToggle(2)">
           <span class="view-font-default">项目加速</span>
         </strong>
       </router-link>
@@ -54,7 +54,7 @@ export default {
       flag3: false,
       footerShow: null,
       //  2 1 3 2
-      LiksList: ["/Manage2", "/Speed", "/userCenter"],
+      LiksList: ["/Manage2", "/speed", "/userCenter"],
       LiksList2: ["/project", "/accelerate", "/userCenter"]
     };
   },
@@ -148,9 +148,9 @@ export default {
     background: url("../../assets/image/rzzs.png") no-repeat center 5px;
     background-size: 20px;
   }
-  strong.view-li-project {
-    background: url("../../assets/image/file_default.png") no-repeat center 6px;
-    background-size: 20px;
+  strong.view-li-jztj {
+    background: url("../../assets/image/jztj.png") no-repeat center 6px;
+    background-size: 22px;
   }
   // strong.view-li-project.on {
   //   background: url("../../assets/image/file.png") no-repeat center 3px;
@@ -176,8 +176,8 @@ export default {
     background: url("../../assets/image/user.png") no-repeat center 5px;
     background-size: 33px;
   }
-  strong.projectActive {
-    background: url("../../assets/image/file.png") no-repeat center 5px;
+  strong.jztjActive {
+    background: url("../../assets/image/jztj_ACT.png") no-repeat center 5px;
     background-size: 33px;
   }
   strong.accelerateActive {

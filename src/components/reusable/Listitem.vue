@@ -25,13 +25,9 @@
           </div>
           <div class="List_downsize">
             <span>{{item.lingyu_name}}</span>|
-            <!-- <span>Pre-A</span>|
-            <span>北京市</span>-->
+             <span>  佣金比例：{{item.yongjin}}%</span>
           </div>
-          <div class="List_downsize">
-            佣金比例：
-            <span>{{item.yongjin}}%</span>
-          </div>
+        
         </dd>
       </dl>
     </div>
@@ -80,13 +76,16 @@ export default {
     display: flex;
     padding: 23px 15px;
     dt {
-      min-width: 99px;
-      height: 99px;
-      padding-right: 15px;
+      min-width: 20%;
+      height: 20%;
       img {
-        max-width: 100%;
-        height: 100%;
+        // max-width: 100%;
+        // height: 100%;
+        width: 60px;
+        height:60px;
+        margin-top: 15%;
         border-radius: 50% 50%;
+        border:1px solid #e4e4e4;
       }
     }
     dd {

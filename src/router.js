@@ -255,13 +255,13 @@ const router = new Router({
 				path: '/speed',
 				name: 'speed',
 				component: Speed,
-				redirect:'/Speed/Home',
+				redirect:'/speed/Home',
 				meta: {
 					fshow: true
 				},
 				children:[
 					{
-						path:'/Speed/Home',
+						path:'/speed/Home',
 						name:'SpeedHome',
 						component:SpeedHome,
 						meta: {

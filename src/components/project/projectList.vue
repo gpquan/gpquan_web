@@ -29,21 +29,21 @@
             :autoPlay="3000"
           >
             <div class="nut-swiper-slide gray">
-              <img src="../../assets/image/banner/banner11.jpg" alt="">
+              <img src="../../assets/image/banner/banner1.png" alt="">
               <!-- <span>page 1</span> -->
             </div>
             <div class="nut-swiper-slide gray_1">
-               <img src="../../assets/image/banner/banner22.jpg" alt="">
+               <img src="../../assets/image/banner/banner2.png" alt="">
               <!-- <span>page 2</span> -->
             </div>
             <div class="nut-swiper-slide gray">
-               <img src="../../assets/image/banner/banner33.jpg" alt="">
+               <img src="../../assets/image/banner/banner3.png" alt="">
               <!-- <span>page 3</span> -->
             </div>
-            <div class="nut-swiper-slide gray_1">
+            <!-- <div class="nut-swiper-slide gray_1">
                <img src="../../assets/image/banner/banner4.png" alt="">
-              <!-- <span>page 4</span> -->
-            </div>
+               <span>page 4</span>
+            </div> -->
           </nut-swiper>
         </div>
         <!-- <div class="screen">
