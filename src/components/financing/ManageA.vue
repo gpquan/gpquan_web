@@ -395,7 +395,7 @@ export default {
   // margin-top: -7vh;
   // margin-left: 46vw;
 	position: relative;
-	bottom: 11vh;
+	bottom: 9vh;
 	left: 3vw;
 }
 .right-box-title {
