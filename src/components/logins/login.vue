@@ -10,7 +10,7 @@
       <div class="title">
         <h1>
           你好,
-          <br>欢迎来到GP圈
+          <br>欢迎来到企融易
         </h1>
       </div>
       <div class="logBox">

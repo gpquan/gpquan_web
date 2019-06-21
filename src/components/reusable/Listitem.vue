@@ -24,7 +24,8 @@
             <span class="hide">简介:{{item.description}}</span>
           </div>
           <div class="List_downsize">
-            <span>{{item.lingyu_name}}</span>|
+            <span>融资金额：2000万</span>&nbsp; | &nbsp;
+            <span> {{item.stage_name}}</span>&nbsp; | &nbsp;
              <span>  佣金比例：{{item.yongjin}}%</span>
           </div>
         
