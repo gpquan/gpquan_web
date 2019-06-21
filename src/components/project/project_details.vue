@@ -1,7 +1,10 @@
 <template>
   <div class="project_detailsBox" v-if="ListData!=null">
-    <nut-navbar @on-click-back="back" :leftShow="true" :rightShow="true">{{ListData.name}}</nut-navbar>
+    
     <div class="top_Box">
+      <nut-navbar @on-click-back="back" :leftShow="true" :rightShow="true"
+    style="background:rgba(255,255,255,0);color:#fff;z-index:9;"
+    >{{ListData.name}}</nut-navbar>
       <div class="h_img">
         <img :src="ListData.logo" alt class="top_headImg">
       </div>
@@ -319,6 +322,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+b{
+  font-weight: 400;
+}
 .project_detailsBox {
   background: #f5f6fa;
 }
@@ -352,7 +358,7 @@ export default {
 .top_Box {
   // background-image: url("../../assets/image/bg.png");
   width: 100%;
-  height: 200px;
+  height: 240px;
   background-size: 100% 90%;
   background-repeat: no-repeat;
   position: relative;
@@ -389,6 +395,7 @@ export default {
     justify-content: center;
     .box_text {
       line-height: 4vh;
+      font-size: 13px;
     }
   }
   .statusBox1 .statusIMG {
@@ -548,11 +555,13 @@ export default {
 }
 .left {
   height: 100%;
+  display: flex;
+    align-items: center;
 }
 .noW {
   font-weight: 400;
-  font-size: 16px;
-  text-indent: 10px;
+  font-size: 13px;
+  text-indent: 5px;
 }
 .lineEm {
   width: 3px;
@@ -637,7 +646,7 @@ export default {
   justify-content: center;
   align-items: center;
   img {
-    margin-bottom: 20%;
+    margin-bottom:38%;
     z-index: 9;
   }
 }
