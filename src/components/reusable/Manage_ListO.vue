@@ -54,7 +54,7 @@
           </div>
            <div class="box_1">
             <div class="addBtn" v-if="i.maxLength<3">
-            <span @click="push_route">
+            <span @click="push_route(i.organ_id)">
               <img src="../../assets/image/pink_add.png" alt>
             </span>
           </div>
