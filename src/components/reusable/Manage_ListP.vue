@@ -4,7 +4,10 @@
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       <!-- {{i.organs[0].lenght}} -->
       <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
-        <nut-icon type="more"></nut-icon>
+        <span></span>
+        <span></span>
+        <span></span>
+        <!-- <nut-icon type="more"></nut-icon> -->
       </b>
       <div class="title_">
         <div class="title_top">
@@ -17,7 +20,7 @@
           <b class="expedite" @click="expedite(i.lingyu_id)"></b>
         </div>
         <div class="title_Bottm">
-          <div style="padding:10px 0">
+          <div style="padding:14px 0">
             <span
               v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
               :key="idd"
@@ -34,8 +37,8 @@
             <span class="box1">
               <circle-progress
                 :id="i.organs[ind].progress.uniqid+1"
-                :width="85"
-                :radius="5"
+                :width="66"
+                :radius="4"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
                 :duration="500"
@@ -53,10 +56,12 @@
               {{i.organs[ind].name}}
             </b>
           </div>
-             <div class="addBtn">
-            <span v-if="i.maxLength<3" @click="push_route">
-              <img src="../../assets/image/bigAdd.png" alt>
+          <div class="box_1">
+            <div class="addBtn" v-if="i.maxLength<3">
+            <span @click="push_route">
+              <img src="../../assets/image/pink_add.png" alt>
             </span>
+          </div>
           </div>
         </div>
         <div class="List_gather" v-show="i.status==1">
@@ -67,8 +72,8 @@
             <span class="box1">
               <circle-progress
                 :id="i.organs[ind].progress.uniqid+2"
-                :width="85"
-                :radius="5"
+                :width="66"
+                :radius="4"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
                 :duration="500"
@@ -85,10 +90,12 @@
               {{i.organs[ind].name}}
             </b>
           </div>
-           <div class="addBtn">
+          <div class="box_1">
+            <div class="addBtn">
             <span @click="push_route">
-              <img src="../../assets/image/bigAdd.png" alt>
+              <img src="../../assets/image/pink_add.png" alt>
             </span>
+          </div>
           </div>
         </div>
       </div>
@@ -179,9 +186,9 @@ export default {
         query: { lyid: lyid }
       });
     },
-      push_route(){
-				this.$router.push({path:"/accelerate/Manage/o/add"})
-			},
+    push_route() {
+      this.$router.push({ path: "/accelerate/Manage/o/add" });
+    }
   }
 };
 </script>
@@ -217,6 +224,7 @@ export default {
 .box_1,
 .box_2,
 .box_3 {
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,13 +242,20 @@ export default {
   box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   position: relative;
-  margin-top: 10px;
+  margin-top: 14px;
   //   padding: 10px;
 }
 .icon_Box {
   position: absolute;
   top: 60%;
   right: 1%;
+  span {
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    background: #f37f6d;
+    margin-right: 2px;
+  }
 }
 .title_ {
   //   padding: 10px 5% 0;
@@ -248,14 +263,14 @@ export default {
   border-radius: 8px 8px 0 0;
   width: 90%;
   margin-left: 5%;
-  padding: 2% 0;
-  border-bottom: 1px solid #6e6e6e;
+  // padding: 2% 0;
+  border-bottom: 1px solid #eeeeee;
   position: relative;
 }
 .title_top {
   display: flex;
   justify-content: space-between;
-  padding-top: 10px;
+  padding-top: 13px;
   .left {
     display: flex;
     align-items: center;
@@ -275,8 +290,8 @@ export default {
 .xmt {
   font-size: 11px;
   height: 18px;
-  border-radius: 9px;
-  padding: 5px 10px;
+  border-radius: 25px;
+  padding: 4px 10px;
 }
 .yd {
   background: #fef8e5;
@@ -299,11 +314,11 @@ export default {
   position: relative;
   height: 100%;
   display: inline-block;
-  padding: 10px;
+  padding: 13px 10px 8px 10px;
   span {
     position: absolute;
     top: 7%;
-    width: 80%;
+    width: 66px;
     height: 80%;
     display: flex;
     align-items: center;
@@ -332,6 +347,7 @@ export default {
   align-items: center;
   font-weight: 400;
   font-size: 12px;
+  color:#333;
   em {
     display: inline-block;
     width: 8px;
@@ -351,7 +367,7 @@ export default {
   //   display: inline-block;
   //   line-height: 100px;
   em {
-    width: 80%;
+    width: 57px;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -360,13 +376,14 @@ export default {
     // overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     text-align: center;
+    color: #f37f6d;
   }
 }
 .noW {
   font-weight: 400;
-  text-indent: 10px;
+  // text-indent: 10px;
 }
 .lineEm {
   width: 3px;
@@ -377,10 +394,11 @@ export default {
   margin-right: 5px;
 }
 .addBtn {
-    width: 85px;
-    padding: 10px;
-    img{
-      width:100%;
-    }
+  width: 66px;
+  padding: 10px;
+  img {
+    width:100%;
+    // height: 57px;
+  }
 }
 </style>

@@ -187,7 +187,7 @@ export default {
   width: 90%;
   margin-left: 5%;
   padding: 2% 0;
-  border-bottom: 1px solid #6e6e6e;
+  border-bottom: 1px solid #eeeeee;
   position: relative;
 }
 .title_top {

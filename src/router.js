@@ -48,6 +48,7 @@ import Manage_ListO from '@/components/manage2/Manage_ListO'
 import Manage_ListFA from '@/components/manage2/Manage_ListFA'
 import Speed from '@/components/manage2/Speed'
 import SpeedHome from '@/components/manage2/SpeedHome'
+import dimQ from '@/components/project/dimQuery'
 Vue.use(Router)
 
 const router = new Router({
@@ -62,6 +63,7 @@ const router = new Router({
 				name: 'demo',
 				component: Demo
 			},
+		
 			{
 				path: '/project',
 				name: 'project',
@@ -94,6 +96,11 @@ const router = new Router({
 						meta:{
 							keep:'bz'
 						}
+					},
+					{
+						path:'/project/dimQ',
+						name:'dimQ',
+						component:dimQ
 					},
 
 				]

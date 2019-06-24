@@ -9,9 +9,9 @@
       >添加项目</nut-navbar>
       <div class="addcontent">
         <div class="topaddIMG">
-          <div class="topImgtitle">
-            <em>|</em>
-            <b>添加项目LOGO</b>
+          <div class="title-box">
+            <img src="../../assets/image/line1.png" alt class="line">
+            <span class="title-text">添加头像</span>
           </div>
           <div class="addImg">
             <div class="addImgBox">
@@ -42,9 +42,9 @@
         </div>
 
         <div class="BasicStatus">
-          <div class="Basictitle">
-            <em>|</em>
-            <b>基本信息</b>
+          <div class="title2-box">
+            <img src="../../assets/image/line1.png" alt class="line">
+            <span class="title-text">基本信息</span>
           </div>
           <div class="top_line"></div>
           <div class="basicBox">
@@ -126,12 +126,15 @@
         </div>
         <div class="financing">
           <div class="financingtitle">
-            <div class="left">
-              <em>|</em>
-              <b>融资历史</b>
-            </div>
-            <div class="right">
-              <span @click="addHistory()">+</span>
+            <div class="title-box twotitle">
+             
+              <div class="left" style="flex:1;">
+                 <img src="../../assets/image/line1.png" alt class="line">
+              <span class="title-text">融资历史</span>
+              </div>
+              <div class="right">
+                <span @click="addHistory()">+</span>
+              </div>
             </div>
           </div>
           <div class="financingBox" v-if="rzhistoryObj.length!=0">
@@ -145,12 +148,14 @@
         </div>
         <div class="team">
           <div class="teamtitle">
-            <div class="left">
-              <em>|</em>
-              <b>团队</b>
+          <div class="title-box twotitle">
+              <div class="left" style="flex:1;">
+                 <img src="../../assets/image/line1.png" alt class="line">
+              <span class="title-text">团队</span>
             </div>
             <div class="right">
               <span @click="addTeam()">+</span>
+            </div>
             </div>
           </div>
           <div class="teamBox" v-if="teamObj.length!=0">
@@ -166,13 +171,15 @@
         </div>
         <div class="product">
           <div class="productTitle">
-            <div class="left">
-              <em>|</em>
-              <b>竞品</b>
+          <div class="title-box twotitle">
+              <div class="left" style="flex:1;">
+                 <img src="../../assets/image/line1.png" alt class="line">
+                 <span class="title-text">竞品</span>
             </div>
             <div class="right">
               <span @click="addproduct()">+</span>
             </div>
+          </div>
           </div>
           <div class="productBox" v-if="ProductObj.length!=0">
             <div v-for="(item,ind) in ProductObj" :key="ind">
@@ -181,9 +188,9 @@
           </div>
         </div>
         <div class="lightspot">
-          <div class="lightspottitle">
-            <em>|</em>
-            <b>项目亮点</b>
+             <div class="title-box twotitle">
+            <img src="../../assets/image/line1.png" alt class="line">
+            <span class="title-text">项目亮点</span>
           </div>
           <div class="Box">
             <div @click="lightspot()">
@@ -376,7 +383,7 @@ export default {
       rzhistoryObj: [
         {
           financing_stage_id: 2, //融资阶段
-          financing_stage_name:'种子轮',
+          financing_stage_name: "种子轮",
           financing_time: "2017-8-9", // 融资时间
           financing_money: 500, //融资金额
           financing_username: "hongshan,IDG" //机构
@@ -394,8 +401,7 @@ export default {
         }
       ],
       dialogProduct: false, //竞品
-      ProductObj: [
-      ],
+      ProductObj: [],
       roundsList: [], //轮次集合
       stage_id: null, //轮次ID
       lingyu_id: null, //领域ID
@@ -424,11 +430,12 @@ export default {
         //添加团队成员
       },
       Rzhistory_id: null, //融资历史轮次选择ID
-      Rzhistory_List: [] ,//融资历史选择列表
-      newJp:null,//新增竞品
+      Rzhistory_List: [], //融资历史选择列表
+      newJp: null //新增竞品
     };
   },
   created() {
+    this.name = this.$route.query.name;
     this.getroundsList();
     //领域赋值
     this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
@@ -486,26 +493,26 @@ export default {
         this.isDj < 2
       ) {
         alert("资料齐全");
-        this.$post('/api/addProject',{
-          name:this.name,
-          description:this.description,
-          lingyu_id:this.lingyu_id,
-          stage_id:this.stage_id,
-          logo:this.imgUrl,
-          financing_money:this.money,
-          yongjin:this.moneyRatio,
-          vip:this.isDj,
-          contract_name:this.contract_name,
-          contract_phone:this.contract_phone,
-          project_light:this.project_light,
-          financingData:this.rzhistoryObj+'',
-          member:this.teamObj+'',
-          tag:this.lyList,
-          member:this.teamObj+'',
-          project_BP:this.imgUrl
-        }).then((res)=>{
-            console.log(res)
-        })
+        this.$post("/api/addProject", {
+          name: this.name,
+          description: this.description,
+          lingyu_id: this.lingyu_id,
+          stage_id: this.stage_id,
+          logo: this.imgUrl,
+          financing_money: this.money,
+          yongjin: this.moneyRatio,
+          vip: this.isDj,
+          contract_name: this.contract_name,
+          contract_phone: this.contract_phone,
+          project_light: this.project_light,
+          financingData: this.rzhistoryObj + "",
+          member: this.teamObj + "",
+          tag: this.lyList,
+          member: this.teamObj + "",
+          project_BP: this.imgUrl
+        }).then(res => {
+          console.log(res);
+        });
       } else {
         alert("缺点东西");
       }
@@ -559,7 +566,7 @@ export default {
     },
     back() {
       // alert("header头部， 点击返回");
-			this.$router.go(-1);
+      this.$router.go(-1);
     },
     title() {
       // alert("header头部， 点击title");
@@ -616,15 +623,15 @@ export default {
           this.Rzhistory_id = this.Rzhistory_List[i].id;
         }
       }
-     this.rzhistoryNewObj.financing_stage_name = `${chooseData[0]}`;
-      this.rzhistoryNewObj.financing_stage_id=this.Rzhistory_id
+      this.rzhistoryNewObj.financing_stage_name = `${chooseData[0]}`;
+      this.rzhistoryNewObj.financing_stage_id = this.Rzhistory_id;
     },
     confirmLS() {
       //融资历史增加确定回调
-    if(this.rzhistoryNewObj!={}){
-        this.rzhistoryObj.push(this.rzhistoryNewObj)
-      this.rzhistoryNewObj={}
-    }
+      if (this.rzhistoryNewObj != {}) {
+        this.rzhistoryObj.push(this.rzhistoryNewObj);
+        this.rzhistoryNewObj = {};
+      }
       this.dialogShow = false;
     },
     addTeam() {
@@ -772,6 +779,10 @@ export default {
 }
 .topImgtitle {
   border-bottom: 1px solid #ccc;
+  height: 52px;
+  img {
+    height: 80%;
+  }
 }
 .addImgBox {
   display: flex;
@@ -925,8 +936,39 @@ export default {
 .Project {
   height: 100%;
 }
-.item_{
-      width: 90%;
-    padding: 10px;
+.item_ {
+  width: 90%;
+  padding: 10px;
+}
+.title-box,
+.title2-box,
+.title3-box,
+.title4-box,
+.title5-box {
+  margin-top: 3%;
+  // padding-left: 3%;
+  border-bottom: 1px solid #efefef;
+  min-height: 8vh;
+  background: #fff;
+}
+.title-text,
+.line {
+  vertical-align: middle;
+  line-height: 8vh;
+}
+.line {
+  height: 5vmin;
+}
+.title-text {
+  margin-left: 2%;
+  font-size: 16px;
+}
+.financingtitle {
+  align-items: center;
+}
+.twotitle{
+      width: 100%;
+    display: flex;
+    align-items: center;
 }
 </style>
