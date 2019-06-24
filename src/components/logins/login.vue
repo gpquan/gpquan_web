@@ -1,8 +1,8 @@
 <template>
   <div>
-    <nut-navbar 
-    @on-click-back="back" 
-    :leftShow="true" 
+    <nut-navbar
+    @on-click-back="back"
+    :leftShow="true"
     :rightShow="false"
     >登录</nut-navbar>
     <img src="../../assets/image/R_round.png" alt="" class="R_round_IMG">
@@ -10,7 +10,7 @@
       <div class="title">
         <h1>
           你好,
-          <br>欢迎来到企融易
+          <br>欢迎来到创融易
         </h1>
       </div>
       <div class="logBox">
@@ -105,7 +105,7 @@ export default {
             this.$router.push('/Manage2')
           }
         }
-        
+
       })
     },
     pwdchange() {

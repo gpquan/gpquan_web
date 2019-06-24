@@ -140,14 +140,14 @@
 								message: '提交成功',
 								type: 'success'
 							});
-				
+
 						} else {
 							// this.sta = true;
 							// this.textarea = '';
 							// alert(res.error.message);
 							this.$message.error('操作失败');
 
-							
+
 							// this.showPop(2);
 						};
 					}
@@ -276,7 +276,7 @@
 
 	.animation_icon {
 		animation: fadeInRight 0.5s linear;
-		
+
 	}
 
 	/deep/.nut-button.light {
