@@ -1,8 +1,8 @@
 <template>
-  <div class="List_box" v-if="Listdata[0].name">
+  <div class="List_box" v-if="Listdata[0]">
     <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details(item)">
-      <span class="item_status" v-if="item.name">
-        <img src="../../assets/image/listItem_status.png" alt>
+      <span class="item_status" v-if="Listdata.length%index==1">
+        <!-- <img src="../../assets/image/l_bg.png" alt> -->
         <em class="item_status_text hide1">红杉资本</em>
       </span>
       <dl class="List_item">
@@ -98,11 +98,9 @@ export default {
     }
   }
 }
-.List_box .List_item:nth-child(1) {
-  margin-top: 0;
-}
+
 .List_item {
-  margin-top: 11px;
+  margin-bottom: 11px;
   background: #fff;
 }
 .yd,
@@ -154,7 +152,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url("../../assets/image/listItem_status.png"); // width: 0;
+    background-image: url("../../assets/image/l_bg.png"); // width: 0;
     background-size: 100%;
     background-repeat: no-repeat;
     width: 15%;

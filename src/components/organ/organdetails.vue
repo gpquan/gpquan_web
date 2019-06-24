@@ -33,7 +33,7 @@
         <p v-if="unfoldAll" class="hide">
           {{ListData.description}}
           <em class="unfold_All" @click="unfoldShow()">
-            展开全部
+            展开
             <span class="downIcon"></span>
           </em>
         </p>
@@ -52,12 +52,15 @@
           <em class="lineEm"></em>
           <b class="noW">投资行业</b>
         </div>
+         <span @click="addHY()">
+            <img src="../../assets/image/add_fff.png" alt>
+          </span>
       </div>
       <div class="contentBox">
         <p v-if="unfoldAll2" class="hide">
           <span v-for="(item,ind) in ListData.lingyu_name" :key="ind" class="Listhy yd">{{item}}</span>
           <em class="unfold_All" @click="unfoldShow2()">
-            展开全部
+            展开
             <span class="downIcon"></span>
           </em>
         </p>
@@ -71,17 +74,22 @@
       </div>
     </div>
     <div class="phlc">
-      <div class="title_top">
+      <div class="title_top titletwo">
         <div class="left">
           <em class="lineEm"></em>
           <b class="noW">偏好轮次</b>
+        </div>
+        <div class="right">
+          <span @click="addLC()">
+            <img src="../../assets/image/add_fff.png" alt>
+          </span>
         </div>
       </div>
       <div class="contentBox">
         <p v-if="unfoldAll3" class="hide">
           <span v-for="(item,ind) in LCdata" :key="ind" class="Listhy yd">{{item}}</span>
           <em class="unfold_All" @click="unfoldShow3()">
-            展开全部
+            展开
             <span class="downIcon"></span>
           </em>
         </p>
@@ -101,7 +109,9 @@
           <b class="noW">备注</b>
         </div>
         <div class="right">
-          <span @click="addBz()">+</span>
+          <span @click="addBz()">
+            <img src="../../assets/image/add_fff.png" alt>
+          </span>
         </div>
       </div>
       <div class="contentBox">
@@ -115,7 +125,9 @@
           <b class="noW">联系人</b>
         </div>
         <div class="right">
-          <span @click="addLxr()">+</span>
+          <span @click="addLxr()">
+            <img src="../../assets/image/add_fff.png" alt>
+          </span>
         </div>
       </div>
       <div class="contentBox">
@@ -150,7 +162,7 @@
                   <span class="name">{{item.name}}</span>
                   <span class="yd">{{item.lingyu_name}}</span>
                   <!-- <span class="SAAS">SAAS</span>
-                  <span class="xmt">新媒体</span> -->
+                  <span class="xmt">新媒体</span>-->
                 </div>
                 <div class="List_downsize">
                   <span class="hide">简介:{{item.description}}</span>
@@ -159,7 +171,7 @@
                   <span>{{item.lingyu_name}}</span>|
                   <span>Pre-A</span>|
                   <span>北京市</span> 
-                </div> -->
+                </div>-->
                 <div class="List_downsize">
                   当前轮次：
                   <span>{{item.stage_name}}</span>
@@ -210,6 +222,22 @@
         :hasBorder="false"
       />
     </nut-dialog>
+    <!-- 添加轮次 -->
+    <nut-picker
+      :is-visible="isVisibleLC"
+      :default-value-data="LCdata1"
+      :list-data="LCdata1"
+      @close="switchPicker('isVisibleLC')"
+      @confirm="setLCValue"
+    ></nut-picker>
+    <!-- 添加行业 -->
+      <nut-picker
+      :is-visible="isVisibleHY"
+      :default-value-data="LCdata1"
+      :list-data="LCdata1"
+      @close="switchPicker('isVisibleHY')"
+      @confirm="setHyValue"
+    ></nut-picker>
   </div>
 </template>
 
@@ -229,7 +257,12 @@ export default {
       lxrName: "",
       lxrphone: "",
       LCdata: ["天使轮", "A轮", "B轮", "C轮", "D轮", "E轮", "战略融资"],
-      Listdata1:[]
+      LCdata1: [["天使轮", "A轮", "B轮", "C轮", "D轮", "E轮", "战略融资"]],
+      Listdata1: [],
+      isVisibleLC: false,
+      LC: null,
+      isVisibleHY:false,
+      HY:null
     };
   },
   created() {
@@ -240,16 +273,15 @@ export default {
       if (res.status == "success") this.ListData = res.data;
       console.log(this.ListData);
     });
-    this.$post('/api/getOrganInvestAlikeProject',{
-        organId:id,
-      
-    }).then((res)=>{
-      this.Listdata1=res.data
-      console.log(res)
-    })
+    this.$post("/api/getOrganInvestAlikeProject", {
+      organId: id
+    }).then(res => {
+      this.Listdata1 = res.data;
+      console.log(res);
+    });
   },
   methods: {
-     item_details(item) {
+    item_details(item) {
       this.$router.push({
         path: "/project/details",
         query: {
@@ -295,6 +327,21 @@ export default {
       this.dialogShowLXR = false;
       this.LXRlist.push(this.lxrName + ":" + this.lxrphone);
       this.lxr = "";
+    },
+    setLCValue(chooseData) {
+      this.LC = `${chooseData[0]}`;
+    },
+    addLC() {
+      this.isVisibleLC = true;
+    },
+    switchPicker(param) {
+      this[`${param}`] = !this[`${param}`];
+    },
+    addHY(){
+      this.isVisibleHY = true;
+    },
+    setHyValue(){
+      this.HY=`${chooseData[0]}`;
     }
   }
 };
@@ -436,6 +483,10 @@ export default {
   text-align: center;
   line-height: 20px;
   color: rgb(29, 198, 197);
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 .Listhy {
   // border:1px solid #ccc;
@@ -549,7 +600,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp:1;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
 }
 </style>

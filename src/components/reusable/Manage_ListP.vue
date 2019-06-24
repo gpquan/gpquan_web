@@ -3,7 +3,7 @@
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       <!-- {{i.organs[0].lenght}} -->
-      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>3">
+      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
         <nut-icon type="more"></nut-icon>
       </b>
       <div class="title_">
@@ -53,6 +53,11 @@
               {{i.organs[ind].name}}
             </b>
           </div>
+             <div class="addBtn">
+            <span v-if="i.maxLength<3" @click="push_route">
+              <img src="../../assets/image/bigAdd.png" alt>
+            </span>
+          </div>
         </div>
         <div class="List_gather" v-show="i.status==1">
           <b class="List_gather_Icon" @click="closeListGather(idx)">
@@ -79,6 +84,11 @@
               <em></em>
               {{i.organs[ind].name}}
             </b>
+          </div>
+           <div class="addBtn">
+            <span @click="push_route">
+              <img src="../../assets/image/bigAdd.png" alt>
+            </span>
           </div>
         </div>
       </div>
@@ -168,7 +178,10 @@ export default {
         path: "/accelerate/Manage/a",
         query: { lyid: lyid }
       });
-    }
+    },
+      push_route(){
+				this.$router.push({path:"/accelerate/Manage/o/add"})
+			},
   }
 };
 </script>
@@ -236,7 +249,7 @@ export default {
   width: 90%;
   margin-left: 5%;
   padding: 2% 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #6e6e6e;
   position: relative;
 }
 .title_top {
@@ -362,5 +375,12 @@ export default {
   background-image: url("../../assets/image/line1.png");
   background-size: 100%;
   margin-right: 5px;
+}
+.addBtn {
+    width: 85px;
+    padding: 10px;
+    img{
+      width:100%;
+    }
 }
 </style>

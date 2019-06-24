@@ -27,7 +27,7 @@
       </div>
       <div class="div_ListBox">
         <div class="List_top" v-show="i.status==2">
-          <!-- {{I.maxLength}} -->
+          <!-- {{i.maxLength}} -->
           <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
             <span class="box1">
               <circle-progress
@@ -49,6 +49,11 @@
               <em></em>
               {{i.projects[ind].name}}
             </b>
+          </div>
+          <div class="addBtn">
+            <span v-if="i.maxLength<3" @click="push_route">
+              <img src="../../assets/image/bigAdd.png" alt>
+            </span>
           </div>
         </div>
         <div class="List_gather" v-show="i.status==1">
@@ -72,10 +77,16 @@
                 <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
+
             <b class="nameTIT">
               <em></em>
               {{i.projects[ind].name}}
             </b>
+          </div>
+          <div class="addBtn">
+            <span @click="push_route">
+              <img src="../../assets/image/bigAdd.png" alt>
+            </span>
           </div>
         </div>
       </div>
@@ -156,7 +167,10 @@ export default {
       //     console.log(res);
       //   });
       // this.$router.push("/accelerate/Manage/accelerate")
-    }
+    },
+    push_route(){
+				this.$router.push({path:"/accelerate/Manage/p/add"})
+			},
   }
 };
 </script>
@@ -223,7 +237,7 @@ export default {
   width: 90%;
   margin-left: 5%;
   padding: 2% 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #6e6e6e;
 }
 .title_top {
   display: flex;
@@ -337,5 +351,12 @@ export default {
   background-image: url("../../assets/image/line1.png");
   background-size: 100%;
   margin-right: 5px;
+}
+.addBtn {
+    width: 85px;
+    padding: 10px;
+    img{
+      width:100%;
+    }
 }
 </style>

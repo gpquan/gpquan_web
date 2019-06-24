@@ -336,7 +336,7 @@ export default {
         this.timer = setTimeout(() => {
           this.isLoading1 = false;
           this.isUnMore1 = false;
-          this.listData1 = new Array(5 * this.page1);
+          // this.listData1 = new Array(5 * this.page1);
           this.page1 = ++this.page1;
         }, 300);
       }
@@ -350,7 +350,7 @@ export default {
         //刷新列表重新给数组赋值
         this.isLoading1 = false;
         this.isUnMore1 = false;
-        this.listData1 = new Array(5);
+        // this.listData1 = new Array(5);
         this.page1 = 2;
       }, 300);
     }
