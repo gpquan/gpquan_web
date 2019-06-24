@@ -420,7 +420,7 @@ export default {
   text-overflow: ellipsis;
 }
 .nav{
-  height: 11px;
+  // height: 11px;
   background: #F5F6FA;
 }
 .nut-swiper-slide{

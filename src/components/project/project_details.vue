@@ -1,10 +1,12 @@
 <template>
   <div class="project_detailsBox" v-if="ListData!=null">
-    
     <div class="top_Box">
-      <nut-navbar @on-click-back="back" :leftShow="true" :rightShow="true"
-    style="background:rgba(255,255,255,0);color:#fff;z-index:9;"
-    >{{ListData.name}}</nut-navbar>
+      <nut-navbar
+        @on-click-back="back"
+        :leftShow="true"
+        :rightShow="true"
+        style="background:rgba(255,255,255,0);color:#fff;z-index:9;"
+      >{{ListData.name}}</nut-navbar>
       <div class="h_img">
         <img :src="ListData.logo" alt class="top_headImg">
       </div>
@@ -57,15 +59,39 @@
           </div>
           <div class="intro">
             <span>项目简介</span>
-            <p class="xmjj">{{ListData.description}}</p>
+            <!-- <p class="xmjj">{{ListData.description}}</p> -->
+            <div class="bright_history">
+              <p v-if="unfoldAll1" class="hide" style="height:40px;">
+                {{ListData.project_light}}
+                <em
+                  class="unfold_All"
+                  @click="unfoldShow1()"
+                  style="color:#999"
+                >
+                  展开
+                  <b class="downIcon"></b>
+                </em>
+              </p>
+              <p v-else class="test_size m_t5">
+                {{ListData.description}}
+                <em
+                  class="close_All"
+                  @click="unfoldNoShow1()"
+                  style="color:#999"
+                >
+                  收起
+                  <b class="upIcon"></b>
+                </em>
+              </p>
+            </div>
           </div>
           <div>
-            <span>本轮融资</span>
-            <b>{{ListData.stage_name+"万元"}}</b>
+            <span>融资阶段</span>
+            <b>{{ListData.stage_name}}</b>
           </div>
           <div>
             <span>融资金额</span>
-            <b>{{ListData.stage_name+'万元'}}</b>
+            <b>{{ListData.financing_money+'万元'}}</b>
           </div>
           <div class="lingyu">
             <span>行业关键字</span>
@@ -89,7 +115,9 @@
         </div>
         <div class="status_box">
           <div class="steps_">
-            <StepsRow :RZList="this.RZ_history"/>
+            <!-- {{RZ_history}} -->
+            <StepsRow v-if="this.RZ_history.length!=0" :RZList="this.RZ_history"/>
+            <div v-else style="text-align:center;color:#999">暂无收录该信息</div>
           </div>
         </div>
       </div>
@@ -104,7 +132,7 @@
         <!-- </div> -->
       </div>
       <div class="teamCentent">
-        <nut-scroller>
+        <nut-scroller v-if="ListData.member">
           <div
             slot="list"
             class="nut-hor-list-item"
@@ -123,6 +151,7 @@
             <div class="nut-hor-jump-more">查看更多</div>
           </slot>-->
         </nut-scroller>
+        <div v-else style="text-align:center;color:#999"> 暂无收录该信息</div>
       </div>
     </div>
     <div class="ProjectList">
@@ -145,7 +174,7 @@
                 <div @click="Pushme(item)">{{item.name}}</div>
                 <div class="hide">{{item.description}}</div>
                 <span :class="colorClass[0]" style="line-height:30px;">{{item.lingyu_name}}</span>
-                <div>{{"行业轮次："+item.stage_name}}</div>
+                <div class="lc">{{"行业轮次："+item.stage_name}}</div>
               </dd>
             </dl>
           </div>
@@ -167,14 +196,18 @@
       <div class="bright_history">
         <p v-if="unfoldAll" class="hide">
           {{ListData.project_light}}
-          <em class="unfold_All" @click="unfoldShow()">
-            展开全部
+          <em class="unfold_All" @click="unfoldShow()" style="color:#333">
+            展开
             <span class="downIcon"></span>
           </em>
         </p>
         <p v-else class="test_size">
           {{ListData.project_light}}
-          <em class="close_All" @click="unfoldNoShow()">
+          <em
+            class="close_All"
+            @click="unfoldNoShow()"
+            style="color:#333"
+          >
             收起
             <span class="upIcon"></span>
           </em>
@@ -192,7 +225,7 @@
         <img src="../../assets/image/ProBp.png" alt class="Bp_img">
       </div>
     </div>
-    <div class="recommend">
+    <!-- <div class="recommend">
       <div class="recommend_title">
         <div class="title_top">
           <div class="left">
@@ -207,7 +240,7 @@
     </div>
     <div class="recommend_Btn">
       <nut-button block shape="circle">获取联系方式</nut-button>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -230,7 +263,8 @@ export default {
       RZ_history: null,
       projectId: null,
       ProList: {},
-      id: null
+      id: null,
+      unfoldAll1: true
     };
   },
   beforeMount() {
@@ -247,7 +281,7 @@ export default {
     //   });
     // });
     this.$post("/api/projectInvestHistory", {
-      projectId:this.projectId
+      projectId: this.projectId
     }).then(res => {
       this.RZ_history = res.data;
       // console.log(res)
@@ -271,18 +305,18 @@ export default {
     });
   },
   methods: {
-    getList(){
-        this.$fetch("/api/getProjectDetail/" + this.projectId).then(res => {
-      if (res.status == "success") this.ListData = res.data;
-      this.$post("/api/getAlikeProjectList", {
-        field: "id",
-        fieldValue: this.projectId
-      }).then(res => {
-        console.log(res);
-        this.ProList = res.data;
+    getList() {
+      this.$fetch("/api/getProjectDetail/" + this.projectId).then(res => {
+        if (res.status == "success") this.ListData = res.data;
+        this.$post("/api/getAlikeProjectList", {
+          field: "id",
+          fieldValue: this.projectId
+        }).then(res => {
+          console.log(res);
+          this.ProList = res.data;
+        });
+        console.log(this.ListData);
       });
-      console.log(this.ListData);
-    });
     },
     back() {
       this.$router.go(-1);
@@ -292,6 +326,12 @@ export default {
     },
     more() {
       alert("header头部， 点击更多");
+    },
+    unfoldShow1() {
+      this.unfoldAll1 = false;
+    },
+    unfoldNoShow1() {
+      this.unfoldAll1 = true;
     },
     unfoldShow() {
       this.unfoldAll = false;
@@ -310,19 +350,19 @@ export default {
       // this.$forceUpdate()
     }
   },
-  watch:{
-       $route(n, o) {
-         if(n.query.id!==o.query.id){
-           this.projectId = n.query.id;
-           this.getList()
-         }
-       }
+  watch: {
+    $route(n, o) {
+      if (n.query.id !== o.query.id) {
+        this.projectId = n.query.id;
+        this.getList();
+      }
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-b{
+b {
   font-weight: 400;
 }
 .project_detailsBox {
@@ -423,6 +463,7 @@ b{
 .statusIMG {
   width: 50%;
   height: 50%;
+  margin-top: 14px;
 }
 .center {
   .top_status {
@@ -440,15 +481,15 @@ b{
   display: flex;
 }
 .intro p {
-  display: inline-block;
+  // display: inline-block;
 }
 .jbxxList span {
   min-width: 87px;
   display: inline-block;
-  color: #b5b5b5;
+  color: #999;
 }
 .jbxxList div {
-  line-height: 44px;
+  line-height: 32px;
 }
 .jbxxList b {
   color: #333333;
@@ -533,13 +574,13 @@ b{
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-bottom: 5px solid #ccc;
+  border-bottom: 5px solid #999;
 }
 .downIcon {
   width: 0;
   height: 0;
   border: 5px solid transparent;
-  border-top: 5px solid #ccc;
+  border-top: 5px solid #999;
 }
 .bright_title,
 .Bp_title,
@@ -556,7 +597,7 @@ b{
 .left {
   height: 100%;
   display: flex;
-    align-items: center;
+  align-items: center;
 }
 .noW {
   font-weight: 400;
@@ -576,8 +617,8 @@ b{
 .xmt {
   font-size: 11px;
   height: 18px;
-  border-radius: 9px;
-  padding: 5px 10px;
+  border-radius: 25px;
+  padding: 4px 10px;
 }
 .yd {
   background: #fef8e5;
@@ -608,16 +649,18 @@ b{
 /deep/.teamBox .nut-hor-list .nut-hor-list-item {
   width: 200px;
   margin: 10px;
-  box-shadow: 0px 0px 5px #ccc;
-  padding: 20px;
+  box-shadow: 0px 0px 9px #f1f1f1;
+  border:1px solid #f3f3f3;
+  padding: 20px 20px 10px 20px;
   /* min-height: 120px; */
   border-radius: 10px;
 }
 .ProjectList .nut-hor-list .nut-hor-list-item {
   width: 200px;
   margin: 10px;
-  box-shadow: 0px 0px 5px #ccc;
-  padding: 20px;
+  box-shadow: 0px 0px 9px #f1f1f1;
+    border:1px solid #f3f3f3;
+  padding: 20px 20px 10px 20px;
   /* min-height: 120px; */
   border-radius: 10px;
 }
@@ -626,10 +669,12 @@ b{
   dt {
     min-width: 30%;
     padding-right: 5vw;
-    display:flex;
+    display: flex;
     align-items: center;
     img {
       width: 100%;
+      border-radius: 50%;
+      border: 1px solid #e7e7e7;
     }
   }
   dl {
@@ -646,7 +691,7 @@ b{
   justify-content: center;
   align-items: center;
   img {
-    margin-bottom:38%;
+    margin-bottom: 38%;
     z-index: 9;
   }
 }
@@ -656,5 +701,14 @@ b{
   max-width: 80px;
   max-height: 80px;
   border-radius: 50% 50%;
+}
+.m_t5 {
+  margin-top: 5%;
+}
+.lc {
+  font-size: 12px;
+}
+.line:last-child{
+  opacity: 0;
 }
 </style>

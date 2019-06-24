@@ -1,23 +1,30 @@
 <template>
     <nut-scroller>
-      <div slot="list" class="nut-hor-list-item" v-for="(item, index) of RZList" :key="index" stretch=0>
-        <!-- <dl class="nut-scroller-item-info">
+      <div slot="list" class="nut-hor-list-item" v-for="(item,i, index) of RZList" :key="index" stretch=0>
+              {{RZList.length}}
+     <!-- <dl class="nut-scroller-item-info">
           <dt>防水升级版 蓝 迷你小音</dt>
           <dd>2018-02-25</dd>
         </!--> 
         <div class="scroll_item">
             <span>{{item[0].stage_name}}</span>
-            <span class="round_line"><em class="round"></em> <b class="line"></b></span>
+          
+            <span class="round_line"><em class="round"></em> 
+            <b class="line" :style="(index==LineNum-1)?'opacity:0':'opacity:1'"></b>
+            </span>
             <span class="money_num">{{item[0].financing_money+"万元"}}</span>
             <span class="times_">{{item[0].invest}}</span>
             <span class="line_dot_line">
+                   
                <em>
                 <div class="line1"></div>
                 <div class="dot"></div>
+           
                 <div class="line1"></div>
                </em>
             </span>
-            <span class="state_List hide">{{item[0].name}}</span>
+            <!-- <span class="state_List hide">{{item[index].name}}</span> -->
+            <span class="state_List hide tl_l" v-for="(items,ind) in item" :key="ind">{{items.name}}</span>
         </div>
       
       </div>
@@ -45,9 +52,14 @@ export default {
             isLoading2: false,
             page2: 2,
             timers: null,
+            LineNum:null
         };
     },
-
+    created(){
+	var arr = Object.keys(this.RZList);
+	// ['name','sex','age']
+	this.LineNum=arr.length  //
+    },
     methods: {
         jump() {
             location.href = 'http://www.jd.com';
@@ -177,5 +189,12 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+}
+.tl_l{
+  text-align: left;
+    width: 100%;
+    text-indent: 20px;
+    color: #adadad;
+    line-height: 18px;
 }
 </style>

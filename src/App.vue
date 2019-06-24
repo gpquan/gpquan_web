@@ -24,7 +24,8 @@ export default {
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  /* font-family: "Avenir", Helvetica, Arial, sans-serif; */
+   font-family: "'PingFang SC','Microsoft YaHei','SimSun','Arial', sans-serif;";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
