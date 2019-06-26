@@ -127,10 +127,9 @@
         <div class="financing">
           <div class="financingtitle">
             <div class="title-box twotitle">
-             
               <div class="left" style="flex:1;">
-                 <img src="../../assets/image/line1.png" alt class="line">
-              <span class="title-text">融资历史</span>
+                <img src="../../assets/image/line1.png" alt class="line">
+                <span class="title-text">融资历史</span>
               </div>
               <div class="right">
                 <span @click="addHistory()">+</span>
@@ -148,14 +147,14 @@
         </div>
         <div class="team">
           <div class="teamtitle">
-          <div class="title-box twotitle">
+            <div class="title-box twotitle">
               <div class="left" style="flex:1;">
-                 <img src="../../assets/image/line1.png" alt class="line">
-              <span class="title-text">团队</span>
-            </div>
-            <div class="right">
-              <span @click="addTeam()">+</span>
-            </div>
+                <img src="../../assets/image/line1.png" alt class="line">
+                <span class="title-text">团队</span>
+              </div>
+              <div class="right">
+                <span @click="addTeam()">+</span>
+              </div>
             </div>
           </div>
           <div class="teamBox" v-if="teamObj.length!=0">
@@ -171,15 +170,15 @@
         </div>
         <div class="product">
           <div class="productTitle">
-          <div class="title-box twotitle">
+            <div class="title-box twotitle">
               <div class="left" style="flex:1;">
-                 <img src="../../assets/image/line1.png" alt class="line">
-                 <span class="title-text">竞品</span>
+                <img src="../../assets/image/line1.png" alt class="line">
+                <span class="title-text">竞品</span>
+              </div>
+              <div class="right">
+                <span @click="addproduct()">+</span>
+              </div>
             </div>
-            <div class="right">
-              <span @click="addproduct()">+</span>
-            </div>
-          </div>
           </div>
           <div class="productBox" v-if="ProductObj.length!=0">
             <div v-for="(item,ind) in ProductObj" :key="ind">
@@ -188,7 +187,7 @@
           </div>
         </div>
         <div class="lightspot">
-             <div class="title-box twotitle">
+          <div class="title-box twotitle">
             <img src="../../assets/image/line1.png" alt class="line">
             <span class="title-text">项目亮点</span>
           </div>
@@ -420,8 +419,8 @@ export default {
       lyIdList: [],
       money: null, //融资金额
       lyList: "",
-      description: "请输入项目介绍", //项目介绍
-      project_light: "请输入项目亮点",
+      description: "", //项目介绍
+      project_light: "",
       bzshow: false, //简介是否显示
       bzType: null, //简介页面类别
       contract_name: null, //联系人姓名
@@ -432,14 +431,14 @@ export default {
       Rzhistory_id: null, //融资历史轮次选择ID
       Rzhistory_List: [], //融资历史选择列表
       newJp: null, //新增竞品
-      OrganID:null,
-      userId:null,
+      OrganID: null,
+      userId: null
     };
   },
   created() {
-   if(this.$route.query.typeID){
-      this.OrganID=this.$route.query.typeID
-   }
+    if (this.$route.query.typeID) {
+      this.OrganID = this.$route.query.typeID;
+    }
     this.name = this.$route.query.name;
     this.getroundsList();
     //领域赋值
@@ -517,21 +516,31 @@ export default {
           project_BP: this.imgUrl
         }).then(res => {
           console.log(res);
-          let Projectid=res.data.projectId
-          if(this.OrganID){
-              this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-              this.$post('/api/addUserOrganProject',{
-                    userId:this.userId,
-                    organId:this.OrganID,
-                    projectId:Projectid
-                }).then((res)=>{
-                  this.$route.push({
-                    path:'/accelerate/Manage/o'
-                  })
-                    console.log(res)
-                })
+          let Projectid = res.data.projectId;
+          this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+          if (this.OrganID) {
+            this.$post("/api/addUserOrganProject", {
+              userId: this.userId,
+              organId: this.OrganID,
+              projectId: Projectid
+            }).then(res => {
+              this.$route.push({
+                path: "/accelerate/Manage/o"
+              });
+              console.log(res);
+            });
+          } else {
+            this.$post("/api/addUserProject", {
+              projectId: Projectid,
+              userId: this.userId
+            }).then(res => {
+              console.log(res);
+              this.$route.push({
+                path: "/accelerate/Manage/p"
+              });
+            });
+            // alert(1)
           }
-          
         });
       } else {
         alert("缺点东西");
@@ -812,6 +821,9 @@ export default {
   height: 100%;
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+ width: 100%;
   img {
     height: 80%;
   }
@@ -986,9 +998,9 @@ export default {
 .financingtitle {
   align-items: center;
 }
-.twotitle{
-      width: 100%;
-    display: flex;
-    align-items: center;
+.twotitle {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 </style>

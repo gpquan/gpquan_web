@@ -4,7 +4,7 @@
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       <!-- {{i}} -->
       <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
-       <span></span>
+        <span></span>
         <span></span>
         <span></span>
       </b>
@@ -21,7 +21,7 @@
         </div>
         <div class="title_Bottm">
           <div style="padding:14px 0">
-            <span v-for="(itt,idd) in 3" :key="idd" :class="colorClass[idd]">{{i.lingyu_name[idd]}}</span>
+            <span  v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length" :key="idd" :class="colorClass[idd]">{{i.lingyu_name[idd]}}</span>
             <!-- <span class="SAAS">SAAS</span>
             <span class="xmt">新媒体</span>-->
           </div>
@@ -52,18 +52,18 @@
               {{i.projects[ind].name}}
             </b>
           </div>
-           <div class="box_1">
+          <div class="box_1">
             <div class="addBtn" v-if="i.maxLength<3">
-            <span @click="push_route(i.organ_id)">
-              <img src="../../assets/image/pink_add.png" alt>
-            </span>
-          </div>
+              <span @click="push_route(i.organ_id)">
+                <img src="../../assets/image/pink_add.png" alt>
+              </span>
+            </div>
           </div>
           <!-- <div class="addBtn" v-if="i.maxLength<3">
             <span  @click="push_route(i.organ_id)">
               <img src="../../assets/image/pink_add.png" alt>
             </span>
-          </div> -->
+          </div>-->
         </div>
         <div class="List_gather" v-show="i.status==1">
           <b class="List_gather_Icon" @click="closeListGather(idx)">
@@ -94,10 +94,10 @@
           </div>
           <div class="box_1">
             <div class="addBtn">
-            <span @click="push_route(i.organ_id)">
-              <img src="../../assets/image/pink_add.png" alt>
-            </span>
-          </div>
+              <span @click="push_route(i.organ_id)">
+                <img src="../../assets/image/pink_add.png" alt>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -179,9 +179,9 @@ export default {
       //   });
       // this.$router.push("/accelerate/Manage/accelerate")
     },
-    push_route(id){
-				this.$router.push({path:"/project/dimQ",query:{id:id}})
-			},
+    push_route(id) {
+      this.$router.push({ path: "/project/dimP", query: { id: id } });
+    }
   }
 };
 </script>
@@ -309,7 +309,7 @@ export default {
   span {
     position: absolute;
     top: 7%;
- width: 66px;
+    width: 66px;
     height: 80%;
     display: flex;
     align-items: center;
@@ -324,7 +324,7 @@ export default {
   background-size: 100% 100%;
 }
 .dhwb {
-    width: 57px;
+  width: 57px;
   height: 80%;
   font-size: 12px;
   //   overflow: hidden;
@@ -344,7 +344,7 @@ export default {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     text-align: center;
-       color: #f37f6d;
+    color: #f37f6d;
   }
 }
 .nameTIT {
@@ -352,11 +352,11 @@ export default {
   align-items: center;
   font-weight: 400;
   font-size: 12px;
-   color:#333;
+  color: #333;
   em {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    min-width: 8px;
+    min-height: 8px;
     border-radius: 50%;
     background: #1cc6bb;
     margin-right: 5px;
@@ -377,7 +377,7 @@ export default {
   width: 66px;
   padding: 10px;
   img {
-    width:100%;
+    width: 100%;
     // height: 57px;
   }
 }
@@ -390,5 +390,7 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  width: 80%;
+  height: 100%;
 }
 </style>

@@ -64,7 +64,7 @@ export default {
   },
   methods: {
 		push_route(){
-			this.$router.push({path:"/project/addProject"})
+			this.$router.push({path:"/project/dimP"})
 		},
     reset() {
       this.isShow = false;

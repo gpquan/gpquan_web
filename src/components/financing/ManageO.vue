@@ -76,7 +76,7 @@
 		},
 		methods: {
 			push_route(){
-				this.$router.push({path:"/accelerate/Manage/o/add"})
+				this.$router.push({path:"/organ/dimO"})
 			},
 			pro_evolve(id) { 
 			  //项目进展

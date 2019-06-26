@@ -51,17 +51,17 @@
               </span>
             </span>
             <!-- </router-link> -->
-            <b class="nameTIT">
+            <b class="nameTIT hide1">
               <em></em>
               {{i.organs[ind].name}}
             </b>
           </div>
           <div class="box_1">
             <div class="addBtn" v-if="i.maxLength<3">
-            <span @click="push_route(i.project_id)">
-              <img src="../../assets/image/pink_add.png" alt>
-            </span>
-          </div>
+              <span @click="push_route(i.project_id)">
+                <img src="../../assets/image/pink_add.png" alt>
+              </span>
+            </div>
           </div>
         </div>
         <div class="List_gather" v-show="i.status==1">
@@ -85,17 +85,17 @@
                 <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
               </span>
             </span>
-            <b class="nameTIT">
+            <b class="nameTIT hide1">
               <em></em>
               {{i.organs[ind].name}}
             </b>
           </div>
           <div class="box_1">
             <div class="addBtn">
-            <span @click="push_route(i.project_id)">
-              <img src="../../assets/image/pink_add.png" alt>
-            </span>
-          </div>
+              <span @click="push_route(i.project_id)">
+                <img src="../../assets/image/pink_add.png" alt>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -187,9 +187,12 @@ export default {
       });
     },
     push_route(id) {
-      this.$router.push({ path: "/organ/dimO",query:{
-        id:id
-      }});
+      this.$router.push({
+        path: "/organ/dimO",
+        query: {
+          id: id
+        }
+      });
     }
   }
 };
@@ -363,11 +366,6 @@ export default {
   width: 80%;
   height: 80%;
   font-size: 12px;
-  //   overflow: hidden;
-  //   text-overflow: ellipsis;
-  //   white-space: nowrap;
-  //   display: inline-block;
-  //   line-height: 100px;
   em {
     width: 57px;
     text-overflow: ellipsis;
@@ -402,5 +400,17 @@ export default {
     width:100%;
     // height: 57px;
   }
+}
+.hide1{
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 80%;
+  height: 100%;
 }
 </style>

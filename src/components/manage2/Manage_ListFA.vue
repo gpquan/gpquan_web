@@ -39,8 +39,8 @@
               <span class="box1">
                 <circle-progress
                   :id="i.organs[ind].progress.uniqid+1"
-                  :width="85"
-                  :radius="5"
+                  :width="66"
+                  :radius="4"
                   :progress="i.organs[ind].progress.rate"
                   :delay="200"
                   :duration="500"
@@ -53,10 +53,17 @@
                 </span>
               </span>
             </router-link>
-            <b class="nameTIT">
+            <b class="nameTIT hide1">
               <em></em>
               {{i.organs[ind].name}}
             </b>
+          </div>
+          <div class="box_1">
+            <div class="addBtn">
+              <span @click="push_route1(i.fa_id)">
+                <img src="../../assets/image/pink_add.png" alt>
+              </span>
+            </div>
           </div>
         </div>
         <div class="List_gather" v-show="i.status==1">
@@ -67,8 +74,8 @@
             <span class="box1">
               <circle-progress
                 :id="i.organs[ind].progress.uniqid+2"
-                :width="85"
-                :radius="5"
+                :width="66"
+                :radius="4"
                 :progress="i.organs[ind].progress.rate"
                 :delay="200"
                 :duration="500"
@@ -80,10 +87,17 @@
                 <em>{{i.organs[ind].progress_name}}</em>
               </span>
             </span>
-            <b class="nameTIT">
+            <b class="nameTIT hide1">
               <em></em>
               {{i.organs[ind].name}}
             </b>
+          </div>
+          <div class="box_1">
+            <div class="addBtn">
+              <span @click="push_route1(i.fa_id)">
+                <img src="../../assets/image/pink_add.png" alt>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -156,7 +170,16 @@ export default {
 		},
 		push_route(){
 			this.$router.push({path:"/accelerate/Manage/p/add"})
-		},
+    },
+    push_route1(id){
+      this.$router.push({
+        path: "/organ/dimO",
+        query: {
+          id: id,
+          type:'Fa'
+        }
+      });
+    },
     pro_evolve(id) {
       console.log(id);
       //项目进展
@@ -360,13 +383,8 @@ export default {
   width: 80%;
   height: 80%;
   font-size: 12px;
-  //   overflow: hidden;
-  //   text-overflow: ellipsis;
-  //   white-space: nowrap;
-  //   display: inline-block;
-  //   line-height: 100px;
   em {
-    width: 80%;
+    width: 57px;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -375,8 +393,9 @@ export default {
     // overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     text-align: center;
+    color: #f37f6d;
   }
 }
 .noW {
@@ -390,5 +409,33 @@ export default {
   background-image: url("../../assets/image/line1.png");
   background-size: 100%;
   margin-right: 5px;
+}
+.box_1 {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // padding:15px;
+  // margin-left: 10px;
+}
+.addBtn {
+  width: 66px;
+  padding: 10px;
+  img {
+    width:100%;
+    // height: 57px;
+  }
+}
+.hide1{
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  width: 80%;
+  height: 100%;
 }
 </style>
