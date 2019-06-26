@@ -9,14 +9,14 @@
         placeholder="请输入内容"
         :clearBtn="true"
         :disabled="false"
-        v-model="Qyname" @input="changeName"
+        v-model="Jgname" @input="changeName"
         class="query"
     />
         <ul v-if="dataList.length>0" class="List">
             <li v-for="(item,ind) in dataList" :key="ind" @click="check(item)">{{item.name}}</li>
         </ul>
         <ul v-else class="List">
-            <li @click="addProject">创建项目</li>
+            <li @click="addProject">创建机构</li>
         </ul>
     </div>
 </template>
@@ -26,13 +26,13 @@
         data(){
             return{
                 dataList:[],
-                Qyname:null,
-                Oid:null,
+                Jgname:null,
+                Pid:null,
                 UserId:null
             }
         },
         beforeMount(){
-            this.Oid=this.$route.query.id
+            this.Pid=this.$route.query.id
               this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
         },
         methods:{
@@ -40,19 +40,19 @@
                 this.$router.go(-1)
             },
             changeName(){
-                this.$post('/api/searchProject',{projectName:this.Qyname}).then((res)=>{
+                this.$post('/api/searchOrgan',{organName:this.Jgname}).then((res)=>{
                     this.dataList=res.data
                     console.log(res)
                 })
             },
             check(item){
                 console.log(item)
-                console.log(this.Oid)
+                console.log(this.Pid)
                 console.log(this.userId)
                 this.$post('/api/addUserOrganProject',{
                     userId:this.userId,
-                    organId:this.Oid,
-                    projectId:item.id
+                    organId:item.id,
+                    projectId:this.Pid,
                 }).then((res)=>{
 
                     console.log(res)
@@ -60,10 +60,9 @@
             },
             addProject(){
                 this.$router.push({
-                    path:'/project/addProject',
+                    path:'/accelerate/Manage/o/add',
                    query:{
-                        name:this.Qyname,
-                        typeID:this.Oid  //快速创建 跳转创建
+                        name:this.Jgname
                    }
                 })
             }

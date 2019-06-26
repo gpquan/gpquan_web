@@ -47,7 +47,7 @@
                 <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
               </span>
             </span>
-            <b class="nameTIT">
+            <b class="nameTIT hide1">
               <em></em>
               {{i.projects[ind].name}}
             </b>
@@ -87,7 +87,7 @@
               </span>
             </span>
 
-            <b class="nameTIT">
+            <b class="nameTIT hide1">
               <em></em>
               {{i.projects[ind].name}}
             </b>
@@ -380,5 +380,15 @@ export default {
     width:100%;
     // height: 57px;
   }
+}
+.hide1 {
+  font-size: 12px;
+  line-height: 16px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 </style>

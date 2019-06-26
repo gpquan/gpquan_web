@@ -140,7 +140,7 @@
 			}
 		},
 		created() {
-
+				this.name=this.$route.query.name
 			// console.log( this.listData)
 			// console.log( this.data)
 			// this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];

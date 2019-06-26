@@ -58,7 +58,7 @@
           </div>
           <div class="box_1">
             <div class="addBtn" v-if="i.maxLength<3">
-            <span @click="push_route">
+            <span @click="push_route(i.project_id)">
               <img src="../../assets/image/pink_add.png" alt>
             </span>
           </div>
@@ -92,7 +92,7 @@
           </div>
           <div class="box_1">
             <div class="addBtn">
-            <span @click="push_route">
+            <span @click="push_route(i.project_id)">
               <img src="../../assets/image/pink_add.png" alt>
             </span>
           </div>
@@ -186,8 +186,10 @@ export default {
         query: { lyid: lyid }
       });
     },
-    push_route() {
-      this.$router.push({ path: "/accelerate/Manage/o/add" });
+    push_route(id) {
+      this.$router.push({ path: "/organ/dimO",query:{
+        id:id
+      }});
     }
   }
 };

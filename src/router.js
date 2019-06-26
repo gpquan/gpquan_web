@@ -49,6 +49,8 @@ import Manage_ListFA from '@/components/manage2/Manage_ListFA'
 import Speed from '@/components/manage2/Speed'
 import SpeedHome from '@/components/manage2/SpeedHome'
 import dimQ from '@/components/project/dimQuery'
+import dimO from '@/components/organ/dimQueryO'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -115,7 +117,12 @@ const router = new Router({
 						path: '/organ/details',
 						name: 'organDetails',
 						component: OrganDetails,
-					}
+					},
+					{
+						path:'/organ/dimO',
+						name:'dimO',
+						component:dimO
+					},
 				]
 			},
 			{

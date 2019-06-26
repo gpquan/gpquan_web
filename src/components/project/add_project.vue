@@ -51,7 +51,7 @@
             <nut-textinput
               v-model="name"
               placeholder="请输入项目名称"
-              maxlength="5"
+              maxlength="15"
               :hasBorder="false"
               label="项目名称"
               class="ipt_textR"
@@ -431,10 +431,15 @@ export default {
       },
       Rzhistory_id: null, //融资历史轮次选择ID
       Rzhistory_List: [], //融资历史选择列表
-      newJp: null //新增竞品
+      newJp: null, //新增竞品
+      OrganID:null,
+      userId:null,
     };
   },
   created() {
+   if(this.$route.query.typeID){
+      this.OrganID=this.$route.query.typeID
+   }
     this.name = this.$route.query.name;
     this.getroundsList();
     //领域赋值
@@ -512,6 +517,21 @@ export default {
           project_BP: this.imgUrl
         }).then(res => {
           console.log(res);
+          let Projectid=res.data.projectId
+          if(this.OrganID){
+              this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+              this.$post('/api/addUserOrganProject',{
+                    userId:this.userId,
+                    organId:this.OrganID,
+                    projectId:Projectid
+                }).then((res)=>{
+                  this.$route.push({
+                    path:'/accelerate/Manage/o'
+                  })
+                    console.log(res)
+                })
+          }
+          
         });
       } else {
         alert("缺点东西");
