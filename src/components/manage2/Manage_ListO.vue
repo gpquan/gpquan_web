@@ -41,9 +41,9 @@
         </dl>
       </li>
     </ul>
-		<div class="add_btn" @click="push_route">
-			<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
-		</div>
+		<!-- <div class="add_btn" @click="push_route">
+			<img src="../../assets/image/add_bth.png" alt=""> 
+		</div> -->
   </div>
 </template>
 
@@ -87,6 +87,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.Max_list{
+  margin-bottom:60px;
+}
 	.add_btn{
 		background-image: url("../../assets/image/add_bth.png");
 		width: 30px;

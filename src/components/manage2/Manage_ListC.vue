@@ -117,6 +117,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 60px;
 }
 .List_gather {
   display: flex;

@@ -89,7 +89,7 @@
             <span>融资阶段</span>
             <b>{{ListData.stage_name}}</b>
           </div>
-          <div>
+          <div v-if="ListData.financing_money!=0">
             <span>融资金额</span>
             <b>{{ListData.financing_money+'万元'}}</b>
           </div>
@@ -122,7 +122,7 @@
         </div>
       </div>
     </div>
-    <div class="teamBox" v-if="ListData!=null">
+    <div class="teamBox" v-if="ListData.member">
       <!-- <div class="teamBox_title"> -->
       <div class="title_top">
         <div class="left">
@@ -132,7 +132,7 @@
         <!-- </div> -->
       </div>
       <div class="teamCentent">
-        <nut-scroller v-if="ListData.member">
+        <nut-scroller>
           <div
             slot="list"
             class="nut-hor-list-item"
@@ -151,7 +151,6 @@
             <div class="nut-hor-jump-more">查看更多</div>
           </slot>-->
         </nut-scroller>
-        <div v-else style="text-align:center;color:#999"> 暂无收录该信息</div>
       </div>
     </div>
     <div class="ProjectList">
@@ -439,14 +438,16 @@ b {
     }
   }
   .statusBox1 .statusIMG {
-    background-image: url("../../assets/image/icon3.png");
+    background-image: url("../../assets/image/icon3.png") ;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: contain;
+    background-position: center;
   }
   .statusBox2 .statusIMG {
     background-image: url("../../assets/image/icon2.png");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size:contain;
+     background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -454,7 +455,8 @@ b {
   .statusBox3 .statusIMG {
     background-image: url("../../assets/image/icon.png");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: contain;
+     background-position: center;
   }
 }
 .statusIMG2 {
@@ -672,7 +674,10 @@ b {
     display: flex;
     align-items: center;
     img {
-      width: 100%;
+      min-width: 60px;
+      min-height:60px;
+      max-width: 60px;
+      max-height:60px;
       border-radius: 50%;
       border: 1px solid #e7e7e7;
     }

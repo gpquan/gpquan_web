@@ -1,6 +1,6 @@
 <template>
 	<div v-if="pageStep == 1">
-		<nut-navbar @on-click-back="back" @on-click-title="title" @on-click-more="more" :leftShow="true" :rightShow="false">添加项目</nut-navbar>
+		<nut-navbar @on-click-back="back" @on-click-title="title" @on-click-more="more" :leftShow="true" :rightShow="false">添加FA</nut-navbar>
 		<div class="list-body">
 			<div class="list1">
 				<div class="title-box">
@@ -156,6 +156,7 @@
 				st_2_list: '',
 				selectJobId: '', //领域id
 				rou_name: 'ManageP_add',
+				userId:null,
 			};
 		},
 		computed: {
@@ -167,6 +168,8 @@
 
 		},
 		beforeMount() {
+			this.username=this.$route.query.name
+			 this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 			this.$post("/api/getLingyu").then(res => {
 				this.listData[0] = [];
 				for (let i = 0; i < res.data.length; i++) {
@@ -344,6 +347,10 @@
 					// }
 					// this.leftList = res.data;
 					// this.getRightList(3)
+					// this.$post('/api/addUserFa',{
+					// 	userId:this.userId,
+
+					// })
 					console.log(basic1);
 					console.log(basic);
 					if(res.status == 'success'){

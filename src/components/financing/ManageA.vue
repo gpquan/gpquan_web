@@ -31,15 +31,22 @@
         <!-- 右边头部 -->
         <div class="right-box-title">
           <div class="right-title">
-            <router-link :to="{path:'/organ',query:{id:this.Rtop.id}}"  class="title-name">{{this.Rtop.name}}</router-link>
+            <router-link
+              :to="{path:'/organ',query:{id:this.Rtop.id}}"
+              class="title-name"
+            >{{this.Rtop.name}}</router-link>
             <div style="margin-left:7vw; margin-top: 2vh;">
-              <span class="hide  aaaaaaa" style="font-size: 15px;color: #666;">简介：{{Rtop.description}}</span>
+              <span class="hide" style="font-size: 15px;color: #666;">简介：{{Rtop.description}}</span>
             </div>
             <div
               class="right-title-portrait"
               :style="'background-image:url('+Rtop.it_img+'/'+Rtop.img+')'"
             >
-              <div class="isAuthentication" v-if="Authentication" @click="tjStatus()"></div>
+              <div
+                :class="leftList[this.listActId].tjcode?'isAuthenticationS':'isAuthentication'"
+                v-if="Authentication"
+                @click="tjStatus()"
+              ></div>
             </div>
             <div style="margin-left: 4vw;">
               <nut-button
@@ -52,9 +59,9 @@
                 :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[idx]"
               >{{item}}</nut-button>
             </div>
-          <!-- <div style="margin-left:7vw; margin-top: 2vh;">
+            <!-- <div style="margin-left:7vw; margin-top: 2vh;">
               <span style="font-size: 18px;color: #666;">投资阶段：A轮</span>
-            </div> -->
+            </div>-->
           </div>
         </div>
         <!-- 右边内容 -->
@@ -64,7 +71,12 @@
             <span style="text-align: center;font-size: 1rem;">已投竞品</span>
             <span class="right-body-Ricon"></span>
           </div>
-          <div class="right-item" @click="Jump_rout(items)" v-for="(items,idx) in R_btmList" :key="idx">
+          <div
+            class="right-item"
+            @click="Jump_rout(items)"
+            v-for="(items,idx) in R_btmList"
+            :key="idx"
+          >
             <span class="item-name" @click="Jump_pro(items)">{{items.name}}</span>
             <div class="right-item-portrait"></div>
             <div style="margin-left: 7vw;">
@@ -76,20 +88,26 @@
                 :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[0]"
               >{{items.lingyu_name}}</nut-button>
             </div>
-						<div style="margin-left:7vw; margin-top: 2vh;">
-						    <span style="font-size: 18px;color: #666;">投资阶段：A轮</span>
-						</div>
+            <div style="margin-left:7vw; margin-top: 2vh;">
+              <span style="font-size: 18px;color: #666;">投资阶段：A轮</span>
+            </div>
           </div>
         </div>
 
-
-        <div class="right-body">
+        <div class="right-body" style="margin-bottom:60px;">
           <div class="right-body-icon">
             <span class="right-body-Licon"></span>
-            <span style="text-align: center;font-size: 1rem;">合作FA</span>
+            <span style="text-align: center;font-size: 1rem;">精准对接</span>
             <span class="right-body-Ricon"></span>
           </div>
-          <div class="right-item" @click="Jump_rout" v-for="(items,idx) in R_btmList2" :key="idx">
+          <div>
+            <div class="callme" style="margin-top:10px;">
+              <nut-button block shape="circle" >
+                <a href="tel:18611174866" style="color:#fff;">联系我们</a>
+              </nut-button>
+            </div>
+          </div>
+          <!-- <div class="right-item" @click="Jump_rout" v-for="(items,idx) in R_btmList2" :key="idx">
             <span class="item-name">{{items.name}}</span>
             <div class="right-item-portrait"></div>
             <div style="margin-left: 7vw;">
@@ -109,7 +127,7 @@
             <div style="margin-left:7vw; margin-top: 2vh;">
             <span style="font-size: 15px;color: #666;">所属地区：{{items.area}}</span>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -141,77 +159,88 @@ export default {
       R_btmList: [], //右侧下方列表
       tjCode: false,
       indNum: null,
-      R_btmList2:[
+      R_btmList2: [
         {
-          name:"阳明",
-          ly:[],
-          num:12312,
-          area:'北京'
+          name: "阳明",
+          ly: [],
+          num: 12312,
+          area: "北京"
         },
-          {
-          name:"王俐",
-          ly:[],
-          num:12312,
-          area:'上海'
-
+        {
+          name: "王俐",
+          ly: [],
+          num: 12312,
+          area: "上海"
         },
-          {
-          name:"杨辉",
-          ly:[],
-          num:12312,
-          area:'深圳'
-
+        {
+          name: "杨辉",
+          ly: [],
+          num: 12312,
+          area: "深圳"
         },
-          {
-          name:"李超",
-          ly:[],
-          num:12312,
-          area:'东北'
-
+        {
+          name: "李超",
+          ly: [],
+          num: 12312,
+          area: "东北"
         }
       ],
-      lyList:["教育", "企业服务", "教育综合服务", "投融资", "二手车", "房产电商", "医疗器械及硬件", "景点门票", "商户服务及信息化", "游戏发行及渠道", "芯片半导体", "艺术"],
+      lyList: [
+        "教育",
+        "企业服务",
+        "教育综合服务",
+        "投融资",
+        "二手车",
+        "房产电商",
+        "医疗器械及硬件",
+        "景点门票",
+        "商户服务及信息化",
+        "游戏发行及渠道",
+        "芯片半导体",
+        "艺术"
+      ]
     };
   },
   created() {
-		if(!this.$route.query.lyid){
-			this.$router.go(-1);
-		}else{
-			this.lyid = this.$route.query.lyid;	
-			console.log("lyid")
-		}
+    if (!this.$route.query.lyid) {
+      this.$router.go(-1);
+    } else {
+      this.lyid = this.$route.query.lyid;
+      console.log("lyid");
+    }
     console.log(this.lyid);
   },
   beforeMount() {},
   mounted() {
     this.getLeftList();
-         for(let i=0;i<this.R_btmList2.length;i++){
-         this.R_btmList2[i].ly=[]
-        let arr=[]
-        let num=null
-          for(let j=0;j<3;j++){
-            num=parseInt(Math.random()*(9-0)+0)
-            if(arr.indexOf(num)!=-1){
-              j--
-            }else{
-             arr.push(num) 
-             this.R_btmList2[i].ly.push(this.lyList[num])
-            }
-            
-            console.log()
-            console.log(arr,num) 
-          }
-            arr=[]
+    for (let i = 0; i < this.R_btmList2.length; i++) {
+      this.R_btmList2[i].ly = [];
+      let arr = [];
+      let num = null;
+      for (let j = 0; j < 3; j++) {
+        num = parseInt(Math.random() * (9 - 0) + 0);
+        if (arr.indexOf(num) != -1) {
+          j--;
+        } else {
+          arr.push(num);
+          this.R_btmList2[i].ly.push(this.lyList[num]);
+        }
+
+        console.log();
+        console.log(arr, num);
       }
+      arr = [];
+    }
   },
   methods: {
-    back(){
-      this.$router.go(-1)
+    back() {
+      this.$router.go(-1);
     },
     tjStatus() {
       // this.leftList[this.listActId].tjcode = true;
-			this.leftList[this.listActId].tjcode = !this.leftList[this.listActId].tjcode;
-      this.$forceUpdate()
+      this.leftList[this.listActId].tjcode = !this.leftList[this.listActId]
+        .tjcode;
+      this.$forceUpdate();
     },
     getLeftList() {
       //左侧机构列表集合
@@ -223,7 +252,7 @@ export default {
           res.data[i].tjcode = false;
         }
         this.leftList = res.data;
-        this.getRightList(this.leftList[0].id)
+        this.getRightList(this.leftList[0].id);
       });
     },
     getRightList(Pid) {
@@ -239,7 +268,6 @@ export default {
           this.right_User_btn.push(res.data.lingyu_name[i]);
           console.log(this.right_User_btn);
         }
-
       });
       console.log(Pid);
       this.$post("/api/getOrganInvestAlikeProject", {
@@ -254,29 +282,28 @@ export default {
       console.log(ind);
       this.listActId = ind;
       this.getRightList(item.id);
-      for(let i=0;i<this.R_btmList2.length;i++){
-         this.R_btmList2[i].ly=[]
-        let arr=[]
-        let num=null
-          for(let j=0;j<3;j++){
-            num=parseInt(Math.random()*(9-0)+0)
-            if(arr.indexOf(num)!=-1){
-              j--
-            }else{
-             arr.push(num) 
-             this.R_btmList2[i].ly.push(this.lyList[num])
-            } 
+      for (let i = 0; i < this.R_btmList2.length; i++) {
+        this.R_btmList2[i].ly = [];
+        let arr = [];
+        let num = null;
+        for (let j = 0; j < 3; j++) {
+          num = parseInt(Math.random() * (9 - 0) + 0);
+          if (arr.indexOf(num) != -1) {
+            j--;
+          } else {
+            arr.push(num);
+            this.R_btmList2[i].ly.push(this.lyList[num]);
           }
-            arr=[]
+        }
+        arr = [];
       }
- 
     },
     Jump_rout: function(item) {
       // this.$router.push("/accelerate/Manage/a/details?id="+item.project_id);
     },
-    Jump_pro:function(item){
-      this.$router.push({path:'/project/details',query:{id:item.id}});
-// "/project/details?id="+item.project_id
+    Jump_pro: function(item) {
+      this.$router.push({ path: "/project/details", query: { id: item.id } });
+      // "/project/details?id="+item.project_id
       // console.log(item.id)
     }
   }
@@ -297,8 +324,20 @@ export default {
   border-radius: 0 5px 0 0;
   overflow: hidden;
 }
-.aaaaaaa{
-	
+// .aaaaaaa{
+
+//   font-size: 14px;
+//   line-height: 20px;
+//   word-break: break-all;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   display: -webkit-box;
+//   -webkit-line-clamp: 2;
+//   -webkit-box-orient: vertical;
+//   margin-top: 5%;
+//   color: #666;
+// }
+.hide {
   font-size: 14px;
   line-height: 20px;
   word-break: break-all;
@@ -310,15 +349,13 @@ export default {
   margin-top: 5%;
   color: #666;
 }
-.hide {
-}
 .list-item {
   height: 50px;
   line-height: 50px;
   text-align: center;
   position: relative;
-  em{
-   padding-left:10%;
+  em {
+    padding-left: 10%;
     width: 80%;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -382,7 +419,7 @@ export default {
 }
 /deep/.right-title {
   width: 100%;
-  height: 22vh !important;  
+  height: 22vh !important;
 }
 .right-title-portrait {
   /* background-image: url(/img/right-title-portrait.a8b5e2b2.png); */
@@ -394,9 +431,9 @@ export default {
   display: inline-block;
   // margin-top: -7vh;
   // margin-left: 46vw;
-	position: relative;
-	bottom: 9vh;
-	left: 3vw;
+  position: relative;
+  bottom: 9vh;
+  left: 3vw;
 }
 .right-box-title {
   width: 90%;
@@ -411,6 +448,15 @@ export default {
 }
 .isAuthentication {
   background-image: url(../../assets/image/isAuthentication.png);
+  background-size: 100% 100%;
+  position: relative;
+  top: 60%;
+  left: 65%;
+  width: 35%;
+  height: 35%;
+}
+.isAuthenticationS {
+  background-image: url(../../assets/image/add_msg_btn1.png);
   background-size: 100% 100%;
   position: relative;
   top: 60%;
@@ -510,6 +556,6 @@ export default {
   top: 0;
   right: 0;
   width: 50%;
-  transform: rotate(90deg)
+  transform: rotate(90deg);
 }
 </style>

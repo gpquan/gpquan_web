@@ -17,7 +17,8 @@
           </div>
         </div>
         <div class="right">
-          <b class="expedite" @click="expedite(i.lingyu_id)"></b>
+          <img src="../../assets/image/up.png" alt=""  @click="expedite(i.lingyu_id)" style="width:70%">
+          <!-- <b class="expedite" @click="expedite(i.lingyu_id)"></b> -->
         </div>
         <div class="title_Bottm">
           <div style="padding:14px 0">
@@ -334,6 +335,7 @@ export default {
   position: absolute;
   top: 10%;
   right: 0%;
+  text-align: right;
 }
 
 .expedite {

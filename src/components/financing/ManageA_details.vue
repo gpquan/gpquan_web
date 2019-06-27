@@ -13,9 +13,9 @@
 				<div class="head_card_left">
 					<p v-text="progressObj.name" style="font-size: 16px;color: #fff;" @click="Jump_organ(progressObj.organ_id,progressObj.project_id)"></p>
 					<p v-text="progressObj.description" class="pro_msg"></p>
-					<p style="margin-top:1vmin;color: #fff;margin-bottom:1vmin;">行业轮次：{{progressObj.stage_name}}</p>
+					<p style="margin-top:1vmin;color: #fff;margin-bottom:1vmin;" v-if="progressObj.stage_name">行业轮次：{{progressObj.stage_name}}</p>
 					<nut-button type="actived" shape="circle" small v-for="(item,ind) in  (typeof(progressObj.lingyu_name) == 'string' ? [{name:progressObj.lingyu_name}] : progressObj.lingyu_name)  "
-					 :key="ind" v-if="ind < 3" :color="colorList[ind]" :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]">{{item.name}}</nut-button>
+					 :key="ind"  v-if="ind < 3" :color="colorList[ind]" :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]">{{item.name}}</nut-button>
 					<p v-if="pageType == 0" style="margin-top: 1vmin;color: #fff;">佣金比例：{{progressObj.yongjin}}%</p>
 				</div>
 

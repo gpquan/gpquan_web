@@ -4,7 +4,7 @@
   <!-- 项目管理 列表项 -->
   <ul class="Max_list" v-if="ListData!=[]">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>3">
+      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
         <nut-icon type="more"></nut-icon>
       </b>
       <div class="title_">
@@ -59,7 +59,7 @@
             </b>
           </div>
           <div class="box_1">
-            <div class="addBtn">
+            <div class="addBtn" v-if="i.maxLength<3">
               <span @click="push_route1(i.fa_id)">
                 <img src="../../assets/image/pink_add.png" alt>
               </span>
@@ -137,7 +137,7 @@ export default {
   mounted() {
     let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
     // console.log()
-    this.$post("/api/getUserFaList", { userId: 4, page: "1" }).then(res => {
+    this.$post("/api/getUserFaList", { userId: 4 }).then(res => {
       for (let i = 0; i < res.data.length; i++) {
         res.data[i].status = 2;
         // this.Maxnum+=res.data[i].organs.length;
@@ -169,7 +169,7 @@ export default {
 			}
 		},
 		push_route(){
-			this.$router.push({path:"/accelerate/Manage/p/add"})
+			this.$router.push({path:"/Manage2/dimFA"})
     },
     push_route1(id){
       this.$router.push({
@@ -255,6 +255,7 @@ export default {
 .box_1,
 .box_2,
 .box_3 {
+  width: 30%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -337,12 +338,13 @@ export default {
   position: relative;
   height: 100%;
   display: inline-block;
-  padding: 10px;
+  padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 0%;
-    width: 80%;
-    height: 80%;
+    top: 15px;
+    left: 13px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;

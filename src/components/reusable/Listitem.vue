@@ -11,11 +11,14 @@
           <div></div>
         </dt>
         <dd>
-          <div>
+          <div style="margin-bottom:10px;">
             <span class="name">{{item.name}}</span>
-            <span class="yd">{{item.lingyu_name}}</span>
-            <span class="SAAS">SAAS</span>
-            <span class="xmt">新媒体</span>
+           
+          </div>
+          <div v-if="item.lingyu_name">
+             <span class="SAAS">{{item.lingyu_name}}</span>
+            <!-- <span class="SAAS">SAAS</span>
+            <span class="xmt">新媒体</span> -->
           </div>
           <div class="introBox">
             <div class="intro" :title="textjj">{{textjj}}</div>
@@ -24,9 +27,9 @@
             <span class="hide">简介:{{item.description}}</span>
           </div>
           <div class="List_downsize">
-            <span>融资金额：2000万</span>&nbsp; | &nbsp;
+            <span>融资：2000万</span>&nbsp; | &nbsp;
             <span> {{item.stage_name}}</span>&nbsp; | &nbsp;
-             <span>  佣金比例：{{item.yongjin}}%</span>
+             <span>  佣金：{{item.yongjin}}%</span>
           </div>
         
         </dd>

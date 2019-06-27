@@ -47,14 +47,16 @@
       </div>
     </div>
     <div class="tzhy">
-      <div class="title_top">
+      <div class="title_top titletwo">
         <div class="left">
           <em class="lineEm"></em>
           <b class="noW">投资行业</b>
         </div>
-         <span @click="addHY()">
+        <div class="right">
+           <span @click="addHY()">
             <img src="../../assets/image/add_fff.png" alt>
           </span>
+        </div>
       </div>
       <div class="contentBox">
         <p v-if="unfoldAll2" class="hide">

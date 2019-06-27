@@ -50,7 +50,7 @@ import Speed from '@/components/manage2/Speed'
 import SpeedHome from '@/components/manage2/SpeedHome'
 import dimP from '@/components/project/dimQuery'
 import dimO from '@/components/organ/dimQueryO'
-
+import dimFA from '@/components/manage2/dimQueryFA'
 Vue.use(Router)
 
 const router = new Router({
@@ -248,7 +248,7 @@ const router = new Router({
 					}
 				},
 				{
-					path: '/accelerate/Manage/p/add', //添加项目
+					path: '/accelerate/Manage/p/add', //添加FA
 					name: 'ManageP_add',
 					component: ManageP_add,
 					meta: {
@@ -316,10 +316,17 @@ const router = new Router({
 						meta: {
 							keep: 'FA',
 							fshow: true
-						}
+						},
+						
 					},
+				
 				]
-			}
+			},
+			{
+				path:'/Manage2/dimFA',
+				name:'dimfa',
+				component:dimFA
+			},
 		]
 	},
 	{
