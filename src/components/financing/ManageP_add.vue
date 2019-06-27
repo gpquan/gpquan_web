@@ -1,6 +1,6 @@
 <template>
 	<div v-if="pageStep == 1">
-		<nut-navbar @on-click-back="back" @on-click-title="title" @on-click-more="more" :leftShow="true" :rightShow="false">添加项目</nut-navbar>
+		<nut-navbar @on-click-back="back" @on-click-title="title" @on-click-more="more" :leftShow="true" :rightShow="false">添加FA</nut-navbar>
 		<div class="list-body">
 			<div class="list1">
 				<div class="title-box">
