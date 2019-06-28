@@ -10,14 +10,14 @@
       <img src="../../assets/image/organ_top.png" alt class="btm_BG">
       <div class="box_BTM">
         <div class="Box_1" style="display:flex;flex-direction: column;">
-          <span>3</span>
+          <span>0</span>
           <span style="color:#666">机构联系人</span>
         </div>
         <div class="Box_1 headIMG">
           <img :src="ListData.it_img" alt>
         </div>
         <div class="Box_1" style="display:flex;flex-direction: column;">
-          <span>12</span>
+          <span>0</span>
           <span style="color:#666">推荐项目</span>
         </div>
       </div>
@@ -116,8 +116,8 @@
           </span>
         </div>
       </div>
-      <div class="contentBox">
-        <p v-for="(item,ind) in BZList" :key="ind">{{ind+1+':'+item}}</p>
+      <div class="contentBox" style="display: flex;flex-wrap: wrap;">
+        <span v-for="(item,ind) in BZList" :key="ind" style="padding:5px 10px;border:1px solid #ccc;border-radius:10px;margin-top:10px;margin-left:10px;">{{item}}</span>
       </div>
     </div>
     <div class="lxr">
@@ -133,7 +133,14 @@
         </div>
       </div>
       <div class="contentBox">
-        <p v-for="(item,ind) in LXRlist" :key="ind">{{ind+1+':'+item}}</p>
+        <p v-for="(item,ind) in LXRlist" :key="ind" style="display:flex;">
+          <span>
+            姓名：{{item.name}}
+          </span>
+          <span style="margin-left: 50px">
+            联系方式：{{item.lxrphone}}
+          </span>
+        </p>
       </div>
     </div>
     <div class="lxr">
@@ -327,8 +334,14 @@ export default {
     },
     confirmLXR() {
       this.dialogShowLXR = false;
-      this.LXRlist.push(this.lxrName + ":" + this.lxrphone);
+       this.LXRlist.push({
+         name:this.lxrName,
+         lxrphone:this.lxrphone
+       })
+      // this.LXRlist.push("姓名："+ +"  "+" "+ "联系人电话"+ );
       this.lxr = "";
+      this.lxrName="";
+      this.lxrphone=""
     },
     setLCValue(chooseData) {
       this.LC = `${chooseData[0]}`;
