@@ -157,6 +157,7 @@
 				selectJobId: '', //领域id
 				rou_name: 'ManageP_add',
 				userId:null,
+				infoStatus:false,
 			};
 		},
 		computed: {
@@ -165,9 +166,13 @@
 			}
 		},
 		created() {
-
 		},
 		beforeMount() {
+			if(this.$route.infoStatus){
+				this.infoStatus=this.$route.infoStatus
+			}else{
+				this.infoStatus=false
+			}
 			this.username=this.$route.query.name
 			 this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 			this.$post("/api/getLingyu").then(res => {
@@ -331,8 +336,14 @@
 				Acc_financing = parseInt(Acc_financing);
 				var Con_Projects = this.Con_Projects;
 				Con_Projects = parseInt(Con_Projects);
-
+				let form ='';
+				if(this.infoStatus){
+					form='true'
+				}else{
+					form=''
+				}
 				this.$post("/api/saveUserDetail", {
+					infoStatus:form,
 					username: this.username,
 					financing_money: Acc_financing,
 					project_num: Con_Projects,

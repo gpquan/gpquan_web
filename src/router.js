@@ -344,7 +344,7 @@ router.beforeEach((to, from, next) => {
 	// console.log(to)
 	if (!JSON.parse(sessionStorage.getItem("userInfo"))) {
 		// console.log("未登录")
-		if (to.name == 'log') {
+		if (to.name == 'log' ||to.name=='SignIn') {
 			next()
 		} else {
 			next({

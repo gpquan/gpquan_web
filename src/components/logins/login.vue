@@ -1,16 +1,12 @@
 <template>
   <div>
-    <nut-navbar
-    @on-click-back="back"
-    :leftShow="true"
-    :rightShow="false"
-    >登录</nut-navbar>
-    <img src="../../assets/image/R_round.png" alt="" class="R_round_IMG">
+    <nut-navbar @on-click-back="back" :leftShow="true" :rightShow="false">登录</nut-navbar>
+    <img src="../../assets/image/R_round.png" alt class="R_round_IMG" />
     <div class="center">
       <div class="title">
         <h1>
           你好,
-          <br>欢迎来到创融易
+          <br />欢迎来到创融易
         </h1>
       </div>
       <div class="logBox">
@@ -22,7 +18,7 @@
             class="user"
             placeholder="请输入手机号/邮箱"
             required
-          >
+          />
           <span class="editable-clear-x" @click="userclear">
             <!-- <nut-icon type="circle-cross" color="#f0250f"></nut-icon> -->
           </span>
@@ -33,14 +29,14 @@
           :clearBtn="true"
           :disabled="false"
           :hasBorder="false"
-        /> -->
+        />-->
         <div class="line"></div>
         <div class="pwdBox">
-          <input type="password" class="pwd" v-model="password" required>
+          <input type="password" class="pwd" v-model="password" required />
           <span class="editable-clear-x" @click="pwdclear"></span>
-          <img src="../../assets/image/line.png" alt class="line_IMG">
+          <img src="../../assets/image/line.png" alt class="line_IMG" />
           <em class="look">
-            <img src="../../assets/image/look.png" alt class="look_IMG">
+            <img src="../../assets/image/look.png" alt class="look_IMG" />
           </em>
         </div>
         <div class="line"></div>
@@ -55,8 +51,7 @@
       <nut-button block shape="circle" class="login_Btn" @click="LoginUser()">登录</nut-button>
       <div class="wj">
         <span>忘记密码？</span>
-        <span @click="signIn">
-          还没有账户？去注册</span>
+        <span @click="signIn">还没有账户？去注册</span>
       </div>
       <!-- <div class="btm_log">
         <div class="btm_title">
@@ -70,7 +65,7 @@
         <div class="btm_name">
            <span>GP圈</span>
         </div>
-      </div> -->
+      </div>-->
     </div>
   </div>
 </template>
@@ -80,7 +75,8 @@ export default {
   data() {
     return {
       phone: "",
-      password: ""
+      password: "",
+      UserId: null
     };
   },
   mounted() {
@@ -88,42 +84,65 @@ export default {
     this.password = "";
   },
   methods: {
-    LoginUser(){
-      this.$post("/api/login",{
+    LoginUser() {
+      this.$post("/api/login", {
         phone: this.phone,
-        password:this.password
-      }).then((res)=>{
-        if(res.status=='success'){
-          sessionStorage.setItem(
-                "userInfo",
-                JSON.stringify(res.data)
-              );
-             this.$router.push('/')
-          if(res.data.role==1){
-            this.$router.push('/project')
-          }else if(res.data.role==2){
-            this.$router.push('/Manage2')
-          }
+        password: this.password
+      }).then(res => {
+        if (res.status == "success") {
+          sessionStorage.setItem("userInfo", JSON.stringify(res.data));
+          this.UserId = res.data.id;
+          this.$post("/api/getUserDetail", {
+            userId: this.UserId
+          }).then(ress => {
+              
+            this.$router.push("/");
+            if (ress.data.role == 1) {
+              //判断role
+              if (!ress.data.info.id) {  
+                this.$router.push({path:"/accelerate/Manage/p/add",query:{
+                    infoStatus:true
+                }}); //role 1  添加FA
+              }else{ 
+                  this.$router.push('/project')
+              }
+            } else if (ress.data.role == 2) {
+              if (!ress.data.info.id) {
+                this.$router.push({
+                  path:"/project/addProject",
+                  query:{
+                    infoStatus:true
+                  }
+                }); // role 2  添加项目
+              }else{
+                   this.$router.push('/Manage2')
+              }
+            }
+          });
         }
-
-      })
+      });
     },
+    //  if(res.data.role==1){
+    //     this.$router.push('/project')
+    //   }else if(res.data.role==2){
+    //     this.$router.push('/Manage2')
+    //   }
     pwdchange() {
       console.log(this.Pwdval);
     },
-    userclear(){
-      this.Userval=""
+    userclear() {
+      this.Userval = "";
     },
-    pwdclear(){
-      this.Pwdval=""
+    pwdclear() {
+      this.Pwdval = "";
     },
-    signIn(){
-      console.log(this.$route.path)
-      this.$router.push({path:'/Sign'});
+    signIn() {
+      console.log(this.$route.path);
+      this.$router.push({ path: "/Sign" });
     },
-      back(){
-            alert('header头部， 点击返回')
-        }
+    back() {
+      alert("header头部， 点击返回");
+    }
   }
 };
 </script>
@@ -183,13 +202,13 @@ export default {
 }
 .btm_text {
   padding: 0 10px;
-  color:#A3A3A3
+  color: #a3a3a3;
 }
 .gpq {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding:10px;
+  padding: 10px;
   span {
     height: 54px;
     width: 54px;
@@ -198,11 +217,11 @@ export default {
     background-size: 100% 100%;
   }
 }
-.btm_name{
+.btm_name {
   display: flex;
   align-items: center;
   justify-content: center;
-  color:#666666;
+  color: #666666;
 }
 .user,
 .pwd {
@@ -299,14 +318,14 @@ select:-webkit-autofill {
   padding-left: 5px;
   width: 1px;
 }
-.R_round_IMG{
+.R_round_IMG {
   width: 400px;
   height: 400px;
   position: fixed;
   right: -200px;
-  top:-200px;
+  top: -200px;
 }
-.nut-navbar{
-  background-color:transparent;
+.nut-navbar {
+  background-color: transparent;
 }
 </style>

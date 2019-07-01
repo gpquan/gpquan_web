@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="Max_list">
+    <ul class="Max_list" v-if="dataList.length>1">
       <li class="list_Item" v-for="(item,ind) in dataList" :key="ind">
         <dl class="list_DL">
           <dt>
@@ -40,6 +40,13 @@
           </dd>
         </dl>
       </li>
+    </ul>
+    <ul v-else  class="Max_list"> 
+    <li class="list_Item" style="margin-top:30px;justify-content:center;">
+       <span>
+         暂无机构信息
+       </span>
+    </li>
     </ul>
 		<!-- <div class="add_btn" @click="push_route">
 			<img src="../../assets/image/add_bth.png" alt=""> 

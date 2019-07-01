@@ -46,7 +46,7 @@
 
 			// console.log()
 			this.$post("/api/getUserOrganList", {
-				userId: 3,
+				userId: userId,
 				page: "1"
 			}).then(
 				res => {

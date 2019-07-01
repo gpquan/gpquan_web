@@ -1,107 +1,119 @@
 <template>
   <!-- 项目管理 列表项 -->
-  <ul class="Max_list" v-if="ListData!=[]">
-    <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-      <!-- {{i.organs[0].lenght}} -->
-      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
-        <span></span>
-        <span></span>
-        <span></span>
-        <!-- <nut-icon type="more"></nut-icon> -->
-      </b>
-      <div class="title_">
-        <div class="title_top">
-          <div class="left">
-            <em class="lineEm"></em>
-            <b class="noW" @click="pro_details(i)">{{i.name}}</b>
+  <div style="height:100%;">
+    <ul class="Max_list" v-if="ListData.length>1">
+      <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
+        <!-- {{i.organs[0].lenght}} -->
+        <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
+          <span></span>
+          <span></span>
+          <span></span>
+          <!-- <nut-icon type="more"></nut-icon> -->
+        </b>
+        <div class="title_">
+          <div class="title_top">
+            <div class="left">
+              <em class="lineEm"></em>
+              <b class="noW" @click="pro_details(i)">{{i.name}}</b>
+            </div>
           </div>
-        </div>
-        <div class="right">
-          <img src="../../assets/image/up.png" alt=""  @click="expedite(i.lingyu_id)" style="width:70%">
-          <!-- <b class="expedite" @click="expedite(i.lingyu_id)"></b> -->
-        </div>
-        <div class="title_Bottm">
-          <div style="padding:14px 0">
-            <span
-              v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
-              :key="idd"
-              :class="colorClass[idd]"
-            >{{i.lingyu_name[idd]}}</span>
+          <div class="right">
+            <img
+              src="../../assets/image/up.png"
+              alt
+              @click="expedite(i.lingyu_id)"
+              style="width:70%"
+            />
+            <!-- <b class="expedite" @click="expedite(i.lingyu_id)"></b> -->
           </div>
-        </div>
-      </div>
-      <div class="div_ListBox">
-        <div class="List_top" v-show="i.status==2">
-          <!-- {{typeOf(i.maxLength)}} -->
-          <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-            <!-- <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}" > -->
-            <span class="box1">
-              <circle-progress
-                :id="i.organs[ind].progress.uniqid+1"
-                :width="66"
-                :radius="4"
-                :progress="i.organs[ind].progress.rate"
-                :delay="200"
-                :duration="500"
-                barColor="#F2AE57"
-                backgroundColor="#FFE8CC"
-                :isAnimation="true"
-              ></circle-progress>
-              <span class="dhwb">
-                <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
-              </span>
-            </span>
-            <!-- </router-link> -->
-            <b class="nameTIT hide1">
-              <em></em>
-              {{i.organs[ind].name}}
-            </b>
-          </div>
-          <div class="box_1">
-            <div class="addBtn" v-if="i.maxLength<3">
-              <span @click="push_route(i.project_id)">
-                <img src="../../assets/image/pink_add.png" alt>
-              </span>
+          <div class="title_Bottm">
+            <div style="padding:14px 0">
+              <span
+                v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
+                :key="idd"
+                :class="colorClass[idd]"
+              >{{i.lingyu_name[idd]}}</span>
             </div>
           </div>
         </div>
-        <div class="List_gather" v-show="i.status==1">
-          <b class="List_gather_Icon" @click="closeListGather(idx)">
-            <nut-icon type="minus"></nut-icon>
-          </b>
-          <div class="box_1" v-for="(items,ind) in i.organs" :key="ind">
-            <span class="box1">
-              <circle-progress
-                :id="i.organs[ind].progress.uniqid+2"
-                :width="66"
-                :radius="4"
-                :progress="i.organs[ind].progress.rate"
-                :delay="200"
-                :duration="500"
-                barColor="#F2AE57"
-                backgroundColor="#FFE8CC"
-                :isAnimation="true"
-              ></circle-progress>
-              <span class="dhwb">
-                <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
+        <div class="div_ListBox">
+          <div class="List_top" v-show="i.status==2">
+            <!-- {{typeOf(i.maxLength)}} -->
+            <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
+              <!-- <router-link  tag="span" class=""  :to="{path : '/accelerate/Manage/a/details?id='+i.organs[ind].id+'&type=1'}" > -->
+              <span class="box1">
+                <circle-progress
+                  :id="i.organs[ind].progress.uniqid+1"
+                  :width="66"
+                  :radius="4"
+                  :progress="i.organs[ind].progress.rate"
+                  :delay="200"
+                  :duration="500"
+                  barColor="#F2AE57"
+                  backgroundColor="#FFE8CC"
+                  :isAnimation="true"
+                ></circle-progress>
+                <span class="dhwb">
+                  <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
+                </span>
               </span>
-            </span>
-            <b class="nameTIT hide1">
-              <em></em>
-              {{i.organs[ind].name}}
-            </b>
+              <!-- </router-link> -->
+              <b class="nameTIT hide1">
+                <em></em>
+                {{i.organs[ind].name}}
+              </b>
+            </div>
+            <div class="box_1">
+              <div class="addBtn" v-if="i.maxLength<3">
+                <span @click="push_route(i.project_id)">
+                  <img src="../../assets/image/pink_add.png" alt />
+                </span>
+              </div>
+            </div>
           </div>
-          <div class="box_1">
-            <div class="addBtn">
-              <span @click="push_route(i.project_id)">
-                <img src="../../assets/image/pink_add.png" alt>
+          <div class="List_gather" v-show="i.status==1">
+            <b class="List_gather_Icon" @click="closeListGather(idx)">
+              <nut-icon type="minus"></nut-icon>
+            </b>
+            <div class="box_1" v-for="(items,ind) in i.organs" :key="ind">
+              <span class="box1">
+                <circle-progress
+                  :id="i.organs[ind].progress.uniqid+2"
+                  :width="66"
+                  :radius="4"
+                  :progress="i.organs[ind].progress.rate"
+                  :delay="200"
+                  :duration="500"
+                  barColor="#F2AE57"
+                  backgroundColor="#FFE8CC"
+                  :isAnimation="true"
+                ></circle-progress>
+                <span class="dhwb">
+                  <em @click="jump_(i.organs[ind])">{{i.organs[ind].progress_name}}</em>
+                </span>
               </span>
+              <b class="nameTIT hide1">
+                <em></em>
+                {{i.organs[ind].name}}
+              </b>
+            </div>
+            <div class="box_1">
+              <div class="addBtn">
+                <span @click="push_route(i.project_id)">
+                  <img src="../../assets/image/pink_add.png" alt />
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+    <ul v-else class="Max_list">
+      <li class="list_Item" style="margin-top:30px;justify-content:center;">
+        <span>暂无项目信息</span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -201,7 +213,11 @@ export default {
 
 <style lang="scss" scoped>
 .Max_list {
+  margin-bottom: 60px;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .List_gather {
   display: flex;
@@ -241,14 +257,16 @@ export default {
   //   height: 100%;
 }
 .list_Item {
-  width: 90%;
+  width: 80%;
   //   height: 108px;
-  margin-left: 5%;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   position: relative;
-  margin-top: 14px;
+  margin-top: 15px;
+  display: flex;
+  padding: 10px;
+  //   border-radius: 10px;
   //   padding: 10px;
 }
 .icon_Box {
@@ -354,7 +372,7 @@ export default {
   align-items: center;
   font-weight: 400;
   font-size: 12px;
-  color:#333;
+  color: #333;
   em {
     display: inline-block;
     width: 8px;
@@ -399,11 +417,11 @@ export default {
   width: 66px;
   padding: 10px;
   img {
-    width:100%;
+    width: 100%;
     // height: 57px;
   }
 }
-.hide1{
+.hide1 {
   font-size: 12px;
   line-height: 16px;
   word-break: break-all;

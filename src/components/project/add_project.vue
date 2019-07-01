@@ -86,7 +86,6 @@
             <div class="money_ratio">
               <em class="percent">%</em>
               <nut-textinput
-                maxlength="5"
                 v-model="moneyRatio"
                 :hasBorder="false"
                 label="佣金比例"
@@ -107,7 +106,6 @@
             <!-- <div class="top_line"></div> -->
             <nut-textinput
               placeholder="请输入项目联系人姓名"
-              maxlength="5"
               :hasBorder="false"
               label="项目联系人"
               class="ipt_textR"
@@ -116,7 +114,6 @@
             <div class="top_line"></div>
             <nut-textinput
               placeholder="请输入手机号码、邮箱"
-              maxlength="5"
               :hasBorder="false"
               label="项目联系方式"
               class="ipt_textR"
@@ -316,7 +313,7 @@
         ></nut-picker>
       </div>
     </div>
-    <div class="bz" v-else>
+    <div class="bz" v-else  style="height:100%">
       <div class="personage">
         <div v-if="bzType==1" class="Project">
           <nut-navbar @on-click-back="backs" @on-click-more="more" title="项目介绍">
@@ -432,7 +429,8 @@ export default {
       Rzhistory_List: [], //融资历史选择列表
       newJp: null, //新增竞品
       OrganID: null,
-      userId: null
+      userId: null,
+      infoStatus:null,//是否从登陆页面
     };
   },
   created() {
@@ -440,6 +438,11 @@ export default {
       this.OrganID = this.$route.query.typeID;
     }
     this.name = this.$route.query.name;
+    if(this.$route.query.infoStatus){
+      this.infoStatus=this.$route.query.infoStatus
+    }else{
+      this.infoStatus=false;
+    }
     this.getroundsList();
     //领域赋值
     this.listData = [...[this.listData[0]], this.data[this.listData[0][0]]];
@@ -452,8 +455,6 @@ export default {
     } else if (to.params.type && to.params.type == 2) {
       this.project_light = to.params.lightspot;
     }
-    console.log(this.project_light);
-    console.log(console.log(this.description));
     //领域第一次获取
     this.$post("/api/getLingyu").then(res => {
       this.listData[0] = [];
@@ -484,8 +485,7 @@ export default {
       // project_light:'请输入项目亮点', imgUrl LOGO
       //name 名称  isDj//是否独家 - 0非独家 1独家
       this.lyList = this.lyList.replace(/\s+/g, ",");
-      console.log(this.lyList);
-      if (
+              if (
         this.money &&
         this.stage_id &&
         this.lingyu_id &&
@@ -497,7 +497,14 @@ export default {
         this.isDj < 2
       ) {
         alert("资料齐全");
+        let form=''
+        if(this.infoStatus){
+            form='true'
+        }else{
+            form=''
+        }
         this.$post("/api/addProject", {
+          infoStatus:form,
           name: this.name,
           description: this.description,
           lingyu_id: this.lingyu_id,
@@ -524,7 +531,7 @@ export default {
               organId: this.OrganID,
               projectId: Projectid
             }).then(res => {
-              this.$route.push({
+              this.$router.push({
                 path: "/accelerate/Manage/o"
               });
               console.log(res);
@@ -535,7 +542,7 @@ export default {
               userId: this.userId
             }).then(res => {
               console.log(res);
-              this.$route.push({
+              this.$router.push({
                 path: "/accelerate/Manage/p"
               });
             });

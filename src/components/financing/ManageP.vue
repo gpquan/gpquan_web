@@ -43,7 +43,7 @@ export default {
   mounted() {
     let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
     // console.log()
-    this.$post("/api/getUserProjectList", { userId: 3, page: "1" }).then(
+    this.$post("/api/getUserProjectList", { userId: userId, page: "1" }).then(
       res => {
         for (let i = 0; i < res.data.length; i++) {
           res.data[i].status=2

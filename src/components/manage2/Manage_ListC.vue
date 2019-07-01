@@ -1,48 +1,46 @@
 <template>
-	<div>
-
-  <!-- 项目管理 列表项 -->
-  <ul class="Max_list" v-if="ListData!=[]">
-    <li class="list_Item" v-for="(item,idx) in ListData" :key="idx">
-      <dl class="List_item">
-        <dt class="img">
-          <img :src="item.logo" alt>
-          <!-- <img src="../../assets/image/right-title-portrait.png" alt=""> -->
-          <div></div>
-        </dt>
-        <dd>
-          <div>
-            <span class="name" @click="Jump_details(item)">{{item.name}}</span>
-          </div>
-          <div class="List_downsize" style="padding-bottom: 10px;">
-            <span class="hide1">简介:{{item.description}}</span>
-          </div>
-          <div>
-            <span class="yd">{{item.lingyu_name}}</span>
-            <span class="SAAS">SAAS</span>
-            <span class="xmt">新媒体</span>
-          </div>
-          <!-- <div class="introBox">
+  <div>
+    <!-- 项目管理 列表项 -->
+    <ul class="Max_list" v-if="ListData!=[]">
+      <li class="list_Item" v-for="(item,idx) in ListData" :key="idx">
+        <dl class="List_item">
+          <dt class="img">
+            <img :src="item.logo" alt />
+            <!-- <img src="../../assets/image/right-title-portrait.png" alt=""> -->
+            <div></div>
+          </dt>
+          <dd>
+            <div>
+              <span class="name" @click="Jump_details(item)">{{item.name}}</span>
+            </div>
+            <div class="List_downsize" style="padding-bottom: 10px;">
+              <span class="hide1">简介:{{item.description}}</span>
+            </div>
+            <div>
+              <span class="yd">{{item.lingyu_name}}</span>
+              <span class="SAAS">SAAS</span>
+              <span class="xmt">新媒体</span>
+            </div>
+            <!-- <div class="introBox">
             <div class="intro" :title="textjj">{{}}</div>
-          </div> -->
-          <!-- <div class="List_downsize">
+            </div>-->
+            <!-- <div class="List_downsize">
             投资机构：
             <span>{{}}</span>
-          </div> -->
-          <!-- <div class="List_downsize">
+            </div>-->
+            <!-- <div class="List_downsize">
             <span>{{item.lingyu_name}}</span>|电子商务
             <span>Pre-A</span>|
             <span>北京市</span>
-          </div> -->
-        </dd>
-      </dl>
-    </li>
-  </ul>
-	<div class="add_btn" @click="push_route">
-		<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
-	</div>
-			
-	</div>
+            </div>-->
+          </dd>
+        </dl>
+      </li>
+    </ul>
+    <div class="add_btn" @click="push_route">
+      <!-- <img src="../../assets/image/add_bth.png" alt=""> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -65,7 +63,8 @@ export default {
       backgroundColor: "#FFE8CC",
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
       colorClass: ["yd", "SAAS", "xmt"],
-      ListData: []
+      ListData: [],
+      Pid: null
       //  statusList:[]
     };
   },
@@ -77,25 +76,33 @@ export default {
     this.getList();
   },
   methods: {
-    push_route(){
-			this.$router.push({path:"/project/addProject"})
-		},
-    Jump_details(item){
-      console.log(item)
+    push_route() {
+      this.$router.push({ path: "/project/addProject" });
+    },
+    Jump_details(item) {
+      console.log(item);
       this.$router.push({
-        path:'/project/details',
-        query:{
-           id:item.id
+        path: "/project/details",
+        query: {
+          id: item.id
         }
-      })
+      });
     },
     getList() {
-      this.$post("/api/getAlikeProjectList", {
-        field: "id",
-        fieldValue: 82696
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      this.$post("/api/getUserDetail", {
+        userId: userId
       }).then(res => {
-        // console.log(res);
-        this.ListData = res.data;
+        console.log(res.data.info.project_id);
+        this.Pid = res.data.info.project_id;
+        console.log(this.Pid);
+        this.$post("/api/getAlikeProjectList", {
+          field: "id",
+          fieldValue: this.Pid
+        }).then(res => {
+          // console.log(res);
+          this.ListData = res.data;
+        });
       });
     }
   }
@@ -103,15 +110,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.add_btn{
-		background-image: url("../../assets/image/add_bth.png");
-		width: 30px;
-		height: 30px;
-		background-size: 100%;
-		position: fixed;
-		right: 5%;
-		bottom: 10%;
-	}	
+.add_btn {
+  background-image: url("../../assets/image/add_bth.png");
+  width: 30px;
+  height: 30px;
+  background-size: 100%;
+  position: fixed;
+  right: 5%;
+  bottom: 10%;
+}
 .Max_list {
   margin-top: 10px;
   display: flex;
@@ -164,7 +171,7 @@ export default {
   margin-top: 15px;
   display: flex;
   padding: 10px;
-  padding-top:0;
+  padding-top: 0;
   //   border-radius: 10px;
   //   padding: 10px;
 }
@@ -335,7 +342,7 @@ export default {
       max-height: 80px;
       // height: 100%;
       border-radius: 50% 50%;
-      border:1px solid #ccc;
+      border: 1px solid #ccc;
     }
   }
   dd {

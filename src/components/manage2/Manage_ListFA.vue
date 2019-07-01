@@ -2,7 +2,7 @@
 	<div>
 		
   <!-- 项目管理 列表项 -->
-  <ul class="Max_list" v-if="ListData!=[]">
+  <ul class="Max_list" v-if="ListData.length>1">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
         <nut-icon type="more"></nut-icon>
@@ -103,6 +103,13 @@
       </div>
     </li>
   </ul>
+    <ul v-else  class="Max_list"> 
+    <li class="list_Item" style="margin-top:30px;justify-content:center;">
+       <span>
+         暂无FA信息
+       </span>
+    </li>
+    </ul>
 	<div class="add_btn" @click="push_route">
 		<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
 	</div>
@@ -137,7 +144,7 @@ export default {
   mounted() {
     let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
     // console.log()
-    this.$post("/api/getUserFaList", { userId: 4 }).then(res => {
+    this.$post("/api/getUserFaList", { userId:userId}).then(res => {
       for (let i = 0; i < res.data.length; i++) {
         res.data[i].status = 2;
         // this.Maxnum+=res.data[i].organs.length;
