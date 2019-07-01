@@ -179,7 +179,7 @@
                 <!-- <div class="List_downsize">
                   <span>{{item.lingyu_name}}</span>|
                   <span>Pre-A</span>|
-                  <span>北京市</span> 
+                  <span>北京市</span>
                 </div>-->
                 <div class="List_downsize">
                   当前轮次：
