@@ -38,7 +38,11 @@ body{
 .view-margin-bottom-10 {
     margin-bottom: 10px;
 }
+.errorBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .errorImg{
     width: 60%;
-    height: 60%;
 }

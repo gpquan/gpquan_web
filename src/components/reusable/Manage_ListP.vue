@@ -110,7 +110,9 @@
     </ul>
     <ul v-else class="Max_list">
       <li class="list_Item" style="margin-top:30px;justify-content:center;">
-           <img src="../../assets/image/error.png" alt="" class="errorImg">
+        <div class="errorBox">
+               <img src="../../assets/image/error.png" alt="" class="errorImg">
+        </div>
       </li>
     </ul>
   </div>
