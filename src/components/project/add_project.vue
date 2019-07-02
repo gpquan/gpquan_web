@@ -496,7 +496,7 @@ export default {
         this.name &&
         this.isDj < 2
       ) {
-        alert("资料齐全");
+        // alert("资料齐全");
         let form=''
         if(this.infoStatus){
             form='true'
@@ -525,7 +525,10 @@ export default {
           console.log(res);
           let Projectid = res.data.projectId;
           this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-          if (this.OrganID) {
+          let role=JSON.parse(sessionStorage.getItem("userInfo")).role;
+          if(role==1){
+            //FA
+            if (this.OrganID) {
             this.$post("/api/addUserOrganProject", {
               userId: this.userId,
               organId: this.OrganID,
@@ -548,9 +551,20 @@ export default {
             });
             // alert(1)
           }
+          }else if(role==2){
+            //项目
+            this.$router.push(
+              {
+                path:  "/Manage2"
+                
+              }
+            )
+          }
+ 
         });
       } else {
-        alert("缺点东西");
+        // alert("缺点东西");
+          this.$toast.text('信息不完善！');
       }
     },
     saveText() {
