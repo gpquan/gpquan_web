@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 项目管理 列表项 -->
-    <ul class="Max_list" v-if="ListData!=[]">
+    <ul class="Max_list" v-if="ListData.length>0">
       <li class="list_Item" v-for="(item,idx) in ListData" :key="idx">
         <dl class="List_item">
           <dt class="img">

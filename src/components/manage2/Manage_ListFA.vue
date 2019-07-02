@@ -2,7 +2,7 @@
 	<div>
 		
   <!-- 项目管理 列表项 -->
-  <ul class="Max_list" v-if="ListData.length>1">
+  <ul class="Max_list" v-if="ListData.length>0">
     <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
       <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
         <nut-icon type="more"></nut-icon>
