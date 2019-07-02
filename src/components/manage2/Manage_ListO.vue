@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="Max_list" v-if="dataList.length>1">
+    <ul class="Max_list" v-if="dataList.length>0">
       <li class="list_Item" v-for="(item,ind) in dataList" :key="ind">
         <dl class="list_DL">
           <dt>
@@ -35,7 +35,8 @@
               <span class="hide">简介:{{item.description}}</span>
             </div>
             <div class="ly">
-              <span class="yd" v-for=" (itmes,ind) in 3" :key="ind">{{item.lingyu_name[ind].name}}</span>
+              <span class="yd" v-for=" (itmes,ind) in item.lingyu_name.length>3?3:item.lingyu_name.length" :key="ind">{{item.lingyu_name[ind].name}}</span>
+              <!-- <span class="yd" v-for=" (itmes,ind) in item.lingyu_name>3?3:item.lingyu_name.length" :key="ind">{{ind}}</span> -->
             </div>
           </dd>
         </dl>

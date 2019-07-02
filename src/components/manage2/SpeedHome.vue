@@ -79,35 +79,21 @@
           </div>
         </div>
 
-
-        <div class="right-body">
+    <div class="right-body" style="margin-bottom:60px;">
           <div class="right-body-icon">
             <span class="right-body-Licon"></span>
-            <span style="text-align: center;font-size: 1rem;">合作FA</span>
+            <span style="text-align: center;font-size: 1rem;">精准对接</span>
             <span class="right-body-Ricon"></span>
           </div>
-          <div class="right-item" @click="Jump_rout" v-for="(items,idx) in R_btmList2" :key="idx">
-            <span class="item-name">{{items.name}}</span>
-            <div class="right-item-portrait"></div>
-            <div style="margin-left: 7vw;">
-              <nut-button
-                type="actived"
-                shape="circle"
-                small
-                v-for="(item,ind) in items.ly" :key="ind"
-                :color="colorList[ind]"
-                :style="'height: 20px;padding: 0 1vw;margin-left: 1vw;border: 0px;background-color:'+BGcolorList[ind]"
-              >{{item}}</nut-button>
-            </div>
-            <div style="margin-left:7vw; margin-top: 2vh;">
-              <span style="font-size: 15px;color: #666;">投资总额：{{items.num}}万元</span>
-
-            </div>
-            <div style="margin-left:7vw; margin-top: 2vh;">
-            <span style="font-size: 15px;color: #666;">所属地区：{{items.area}}</span>
+          <div>
+            <div class="callme" style="margin-top:10px;">
+              <nut-button block shape="circle" class="greenBtn">
+                <a href="tel:18611174866" style="color:#fff;">联系我们</a>
+              </nut-button>
             </div>
           </div>
         </div>
+    
       </div>
     </div>
   </div>
