@@ -215,7 +215,7 @@ input {
   border-width: 0;
   background-color: transparent;
   padding: 0 30px 0 10px;
-  color: #ccc;
+  color: #666;
 }
 input:-webkit-autofill,
 textarea:-webkit-autofill,
