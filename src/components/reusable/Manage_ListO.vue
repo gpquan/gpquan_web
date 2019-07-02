@@ -110,7 +110,7 @@
     </ul>
     <ul v-else class="Max_list">
       <li class="list_Item" style="margin-top:30px;justify-content:center;">
-        <span>暂无机构信息</span>
+       <img src="../../assets/image/error.png" alt="" class="errorImg">
       </li>
     </ul>
   </div>

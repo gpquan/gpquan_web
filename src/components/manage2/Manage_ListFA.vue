@@ -105,9 +105,7 @@
   </ul>
     <ul v-else  class="Max_list"> 
     <li class="list_Item" style="margin-top:30px;justify-content:center;">
-       <span>
-         暂无FA信息
-       </span>
+       <img src="../../assets/image/error.png" alt="" class="errorImg">
     </li>
     </ul>
 	<div class="add_btn" @click="push_route">
@@ -232,8 +230,11 @@ export default {
 		bottom: 10%;
 	}
 .Max_list {
-  margin-top: 10px;
   margin-bottom: 60px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .List_gather {
   display: flex;
@@ -273,14 +274,16 @@ export default {
   //   height: 100%;
 }
 .list_Item {
-  width: 90%;
+  width: 80%;
   //   height: 108px;
-  margin-left: 5%;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   position: relative;
-  margin-top: 10px;
+  margin-top: 15px;
+  display: flex;
+  padding: 10px;
+  //   border-radius: 10px;
   //   padding: 10px;
 }
 .icon_Box {

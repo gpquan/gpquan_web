@@ -38,3 +38,7 @@ body{
 .view-margin-bottom-10 {
     margin-bottom: 10px;
 }
+.errorImg{
+    width: 60%;
+    height: 60%;
+}

@@ -96,7 +96,7 @@ export default {
       Pwdisshow: true,
       pwd2placehold: true,
       listData1: [
-        ["FA","公司","投资人"]
+        ["FA","公司"]
       ]
     };
   },

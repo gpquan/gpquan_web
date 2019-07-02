@@ -37,6 +37,11 @@
         </dl>
       </li>
     </ul>
+      <ul v-else  class="Max_list"> 
+    <li class="list_Item" style="margin-top:30px;justify-content:center;">
+         <img src="../../assets/image/error.png" alt="" class="errorImg">
+    </li>
+    </ul>
     <div class="add_btn" @click="push_route">
       <!-- <img src="../../assets/image/add_bth.png" alt=""> -->
     </div>
@@ -171,7 +176,6 @@ export default {
   margin-top: 15px;
   display: flex;
   padding: 10px;
-  padding-top: 0;
   //   border-radius: 10px;
   //   padding: 10px;
 }
