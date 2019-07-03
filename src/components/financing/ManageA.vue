@@ -314,6 +314,7 @@ export default {
 .body-box {
   display: flex;
   display: -webkit-flex;
+  flex:1;
 }
 .body-box .left {
   flex: 1;
@@ -322,7 +323,7 @@ export default {
   color: #666;
   margin-top: -5vh;
   border-radius: 0 5px 0 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 // .aaaaaaa{
 
@@ -566,5 +567,12 @@ export default {
  
     margin-left: 5%;
     margin-top: 20px;
+}
+.right,.left{
+   height:95% ;
+  overflow-y:scroll;
+}
+.right{
+  padding-top:10px;
 }
 </style>

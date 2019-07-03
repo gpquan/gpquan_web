@@ -12,6 +12,8 @@ export default {
 <style lang="scss" scoped>
 .showBox{
     height:100%;
+    display: flex;
+    flex-direction: column;
     // padding-bottom: 51px;
 }
 .view-home{
