@@ -162,12 +162,12 @@ export default {
   position: relative;
   height: 100%;
   display: inline-block;
-  padding: 10px;
+   padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 7%;
+    top: 13px;
     width: 80%;
-    height: 80%;
+    height: 66px;
     display: flex;
     align-items: center;
     justify-content: center;

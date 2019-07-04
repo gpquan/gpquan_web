@@ -247,20 +247,24 @@ export default {
           text: "创维（Skyworth）",
           selected: false
         }
-      ]
+      ],
+      page:1,
+      userId:null,
     };
   
   },
-  created(){
-    this.getList()
+  beforeMount(){
+    this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      this.getList()
   },
+
   methods: {
     getList(){
-      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
       this.$post("/api/getGoodProjectList",{
-        userId:userId
+        userId:this.userId,
+        page:this.page
       }).then((res)=>{
-          this.listData1= res.data
+          this.listData1=this.listData1.concat(res.data)
       })
     },
     focusFun() {
@@ -325,9 +329,17 @@ export default {
     },
     loadMoreVert() {
       //加载列表
-      console.log(this.page1);
+      let dataList;
       this.isLoading1 = true;
-      if (this.page1 > this.maxPages) {
+         this.$post("/api/getGoodProjectList",{
+        userId:this.userId,
+        page:this.page
+      }).then((res)=>{
+          if(res.data!=[]){
+            this.maxPages=this.page+1
+            dataList=res.data
+          }
+           if (this.page > this.maxPages) {
         //判断当前页 是否大于总页数
         this.isUnMore1 = true;
         this.isLoading1 = false;
@@ -337,9 +349,13 @@ export default {
           this.isLoading1 = false;
           this.isUnMore1 = false;
           // this.listData1 = new Array(5 * this.page1);
-          this.page1 = ++this.page1;
+          this.page = this.page+1;
+          this.listData1=this.listData1.concat(dataList)
+            console.log(this.listData1)
         }, 300);
       }
+      })
+     
     },
 
     pulldown() {
@@ -350,11 +366,15 @@ export default {
         //刷新列表重新给数组赋值
         this.isLoading1 = false;
         this.isUnMore1 = false;
+        this.page=1
+        this.listData1=[]
+        this.getList()
         // this.listData1 = new Array(5);
-        this.page1 = 2;
+        // this.page1 = 2;
       }, 300);
     }
-  } , destroyed() {
+  } , 
+  destroyed() {
     clearTimeout(this.timer);
   }
 };

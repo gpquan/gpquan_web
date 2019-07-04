@@ -1,7 +1,7 @@
 <template>
   <div class="List_box" v-if="Listdata[0]">
     <div class="item" v-for="(item, index) in Listdata" :key="index" @click="item_details(item)">
-      <span class="item_status" v-if="Listdata.length%index==1">
+      <span class="item_status" v-if="index%2==1">
         <!-- <img src="../../assets/image/l_bg.png" alt> -->
         <em class="item_status_text hide1">红杉资本</em>
       </span>

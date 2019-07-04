@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="height:100%">
 		<div class="list">
 			<ManageListO :ListData="MaxList" :statusList="statusList" />
 			<!-- <ManageList :ListData="ListData"/>
@@ -42,37 +42,37 @@
 			};
 		},
 		mounted() {
-			let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+			// let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
 
-			// console.log()
-			this.$post("/api/getUserOrganList", {
-				userId: userId,
-				page: "1"
-			}).then(
-				res => {
-					for (let i = 0; i < res.data.length; i++) {
-						res.data[i].status = 2;
-						if (res.data[i].projects.length < 3) {
-							res.data[i].maxLength = res.data[i].projects.length;
-						} else {
-							res.data[i].maxLength = 3;
-						}
-						// console.log(res);
-					}
-					for (let i = 0; i < res.data.length; i++) {
-						//    this.statusList.show
-						this.statusList.push(0)
-						// console.log(res.data)
-						// this.statusList[i].length=this.ListData.length
-						//    this.ListData[i].ISshow=false
-						// console.log(this.ListData[i])
-					}
-					// console.log(res.data);
-					this.MaxList = res.data;
+			// // console.log()
+			// this.$post("/api/getUserOrganList", {
+			// 	userId: userId,
+			// 	page: "1"
+			// }).then(
+			// 	res => {
+			// 		for (let i = 0; i < res.data.length; i++) {
+			// 			res.data[i].status = 2;
+			// 			if (res.data[i].projects.length < 3) {
+			// 				res.data[i].maxLength = res.data[i].projects.length;
+			// 			} else {
+			// 				res.data[i].maxLength = 3;
+			// 			}
+			// 			// console.log(res);
+			// 		}
+			// 		for (let i = 0; i < res.data.length; i++) {
+			// 			//    this.statusList.show
+			// 			this.statusList.push(0)
+			// 			// console.log(res.data)
+			// 			// this.statusList[i].length=this.ListData.length
+			// 			//    this.ListData[i].ISshow=false
+			// 			// console.log(this.ListData[i])
+			// 		}
+			// 		// console.log(res.data);
+			// 		this.MaxList = res.data;
 
-					// console.log(this.MaxList);
-				}
-			);
+			// 		// console.log(this.MaxList);
+			// 	}
+			// );
 		},
 		methods: {
 			push_route(){

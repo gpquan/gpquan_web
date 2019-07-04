@@ -1,119 +1,131 @@
 <template>
-	<div>
-		
-  <!-- 项目管理 列表项 -->
-  <ul class="Max_list" v-if="ListData.length>0">
-    <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-      <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
-        <nut-icon type="more"></nut-icon>
-      </b>
-      <div class="title_">
-        <div class="title_top">
-          <div class="left">
-            <em class="lineEm"></em>
-            <b class="noW" @click="route_return(i.fa_id)">{{i.username}}</b>
-          </div>
-        </div>
-        <div class="right">
-          <!-- <b class="expedite" @click="expedite(i.lingyu_id)"></b> -->
-        </div>
-        <div class="title_Bottm">
-          <div style="padding:10px 0">
-            <span
-              v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
-              :key="idd"
-              :class="colorClass[idd]"
-            >{{i.lingyu_name[idd]}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="div_ListBox">
-        <div class="List_top" v-show="i.status==2">
-          <!-- {{typeOf(i.maxLength)}} -->
-          <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-            <router-link
-              tag="span"
-              class
-              :to="{path :'/accelerate/Manage/a/details',query:{id:i.organs[ind].id,type:1,userId:i.fa_id}}"
-            >
-              <span class="box1">
-                <circle-progress
-                  :id="i.organs[ind].progress.uniqid+1"
-                  :width="66"
-                  :radius="4"
-                  :progress="i.organs[ind].progress.rate"
-                  :delay="200"
-                  :duration="500"
-                  barColor="#F2AE57"
-                  backgroundColor="#FFE8CC"
-                  :isAnimation="true"
-                ></circle-progress>
-                <span class="dhwb">
-                  <em>{{i.organs[ind].progress_name}}</em>
-                </span>
-              </span>
-            </router-link>
-            <b class="nameTIT hide1">
-              <em></em>
-              {{i.organs[ind].name}}
-            </b>
-          </div>
-          <div class="box_1">
-            <div class="addBtn" v-if="i.maxLength<3">
-              <span @click="push_route1(i.fa_id)">
-                <img src="../../assets/image/pink_add.png" alt>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="List_gather" v-show="i.status==1">
-          <b class="List_gather_Icon" @click="closeListGather(idx)">
-            <nut-icon type="minus"></nut-icon>
+  <div style="height:100%">
+    <nut-scroller
+      :is-un-more="isUnMore1"
+      :is-loading="isLoading1"
+      :stretch="600"
+      :type="'vertical'"
+      @loadMore="loadMoreVert"
+      @pulldown="pulldown"
+    >
+      <!-- 项目管理 列表项 -->
+      <ul class="Max_list nut-vert-list-panel" v-if="ListData.length>0" slot="list">
+        <li
+          class="list_Item view-project nut-vert-list-item"
+          v-for="(i,idx) in ListData"
+          :key="idx"
+        >
+          <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
+            <nut-icon type="more"></nut-icon>
           </b>
-          <div class="box_1" v-for="(items,ind) in i.organs" :key="ind">
-            <span class="box1">
-              <circle-progress
-                :id="i.organs[ind].progress.uniqid+2"
-                :width="66"
-                :radius="4"
-                :progress="i.organs[ind].progress.rate"
-                :delay="200"
-                :duration="500"
-                barColor="#F2AE57"
-                backgroundColor="#FFE8CC"
-                :isAnimation="true"
-              ></circle-progress>
-              <span class="dhwb">
-                <em>{{i.organs[ind].progress_name}}</em>
-              </span>
-            </span>
-            <b class="nameTIT hide1">
-              <em></em>
-              {{i.organs[ind].name}}
-            </b>
-          </div>
-          <div class="box_1">
-            <div class="addBtn">
-              <span @click="push_route1(i.fa_id)">
-                <img src="../../assets/image/pink_add.png" alt>
-              </span>
+          <div class="title_">
+            <div class="title_top">
+              <div class="left">
+                <em class="lineEm"></em>
+                <b class="noW" @click="route_return(i.fa_id)">{{i.username}}</b>
+              </div>
+            </div>
+            <div class="right">
+              <!-- <b class="expedite" @click="expedite(i.lingyu_id)"></b> -->
+            </div>
+            <div class="title_Bottm">
+              <div style="padding:10px 0">
+                <span
+                  v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
+                  :key="idd"
+                  :class="colorClass[idd]"
+                >{{i.lingyu_name[idd]}}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </li>
-  </ul>
-    <ul v-else  class="Max_list"> 
-    <li class="list_Item" style="margin-top:30px;justify-content:center;">
-       <div class="errorBox">
-               <img src="../../assets/image/error.png" alt="" class="errorImg">
-        </div>
-    </li>
-    </ul>
-	<div class="add_btn" @click="push_route">
-		<!-- <img src="../../assets/image/add_bth.png" alt=""> -->
-	</div>
-	</div>
+          <div class="div_ListBox">
+            <div class="List_top" v-show="i.status==2">
+              <!-- {{typeOf(i.maxLength)}} -->
+              <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
+                <router-link
+                  tag="span"
+                  class
+                  :to="{path :'/accelerate/Manage/a/details',query:{id:i.organs[ind].id,type:1,userId:i.fa_id}}"
+                >
+                  <span class="box1">
+                    <circle-progress
+                      :id="i.organs[ind].progress.uniqid+1"
+                      :width="66"
+                      :radius="4"
+                      :progress="i.organs[ind].progress.rate"
+                      :delay="200"
+                      :duration="500"
+                      barColor="#F2AE57"
+                      backgroundColor="#FFE8CC"
+                      :isAnimation="true"
+                    ></circle-progress>
+                    <span class="dhwb">
+                      <em>{{i.organs[ind].progress_name}}</em>
+                    </span>
+                  </span>
+                </router-link>
+                <b class="nameTIT hide1">
+                  <em></em>
+                  {{i.organs[ind].name}}
+                </b>
+              </div>
+              <div class="box_1">
+                <div class="addBtn" v-if="i.maxLength<3">
+                  <span @click="push_route1(i.fa_id)">
+                    <img src="../../assets/image/pink_add.png" alt />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="List_gather" v-show="i.status==1">
+              <b class="List_gather_Icon" @click="closeListGather(idx)">
+                <nut-icon type="minus"></nut-icon>
+              </b>
+              <div class="box_1" v-for="(items,ind) in i.organs" :key="ind">
+                <span class="box1">
+                  <circle-progress
+                    :id="i.organs[ind].progress.uniqid+2"
+                    :width="66"
+                    :radius="4"
+                    :progress="i.organs[ind].progress.rate"
+                    :delay="200"
+                    :duration="500"
+                    barColor="#F2AE57"
+                    backgroundColor="#FFE8CC"
+                    :isAnimation="true"
+                  ></circle-progress>
+                  <span class="dhwb">
+                    <em>{{i.organs[ind].progress_name}}</em>
+                  </span>
+                </span>
+                <b class="nameTIT hide1">
+                  <em></em>
+                  {{i.organs[ind].name}}
+                </b>
+              </div>
+              <div class="box_1">
+                <div class="addBtn">
+                  <span @click="push_route1(i.fa_id)">
+                    <img src="../../assets/image/pink_add.png" alt />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul v-else class="Max_list">
+        <li class="list_Item" style="margin-top:30px;justify-content:center;">
+          <div class="errorBox">
+            <img src="../../assets/image/error.png" alt class="errorImg" />
+          </div>
+        </li>
+      </ul>
+    </nut-scroller>
+    <div class="add_btn" @click="push_route">
+      <!-- <img src="../../assets/image/add_bth.png" alt=""> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -136,54 +148,69 @@ export default {
       backgroundColor: "#FFE8CC",
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
       colorClass: ["yd", "SAAS", "xmt"],
-      ListData: []
+      ListData: [],
+      isUnMore1: false,
+      isLoading1: false,
+      page: 1,
+      maxPages2: 1,
+      Ndata: [],
+      timer: null
       //  statusList:[]
     };
   },
-  beforeMount() {},
-  mounted() {
-    let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-    // console.log()
-    this.$post("/api/getUserFaList", { userId:userId}).then(res => {
-      for (let i = 0; i < res.data.length; i++) {
-        res.data[i].status = 2;
-        // this.Maxnum+=res.data[i].organs.length;
-        if (res.data[i].organs.length < 3) {
-          res.data[i].maxLength = res.data[i].organs.length;
-        } else {
-          res.data[i].maxLength = 3;
-        }
-      }
-      // res.data.Maxnum=this.Maxnum
-      console.log(res.data);
-      this.ListData = res.data;
-      console.log(res);
-      // let Project = JSON.parse(sessionStorage.setItem("userInfo")).id;
-    });
+  beforeMount() {
+    this.getList();
+    this.page=this.page+1
   },
+  mounted() {},
   methods: {
-		route_return(val){
-			// if(res.data.)
-			if(val){
-				// console.log("su");
-				// console.log(val);
-				this.$router.push({path:"/userCenter/User_details",query:{userId:val}});
-			}else{
-				// console.log("fail");
-				var id = sessionStorage.getItem('userInfo[id]');
-				this.$router.push({path:"/userCenter/User_details",query:{userId:id}});
-				// console.log(222);
-			}
-		},
-		push_route(){
-			this.$router.push({path:"/Manage2/dimFA"})
+    getList() {
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      // console.log()
+      this.$post("/api/getUserFaList", {
+        userId: userId,
+        page: this.page
+      }).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].status = 2;
+          // this.Maxnum+=res.data[i].organs.length;
+          if (res.data[i].organs.length < 3) {
+            res.data[i].maxLength = res.data[i].organs.length;
+          } else {
+            res.data[i].maxLength = 3;
+          }
+        }
+        this.ListData = res.data;
+      });
     },
-    push_route1(id){
+    route_return(val) {
+      // if(res.data.)
+      if (val) {
+        // console.log("su");
+        // console.log(val);
+        this.$router.push({
+          path: "/userCenter/User_details",
+          query: { userId: val }
+        });
+      } else {
+        // console.log("fail");
+        var id = sessionStorage.getItem("userInfo[id]");
+        this.$router.push({
+          path: "/userCenter/User_details",
+          query: { userId: id }
+        });
+        // console.log(222);
+      }
+    },
+    push_route() {
+      this.$router.push({ path: "/Manage2/dimFA" });
+    },
+    push_route1(id) {
       this.$router.push({
         path: "/organ/dimO",
         query: {
           id: id,
-          type:'Fa'
+          type: "Fa"
         }
       });
     },
@@ -216,21 +243,68 @@ export default {
       //   console.log(res);
       // });
       // this.$router.push({path:"/accelerate/Manage/a",query:{lyid:lyid}})
+    },
+    loadMoreVert() {
+      this.isLoading1 = true;
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+      this.$post("/api/getUserFaList", {
+        userId: userId,
+        page: this.page
+      }).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].status = 2;
+          // this.Maxnum+=res.data[i].organs.length;
+          if (res.data[i].organs.length < 3) {
+            res.data[i].maxLength = res.data[i].organs.length;
+          } else {
+            res.data[i].maxLength = 3;
+          }
+        }
+        this.Ndata = res.data;
+        console.log(res.data);
+
+        console.log(this.Ndata);
+        if (this.Ndata.length == 0) {
+          this.isUnMore1 = true;
+          this.isLoading1 = false;
+        } else {
+          clearTimeout(this.timers);
+          this.timer = setTimeout(() => {
+            this.isUnMore1 = false;
+            this.isLoading1 = false;
+            this.ListData = this.ListData.concat(this.Ndata);
+            console.log(this.ListData);
+            this.Ndata = [];
+            this.page = this.page + 1;
+          }, 300);
+        }
+      });
+    },
+    pulldown() {
+      this.isLoading1 = true;
+      clearTimeout(this.timers);
+      this.timer = setTimeout(() => {
+        this.isLoading1 = false;
+        this.isUnMore1 = false;
+        // this.listData1 = new Array(20);
+        this.page = 1;
+        this.getList();
+      }, 300);
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-	.add_btn{
-		background-image: url("../../assets/image/add_bth.png");
-		width: 30px;
-		height: 30px;
-		background-size: 100%;
-		position: fixed;
-		right: 5%;
-		bottom: 10%;
-	}
+.add_btn {
+  background-image: url("../../assets/image/add_bth.png");
+  width: 30px;
+  height: 30px;
+  background-size: 100%;
+  position: fixed;
+  right: 5%;
+  bottom: 10%;
+}
 .Max_list {
   margin-bottom: 60px;
   margin-top: 10px;
@@ -308,7 +382,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding-top: 10px;
-  .left{
+  .left {
     display: flex;
     align-items: center;
   }
@@ -354,10 +428,10 @@ export default {
   padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 15px;
-    left: 13px;
-    width: 60px;
-    height: 60px;
+    top: 13px;
+    // left: 13px;
+    width: 80%;
+    height: 66px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -435,13 +509,15 @@ export default {
 }
 .addBtn {
   width: 66px;
+  height: 71px;
+  margin-top: 3px;
   padding: 10px;
   img {
-    width:100%;
+    width: 100%;
     // height: 57px;
   }
 }
-.hide1{
+.hide1 {
   font-size: 12px;
   line-height: 16px;
   word-break: break-all;

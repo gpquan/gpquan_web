@@ -1,8 +1,16 @@
 <template>
-  <div>
+  <div style="height:100%">
     <!-- 项目管理 列表项 -->
-    <ul class="Max_list" v-if="ListData.length>0">
-      <li class="list_Item" v-for="(item,idx) in ListData" :key="idx">
+     <nut-scroller
+      :is-un-more="isUnMore1"
+      :is-loading="isLoading1"
+      :stretch="600"
+      :type="'vertical'"
+      @loadMore="loadMoreVert"
+      @pulldown="pulldown"
+    >
+    <ul class="Max_list nut-vert-list-panel" v-if="ListData.length>0" slot="list">
+      <li class="list_Item view-project nut-vert-list-item" v-for="(item,idx) in ListData" :key="idx">
         <dl class="List_item">
           <dt class="img">
             <img :src="item.logo" alt />
@@ -44,6 +52,7 @@
         </div>
     </li>
     </ul>
+    </nut-scroller>
     <div class="add_btn" @click="push_route">
       <!-- <img src="../../assets/image/add_bth.png" alt=""> -->
     </div>
@@ -71,8 +80,13 @@ export default {
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
       colorClass: ["yd", "SAAS", "xmt"],
       ListData: [],
-      Pid: null
-      //  statusList:[]
+      Pid: null,
+       isUnMore1: false,
+      isLoading1: false,
+      page: 1,
+      maxPages2: 1,
+      Ndata: [],
+      timer: null
     };
   },
   beforeMount() {
@@ -80,7 +94,7 @@ export default {
       //  this.statusList[i]=false
     }
     // console.log("=-=============")
-    this.getList();
+    this.getListId();
   },
   methods: {
     push_route() {
@@ -95,22 +109,69 @@ export default {
         }
       });
     },
-    getList() {
+    getListId() {
       let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
       this.$post("/api/getUserDetail", {
         userId: userId
       }).then(res => {
         console.log(res.data.info.project_id);
         this.Pid = res.data.info.project_id;
-        console.log(this.Pid);
-        this.$post("/api/getAlikeProjectList", {
+        this.getList()
+        this.page=this.page+1
+        
+      });
+    },
+    getList(){
+      this.$post("/api/getAlikeProjectList", {
           field: "id",
-          fieldValue: this.Pid
+          fieldValue: this.Pid,
+          page:this.page
         }).then(res => {
           // console.log(res);
           this.ListData = res.data;
         });
+    },
+     loadMoreVert() {
+      this.isLoading1 = true;
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+
+        this.$post("/api/getAlikeProjectList", {
+          field: "id",
+          fieldValue: this.Pid,
+          page:this.page
+        }).then(res => {
+          // console.log(res);
+          // this.ListData = res.data;
+        this.Ndata = res.data;
+        console.log(res.data);
+
+        console.log(this.Ndata);
+        if (this.Ndata.length == 0) {
+          this.isUnMore1 = true;
+          this.isLoading1 = false;
+        } else {
+          clearTimeout(this.timers);
+          this.timer = setTimeout(() => {
+              this.isUnMore1 = false;
+            this.isLoading1 = false;
+            this.ListData = this.ListData.concat(this.Ndata);
+            console.log(this.ListData);
+            this.Ndata = [];
+            this.page = this.page + 1;
+          }, 300);
+        }
       });
+    },
+    pulldown() {
+      this.isLoading1 = true;
+      clearTimeout(this.timers);
+      this.timer = setTimeout(() => {
+        this.isLoading1 = false;
+        this.isUnMore1 = false;
+        // this.listData1 = new Array(20);
+        this.page = 1;
+        this.getList();
+      }, 300);
     }
   }
 };
@@ -247,12 +308,12 @@ export default {
   position: relative;
   height: 100%;
   display: inline-block;
-  padding: 10px;
+  padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 7%;
+    top: 13px;
     width: 80%;
-    height: 80%;
+    height:66px;
     display: flex;
     align-items: center;
     justify-content: center;

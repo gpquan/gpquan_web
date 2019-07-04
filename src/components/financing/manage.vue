@@ -1,6 +1,6 @@
 <template>
   <div class="manageBox">
-  <div>
+  <div style="height:100%">
        <ul class="tab">
       <li v-for="(item,ind) in tabLink" :key="ind" @click="tabClick(ind)"  :class="IND==ind?'active':''">
         <span>
@@ -53,17 +53,17 @@ export default {
    tabClick(i){
       this.$router.push(this.tabLink[i].links)
       this.IND=i
-          console.log(this.$route.meta);
+          // console.log(this.$route.meta);
    }
   },
   watch:{
     $route(n, o) {
       // this.routeCchange(n);
-      console.log(this.$route.path)
+      // console.log(this.$route.path)
       for (let i = 0; i < this.tabLink.length; i++) {
         if (this.$route.path == this.tabLink[i].links) {
             this.IND = i;
-           console.log(this.tabInd);
+          //  console.log(this.tabInd);
         }
       
   }
@@ -75,6 +75,7 @@ export default {
 <style lang="scss" scoped>
 .manageBox{
   height: 100%;
+  overflow: hidden;
 }
 .manageBox{
   background-image: url('../../assets/image/manage.png');

@@ -1,120 +1,134 @@
 <template>
   <!-- 项目管理 列表项 -->
-  <div style="height:100%;">
-    <ul class="Max_list" v-if="ListData.length>0">
-      <li class="list_Item" v-for="(i,idx) in ListData" :key="idx">
-        <!-- {{i}} -->
-        <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
-          <span></span>
-          <span></span>
-          <span></span>
-        </b>
 
-        <div class="title_">
-          <div class="title_top">
-            <div class="left">
-              <em class="lineEm"></em>
-              <span class="noW" @click="pro_details(i.organ_id)">{{i.name}}</span>
-            </div>
-            <div class="right">
-              <!-- <b class="expedite" @click="expedite(i.lingyu_id)">加速</b> -->
-            </div>
-          </div>
-          <div class="title_Bottm">
-            <div style="padding:14px 0">
-              <span
-                v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
-                :key="idd"
-                :class="colorClass[idd]"
-              >{{i.lingyu_name[idd]}}</span>
-              <!-- <span class="SAAS">SAAS</span>
-              <span class="xmt">新媒体</span>-->
-            </div>
-          </div>
-        </div>
-        <div class="div_ListBox">
-          <div class="List_top" v-show="i.status==2">
-            <!-- {{i.maxLength}} -->
-            <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
-              <span class="box1">
-                <circle-progress
-                  :id="i.projects[ind].progress.uniqid+1"
-                  :width="66"
-                  :radius="4"
-                  :progress="i.projects[ind].progress.rate"
-                  :delay="200"
-                  :duration="1000"
-                  barColor="#f05e62"
-                  backgroundColor="#FFE8CC"
-                  :isAnimation="true"
-                ></circle-progress>
-                <span class="dhwb">
-                  <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
-                </span>
-              </span>
-              <b class="nameTIT hide1">
-                <em></em>
-                {{i.projects[ind].name}}
-              </b>
-            </div>
-            <div class="box_1">
-              <div class="addBtn" v-if="i.maxLength<3">
-                <span @click="push_route(i.organ_id)">
-                  <img src="../../assets/image/pink_add.png" alt />
-                </span>
+  <div style="height:100%;">
+    <nut-scroller
+      :is-un-more="isUnMore1"
+      :is-loading="isLoading1"
+      :stretch="600"
+      :type="'vertical'"
+      @loadMore="loadMoreVert"
+      @pulldown="pulldown"
+    >
+      <ul class="Max_list nut-vert-list-panel" v-if="ListData.length>0" slot="list">
+        <li
+          class="list_Item view-project nut-vert-list-item"
+          v-for="(i,idx) in ListData"
+          :key="idx"
+        >
+          <!-- {{i}} -->
+          <b class="icon_Box" @click="ListShow(idx)" v-show="i.status==2&&i.maxLength>2">
+            <span></span>
+            <span></span>
+            <span></span>
+          </b>
+
+          <div class="title_">
+            <div class="title_top">
+              <div class="left">
+                <em class="lineEm"></em>
+                <span class="noW" @click="pro_details(i.organ_id)">{{i.name}}</span>
+              </div>
+              <div class="right">
+                <!-- <b class="expedite" @click="expedite(i.lingyu_id)">加速</b> -->
               </div>
             </div>
-            <!-- <div class="addBtn" v-if="i.maxLength<3">
+            <div class="title_Bottm">
+              <div style="padding:14px 0">
+                <span
+                  v-for="(itt,idd) in  i.lingyu_name.length>3?3:i.lingyu_name.length"
+                  :key="idd"
+                  :class="colorClass[idd]"
+                >{{i.lingyu_name[idd]}}</span>
+                <!-- <span class="SAAS">SAAS</span>
+                <span class="xmt">新媒体</span>-->
+              </div>
+            </div>
+          </div>
+          <div class="div_ListBox">
+            <div class="List_top" v-show="i.status==2">
+              <!-- {{i.maxLength}} -->
+              <div v-for="(item,ind) in i.maxLength" :key="ind" class="box_1">
+                <span class="box1">
+                  <circle-progress
+                    :id="i.projects[ind].progress.uniqid+1"
+                    :width="66"
+                    :radius="4"
+                    :progress="i.projects[ind].progress.rate"
+                    :delay="200"
+                    :duration="1000"
+                    barColor="#f05e62"
+                    backgroundColor="#FFE8CC"
+                    :isAnimation="true"
+                  ></circle-progress>
+                  <span class="dhwb">
+                    <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
+                  </span>
+                </span>
+                <b class="nameTIT hide1">
+                  <em></em>
+                  {{i.projects[ind].name}}
+                </b>
+              </div>
+              <div class="box_1">
+                <div class="addBtn" v-if="i.maxLength<3">
+                  <span @click="push_route(i.organ_id)">
+                    <img src="../../assets/image/pink_add.png" alt />
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="addBtn" v-if="i.maxLength<3">
             <span  @click="push_route(i.organ_id)">
               <img src="../../assets/image/pink_add.png" alt>
             </span>
-            </div>-->
-          </div>
-          <div class="List_gather" v-show="i.status==1">
-            <b class="List_gather_Icon" @click="closeListGather(idx)">
-              <nut-icon type="minus"></nut-icon>
-            </b>
-            <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
-              <span class="box1">
-                <circle-progress
-                  :id="i.projects[ind].progress.uniqid+2"
-                  :width="66"
-                  :radius="3"
-                  :progress="i.projects[ind].progress.rate"
-                  :delay="200"
-                  :duration="1000"
-                  barColor="#F2AE57"
-                  backgroundColor="#FFE8CC"
-                  :isAnimation="true"
-                ></circle-progress>
-                <span class="dhwb">
-                  <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
-                </span>
-              </span>
-
-              <b class="nameTIT hide1">
-                <em></em>
-                {{i.projects[ind].name}}
-              </b>
+              </div>-->
             </div>
-            <div class="box_1">
-              <div class="addBtn">
-                <span @click="push_route(i.organ_id)">
-                  <img src="../../assets/image/pink_add.png" alt />
+            <div class="List_gather" v-show="i.status==1">
+              <b class="List_gather_Icon" @click="closeListGather(idx)">
+                <nut-icon type="minus"></nut-icon>
+              </b>
+              <div class="box_1" v-for="(items,ind) in i.projects" :key="ind">
+                <span class="box1">
+                  <circle-progress
+                    :id="i.projects[ind].progress.uniqid+2"
+                    :width="66"
+                    :radius="3"
+                    :progress="i.projects[ind].progress.rate"
+                    :delay="200"
+                    :duration="1000"
+                    barColor="#F2AE57"
+                    backgroundColor="#FFE8CC"
+                    :isAnimation="true"
+                  ></circle-progress>
+                  <span class="dhwb">
+                    <em @click="pro_evolve(i.projects[ind]['id'])">{{i.projects[ind].progress_name}}</em>
+                  </span>
                 </span>
+
+                <b class="nameTIT hide1">
+                  <em></em>
+                  {{i.projects[ind].name}}
+                </b>
+              </div>
+              <div class="box_1">
+                <div class="addBtn">
+                  <span @click="push_route(i.organ_id)">
+                    <img src="../../assets/image/pink_add.png" alt />
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
-    <ul v-else class="Max_list">
-      <li class="list_Item" style="margin-top:30px;justify-content:center;">
-        <div class="errorBox">
-               <img src="../../assets/image/error.png" alt="" class="errorImg">
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+      <ul v-else class="Max_list">
+        <li class="list_Item" style="margin-top:30px;justify-content:center;">
+          <div class="errorBox">
+            <img src="../../assets/image/error.png" alt class="errorImg" />
+          </div>
+        </li>
+      </ul>
+    </nut-scroller>
   </div>
 </template>
 
@@ -124,7 +138,7 @@ export default {
   components: {
     CircleProgress
   },
-  props: ["ListData"],
+  // props: ["ListData"],
   data() {
     return {
       isShow: true,
@@ -138,13 +152,45 @@ export default {
       backgroundColor: "#FFE8CC",
       timeFunction: "cubic-bezier(0.99, 0.01, 0.22, 0.94)",
       maxLength: null,
-      colorClass: ["yd", "SAAS", "xmt"]
+      colorClass: ["yd", "SAAS", "xmt"],
+      isUnMore1: false,
+      isLoading1: false,
+      page: 1,
+      maxPages2: 1,
+      statusList: [],
+      ListData: [],
+      Ndata: [],
+      timer: null
     };
   },
   beforeMount() {
-    // console.log("=-=============")
+    // console.log(this.ListData);
+    this.getList();
   },
   methods: {
+    getList() {
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+
+      // console.log()
+      this.$post("/api/getUserOrganList", {
+        userId: userId,
+        page: this.page
+      }).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].status = 2;
+          if (res.data[i].projects.length < 3) {
+            res.data[i].maxLength = res.data[i].projects.length;
+          } else {
+            res.data[i].maxLength = 3;
+          }
+        }
+        for (let i = 0; i < res.data.length; i++) {
+          this.statusList.push(0);
+        }
+        this.page = this.page + 1;
+        this.ListData = res.data;
+      });
+    },
     pro_evolve(id) {
       //项目进展
       this.$router.push("/accelerate/Manage/a/details?id=" + id + "&type=0");
@@ -161,15 +207,7 @@ export default {
         }
       });
       console.log(id);
-      // this.$router.push('/Organ/details/'+id);
     },
-    // Org_details(id){
-    // 	// 机构跳详情
-    // 	this.$router.push({path:'/project/details',query:{
-    // 	    id:id
-    // 	  }});
-    // 	console.log(id);
-    // },
     reset() {
       this.isShow = false;
       this.$nextTick(() => {
@@ -184,17 +222,64 @@ export default {
     },
     expedite() {
       //点击加速
-      //   this.$post("/api/login", {
-      //     phone: 18611174866,
-      //     password: 123456
-      //   }).then(res => {
-      //     console.log(res);
-      //   });
-      // this.$router.push("/accelerate/Manage/accelerate")
     },
     push_route(id) {
       this.$router.push({ path: "/project/dimP", query: { id: id } });
+    },
+    loadMoreVert() {
+      this.isLoading1 = true;
+      let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+
+      // console.log()
+      this.$post("/api/getUserOrganList", {
+        userId: userId,
+        page: this.page
+      }).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          res.data[i].status = 2;
+          if (res.data[i].projects.length < 3) {
+            res.data[i].maxLength = res.data[i].projects.length;
+          } else {
+            res.data[i].maxLength = 3;
+          }
+        }
+        for (let i = 0; i < res.data.length; i++) {
+          this.statusList.push(0);
+        }
+        this.Ndata = res.data;
+        console.log(res.data);
+
+        console.log(this.Ndata);
+        if (this.Ndata.length == 0) {
+          this.isUnMore1 = true;
+          this.isLoading1 = false;
+        } else {
+          clearTimeout(this.timers);
+          this.timer = setTimeout(() => {
+              this.isUnMore1 = false;
+            this.isLoading1 = false;
+            this.ListData = this.ListData.concat(this.Ndata);
+            console.log(this.ListData);
+            this.Ndata = [];
+            this.page = this.page + 1;
+          }, 300);
+        }
+      });
+    },
+    pulldown() {
+      this.isLoading1 = true;
+      clearTimeout(this.timers);
+      this.timer = setTimeout(() => {
+        this.isLoading1 = false;
+        this.isUnMore1 = false;
+        // this.listData1 = new Array(20);
+        this.page = 1;
+        this.getList();
+      }, 300);
     }
+  },
+  destroyed() {
+    clearTimeout(this.timer);
   }
 };
 </script>
@@ -328,9 +413,9 @@ export default {
   padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 7%;
+    top: 13px;    //父容器paddng13px
     width: 66px;
-    height: 80%;
+    height: 66px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -395,6 +480,8 @@ export default {
 }
 .addBtn {
   width: 66px;
+  height: 71px;
+  margin-top: 3px;
   padding: 10px;
   img {
     width: 100%;

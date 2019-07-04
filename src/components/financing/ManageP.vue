@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height:100%;">
     <div class="list">
       <ManageListP :ListData="MaxList"/>
       <!-- <ManageList :ListData="ListData"/>
@@ -41,26 +41,26 @@ export default {
     };
   },
   mounted() {
-    let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
-    // console.log()
-    this.$post("/api/getUserProjectList", { userId: userId, page: "1" }).then(
-      res => {
-        for (let i = 0; i < res.data.length; i++) {
-          res.data[i].status=2
-          // this.Maxnum+=res.data[i].organs.length;
-          if (res.data[i].organs.length < 3) {
-            res.data[i].maxLength = res.data[i].organs.length;
-          } else {
-            res.data[i].maxLength = 3;
-          }
-        }
-        // res.data.Maxnum=this.Maxnum
-        console.log(res.data);
-        this.MaxList = res.data;
-        console.log(res);
-				// let Project = JSON.parse(sessionStorage.setItem("userInfo")).id;
-      }
-    );
+    // let userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
+    // // console.log()
+    // this.$post("/api/getUserProjectList", { userId: userId, page: "1" }).then(
+    //   res => {
+    //     for (let i = 0; i < res.data.length; i++) {
+    //       res.data[i].status=2
+    //       // this.Maxnum+=res.data[i].organs.length;
+    //       if (res.data[i].organs.length < 3) {
+    //         res.data[i].maxLength = res.data[i].organs.length;
+    //       } else {
+    //         res.data[i].maxLength = 3;
+    //       }
+    //     }
+    //     // res.data.Maxnum=this.Maxnum
+    //     console.log(res.data);
+    //     this.MaxList = res.data;
+    //     console.log(res);
+		// 		// let Project = JSON.parse(sessionStorage.setItem("userInfo")).id;
+    //   }
+    // );
   },
   methods: {
 		push_route(){
