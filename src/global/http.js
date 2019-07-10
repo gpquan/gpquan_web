@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import Cookies from "js-cookie";
 axios.defaults.timeout = 50000;
-axios.defaults.baseURL = '/api'; 
+axios.defaults.baseURL = '/api';
 //定义一个请求拦截器
 axios.interceptors.request.use(
   config => {
@@ -15,7 +15,7 @@ axios.interceptors.request.use(
     // } else {
       config.headers = {
         'Content-Type': 'application/json;charset=UTF-8',
-        'Authorization': ''
+        // 'Authorization': ''
       }
     // }
     return config;
@@ -76,7 +76,7 @@ export function fetch(url, params = {}) {
         params: params
       })
       .then(response => {
-        resolve(response.data);  
+        resolve(response.data);
       })
       .catch(err => {
         console.log(err)
