@@ -9,17 +9,24 @@
   "dependencies": {
     "@nutui/nutui": "^2.1.1",
     "axios": "^0.19.0",
+    "color-name": "^1.1.4",
     "core-js": "^2.6.5",
     "element-ui": "^2.9.1",
+    "is-date-object": "^1.0.1",
+    "isexe": "^2.0.0",
     "jquery": "^2.2.1",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "mint-ui": "^2.2.13",
+    "nice-try": "^2.0.0",
+    "onetime": "^5.1.0",
+    "pump": "^3.0.0",
     "register-service-worker": "^1.6.2",
+    "shebang-regex": "^3.0.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1",
-    "wechat-jssdk": "^5.0.2"
+    "weixin-js-sdk": "^1.4.0-test"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.7.0",

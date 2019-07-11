@@ -253,6 +253,8 @@
 </template>
 
 <script>
+import wx from 'weixin-js-sdk';
+
 export default {
   data() {
     return {
@@ -279,6 +281,7 @@ export default {
   created() {
     // organId
     let id = this.$route.query.id;
+    var url = location.href; // 注意：这里禁止更改（必须是当前网页的URL，不包含#及其后面部分），否则会有签名错误
     // console.log(id);
     this.$fetch("/api/getOrganDetail/" + id).then(res => {
       if (res.status == "success") this.ListData = res.data;
@@ -290,6 +293,9 @@ export default {
       this.Listdata1 = res.data;
       console.log(res);
     });
+
+    this.shareCompanyJob();
+
   },
   methods: {
     item_details(item) {
@@ -359,7 +365,50 @@ export default {
     },
     setHyValue(){
       this.HY=`${chooseData[0]}`;
-    }
+    },
+    shareCompanyJob(){
+        let _self = this;
+        var url = location.href; // 注意：这里禁止更改（必须是当前网页的URL，不包含#及其后面部分），否则会有签名错误
+        var paramsWxshare = this.$route.params.wxshare;
+        var linkUrl = url;
+
+        this.$post("http://wxapi.gpquan.club/wxApi/getWxjssdkConfig", {
+            url: url,
+        }).then(res => {
+            var wxConfig = res.data;
+            console.log('wxcofig:',wxConfig);
+            wx.config({
+                debug     : false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId     : wxConfig.appId,     // 必填，公众号的唯一标识
+                timestamp : wxConfig.timestamp, // 必填，生成签名的时间戳
+                nonceStr  : wxConfig.nonceStr,  // 必填，生成签名的随机串
+                signature : wxConfig.signature, // 必填，签名
+                jsApiList : [ // 必填，需要使用的JS接口列表
+                    'onMenuShareAppMessage',
+                    'onMenuShareTimeline'
+                ]
+            });
+
+            wx.ready(function(){
+                wx.onMenuShareAppMessage({
+                    title: _self.ListData.name, // 分享标题
+                    desc: _self.ListData.description, // 分享描述
+                    link: linkUrl, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    imgUrl: _self.ListData.it_img, // 分享图标
+                    type: '', // 分享类型,music、video或link，不填默认为link
+                    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                    success: function () {
+                        // 用户点击了分享后执行的回调函数
+                       console.log('分享成功了')
+                    }
+                });
+            });
+
+            console.log('getWxjssdkConfig--',wxConfig);
+        });
+
+
+    },
   }
 };
 </script>
