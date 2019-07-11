@@ -51,6 +51,8 @@ import SpeedHome from '@/components/manage2/SpeedHome'
 import dimP from '@/components/project/dimQuery'
 import dimO from '@/components/organ/dimQueryO'
 import dimFA from '@/components/manage2/dimQueryFA'
+import faRegister from '@/components/FA/FA_register'
+import faAddO from '@/components/FA/addO'
 Vue.use(Router)
 
 const router = new Router({
@@ -133,6 +135,16 @@ const router = new Router({
 					fshow: true
 				}
 
+			},
+			{
+				path:'/faRegister',
+				name:'fa_register',
+				component:faRegister,
+			},
+			{
+				path:'/faAddO',
+				name:'fa_add_o',
+				component:faAddO,
 			},
 			{
 				path: '/userCenter',
@@ -326,7 +338,7 @@ const router = new Router({
 				path:'/Manage2/dimFA',
 				name:'dimfa',
 				component:dimFA
-			},
+			}
 		]
 	},
 	{

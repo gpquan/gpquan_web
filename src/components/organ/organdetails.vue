@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="topBox">
-      <nut-navbar
+    <div>
+        <nut-navbar
         @on-click-back="back"
         :leftShow="true"
         :rightShow="true"
         style="background:rgba(255,255,255,0);color:#fff;"
       >{{ListData.name}}</nut-navbar>
+    </div>
       <img src="../../assets/image/organ_top.png" alt class="btm_BG">
       <div class="box_BTM">
         <div class="Box_1" style="display:flex;flex-direction: column;">
@@ -379,7 +381,7 @@ export default {
 }
 .topBox {
   position: relative;
-  height: 11rem;
+  min-height: 11rem;
   background-image: url("../../assets/image/bg.png");
   background-size: cover;
   .btm_BG {

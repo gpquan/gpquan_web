@@ -901,10 +901,10 @@ export default {
   }
 }
 /deep/.nut-textinput-label {
-  color: #ccc;
+  color: #666;
 }
 /deep/.nut-cell-left > .nut-cell-title {
-  color: #ccc;
+  color: #666;
 }
 
 /deep/.projectJS .nut-cell-box .nut-cell-right,
@@ -1023,5 +1023,8 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
+}
+.project_{
+  color:#666;
 }
 </style>

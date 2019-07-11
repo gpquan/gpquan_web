@@ -246,6 +246,7 @@
 <script>
 import UserItem from "@/components/reusable/recommend_user";
 import StepsRow from "@/components/reusable/stepsRow";
+import axios from 'axios';
 export default {
   name: "deta",
   components: {
@@ -263,10 +264,22 @@ export default {
       projectId: null,
       ProList: {},
       id: null,
-      unfoldAll1: true
+      unfoldAll1: true,
+      NUrl:null
     };
   },
   beforeMount() {
+    this.NUrl=window.location.href
+    alert(this.NUrl)
+
+
+  
+    this.$post('/wxApi/getWxjssdkConfig',{
+      url:this.NUrl
+    }).then((res=>{ 
+      console.log(res)
+    }))
+    //  axios.defaults.baseURL = '/api';
     // this.$fetch("/api/getProjectDetail/" + 83291).then(res => {
     //   this.ListData = res.data;
     //   this.projectId = res.data.id;
@@ -279,6 +292,7 @@ export default {
     //     this.ProList = res.data;
     //   });
     // });
+    
     this.$post("/api/projectInvestHistory", {
       projectId: this.projectId
     }).then(res => {
