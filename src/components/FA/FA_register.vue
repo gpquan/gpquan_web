@@ -1,12 +1,12 @@
 <template>
-  <div v-if="pageStep == 1">
+  <div v-if="pageStep == 1" style="position:relative;">
     <nut-navbar
       @on-click-back="back"
       @on-click-title="title"
       @on-click-more="more"
       :leftShow="true"
       :rightShow="false"
-    >FA登记</nut-navbar>
+    >中国创投行业信息登记</nut-navbar>
     <div class="list-body">
       <div class="list2">
         <div class="title2-box">
@@ -26,40 +26,32 @@
           />
         </div>
 
-        <div class="mechanism phoneNum title3-box" style="display:flex;align-items:center;">
+        <div class="mechanism phoneNum title3-box" style="display:flex;align-items:center;position:relative;">
           <nut-textinput
             width="80%"
             placeholder="请输入手机号"
             label="手机号码"
             suffix="aaa"
             @blur="onBlur2"
-            v-model="Con_Projects"
+            v-model="phoneNum"
           />
-          <nut-button 
-                 
-                shape="circle" 
-                 @click="clickHandler"
-                small
-                >
-                获取验证码
-</nut-button>
+          <nut-button shape="circle" @click="clickHandler" small style="position:absolute;right:5px;">获取验证码</nut-button>
         </div>
         <div class="mechanism title3-box">
-          <nut-textinput placeholder="请输入验证码" label="验证码" suffix="aaa" v-model="Cooper_Inst_done" />
+          <nut-textinput placeholder="请输入验证码" label="验证码" suffix="aaa" v-model="yzm" />
         </div>
-        <div class="mechanism title3-box">
-          <nut-radiogroup v-model="radioGroupVal1">
-            <nut-radio label="a" size="large">备选项1</nut-radio>
-            <nut-radio label="b" size="large">备选项2</nut-radio>
+        <div class="mechanism title3-box" style="min-height:3vh;">
+          <nut-radiogroup
+            v-model="radioGroupVal1"
+            style="display: flex;justify-content: space-around;"
+          >
+            <nut-radio label="a" size="large">全职</nut-radio>
+            <nut-radio label="b" size="large">兼职</nut-radio>
           </nut-radiogroup>
         </div>
-        <div class="mechanism title3-box">
-          <nut-textinput placeholder="请输入公司名称" label="公司名称" suffix="aaa" v-model="Cooper_Inst" />
+        <div class="mechanism title3-box" v-if="nameShow">
+          <nut-textinput placeholder="请输入公司名称" label="公司名称" suffix="aaa" v-model="comName" />
         </div>
-        <!-- <div class="mechanism">
-          <nut-textinput placeholder="请输入合作机构名称" label="合作机构" suffix="aaa" v-model="Cooper_Inst" />
-        </div>-->
-
         <div class="title3-box" @click="add_tag(1)">
           <span class="title-text">投资行业</span>
           <span class="add-icon" @click="()=>{isVisible=!isVisible}">&nbsp;+&nbsp;</span>
@@ -75,12 +67,24 @@
             >{{tag}}</el-tag>
           </template>
         </div>
+        <div class="title3-box1" @click="addO">
+          <nut-cell :isLink="true" title="已合作机构" desc="添加机构"></nut-cell>
+        </div>
+        <div class="OList title3-box" v-for=" (ii,indd) in OList" :key="indd">
+          <nut-cell title="机构名称" :desc="ii.organ"></nut-cell>
+          <nut-cell title="负责人" :desc="ii.organ_linkname"></nut-cell>
+          <nut-cell title="项目名称" :desc="ii.project"></nut-cell>
+        </div>
+        <div class="title3-box1" @click="addO1">
+          <nut-cell :isLink="true" title="合作机构" desc="添加机构"></nut-cell>
+        </div>
+        <div class="OList title3-box" v-for="(itt,idd) in CList" :key="idd">
+          <nut-cell title="机构名称" :desc="itt.organ"></nut-cell>
+          <nut-cell title="联系人" :desc="itt.organ_linkname"></nut-cell>
+        </div>
         <div class="mechanism title3-box" @click="checkTime()">
           <nut-cell title="从业时间" :desc="time" :showIcon="true"></nut-cell>
         </div>
-      </div>
-      <div class="mechanism title3-box" @click="addO">
-        <nut-cell :isLink="true" title="合作机构" desc="添加机构"></nut-cell>
       </div>
     </div>
     <div class="btn" @click="addOrgan_fun()">
@@ -104,6 +108,66 @@
       @close="switchPicker('timeShow')"
       @choose="setChooseValue2"
     ></nut-calendar>
+    <div class="chuangjian" v-if="addOShow">
+      <nut-navbar   @on-click-back="addONoshow" :rightShow="false">快速创建</nut-navbar>
+      <nut-textinput
+        label
+        placeholder="请输入内容"
+        :clearBtn="true"
+        :disabled="false"
+        v-model="Jgname"
+        @input="changeName"
+        class="query"
+      />
+      <ul v-if="dataList1.length>0" class="List">
+        <li v-for="(item,ind) in dataList1" :key="ind" @click="checkItem(item)">{{item.name}}</li>
+      </ul>
+      <ul v-else class="List">
+        <li @click="addProject">创建机构</li>
+      </ul>
+      <nut-dialog
+        v-if="!hasCooperate"
+        :title="jgName"
+        :visible="dialogShow"
+        @ok-btn-click="check"
+        @cancel-btn-click="dialogShow=false"
+        @close="dialogShow=false"
+      >
+        <nut-textinput
+          v-model="fzr"
+          label="负责人"
+          placeholder="请输入负责人姓名"
+          :clearBtn="false"
+          :disabled="false"
+          :hasBorder="false"
+        />
+        <nut-textinput
+          v-model="xmName"
+          label="项目名称"
+          placeholder="请输入项目名称"
+          :clearBtn="false"
+          :disabled="false"
+          :hasBorder="false"
+        />
+      </nut-dialog>
+      <nut-dialog
+        v-else
+        :title="jgName"
+        :visible="dialogShow1"
+        @ok-btn-click="check"
+        @cancel-btn-click="dialogShow1=false"
+        @close="dialogShow1=false"
+      >
+        <nut-textinput
+          v-model="lxr"
+          label="联系人"
+          placeholder="请输入联系人姓名"
+          :clearBtn="false"
+          :disabled="false"
+          :hasBorder="false"
+        />
+      </nut-dialog>
+    </div>
   </div>
 </template>
 <script>
@@ -115,19 +179,18 @@ export default {
       inputValue: "",
       pageStep: 1,
       editDescription: "",
-      username: "", //用户名称
-      sfzNum: "", //身份证号码
-      Con_Projects: "", //签约项目
       User_ChossStage: "", //用户选择轮次id
-      Cooper_Inst_done: "", //已合作机构
-      Cooper_Inst: "", //公司名称
-      Lending_Rules: "", //出借规则
+      comName: "", //公司名称
+      sfzNum: "", //身份证号码
+      phoneNum: "", //电话号码
+      username: "", //用户
+      yzm: "", //验证码
+      radioGroupVal1: null, //全职or兼职
       is_show: false,
       name: "", //机构名称
       description: "请输入个人简介", //机构简介
       address: "", //机构所在地
       imageUrl: "",
-      radioGroupVal1: null, //全职or兼职
       date: null,
       isVisible0: false,
       city: null,
@@ -154,8 +217,27 @@ export default {
       rou_name: "ManageP_add",
       userId: null,
       infoStatus: false,
-      time: '请选择从业时间',
-      timeShow: false //日历开关
+      time: "请选择从业时间",
+      timeShow: false, //日历开关,
+      nameShow: null,
+      OList: [],
+      jgName: null, //机构名称
+      fzr: null, //负责人
+      xmName: null, //项目名称
+      dialogShow: false,
+      dialogShow1: false,
+      dataList1: [],
+      Jgname: null,
+      Pid: null,
+      UserId: null,
+      Rtype: null,
+      UserInfo: {},
+      Oid: null, //已合作机构id
+      addOShow: false, //添加机构 显示隐藏
+      hasCooperate: null,
+      CId: null, //合作机构id
+      lxr: null, //联系人
+      CList: [] //合作列表
     };
   },
   computed: {},
@@ -195,41 +277,88 @@ export default {
   },
 
   methods: {
-      clickHandler(){
-          //获取手机验证码
-      },
+    addProject() {},
+    changeName() {
+      //模糊查询 机构列表
+      this.$post("/api/searchOrgan", { organName: this.Jgname }).then(res => {
+        this.dataList1 = res.data;
+      });
+    },
+    checkItem(item) {
+      console.log(item);
+      if (!this.hasCooperate) {
+        this.Oid = item.id;
+        this.jgName = item.name;
+        this.dialogShow = true;
+      } else {
+        this.Cid = item.id;
+        this.jgName = item.name;
+        this.dialogShow1 = true;
+      }
+    },
+    check(item) {
+      if (!this.hasCooperate) {
+        this.OList.push({
+          organ: this.jgName,
+          organ_id: this.Oid,
+          organ_linkname: this.fzr,
+          project_id: 0,
+          project: this.xmName
+        });
+        this.dialogShow = false;
+        this.addOShow = false;
+        this.jgName = "";
+        this.Oid = "";
+        this.fzr = "";
+        this.xmName = "";
+        this.Jgname = "";
+        this.dataList1 = [];
+      } else {
+        this.CList.push({
+          organ: this.jgName,
+          organ_id: this.Cid,
+          organ_linkname: this.lxr,
+          project_id: 0,
+          project: ""
+        });
+        this.Jgname = "";
+        this.dialogShow1 = false;
+        this.addOShow = false;
+        this.jgName = "";
+        this.lxr = "";
+        this.Cid = "";
+        this.dataList1 = [];
+      }
+    },
+    addONoshow(){
+         this.addOShow = false;
+    },
+    addO1() {
+      // 添加合作机构
+      this.addOShow = true;
+      this.hasCooperate = true;
+    },
+    addO() {
+      // 添加已合作
+      this.addOShow = true;
+      this.hasCooperate = false;
+    },
+    clickHandler() {
+      //获取手机验证码
+    },
     setChooseValue2(param) {
       this.time = param[3];
-      console.log(this.time)
+      console.log(this.time);
     },
     checkTime() {
       this.timeShow = true;
       //选择日期
     },
-    addO() {
-      this.$router.push({
-        path: "/faAddO"
-      });
-    },
+
     handleClose0(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
     },
 
-    showInput0() {
-      this.inputVisible = true;
-      this.$nextTick(_ => {
-        this.$refs.saveTagInput.$refs.input.focus();
-      });
-    },
-    handleInputConfirm0() {
-      let inputValue = this.inputValue;
-      if (inputValue) {
-        this.dynamicTags.push(inputValue);
-      }
-      this.inputVisible = false;
-      this.inputValue = "";
-      console.log(this.dynamicTags);
-    },
     onBlur1() {
       var val = this.sfzNum;
       var _this = this;
@@ -244,14 +373,14 @@ export default {
       }
     },
     onBlur2() {
-      var val = this.Con_Projects;
+      var val = this.phoneNum;
       var _this = this;
       var regPos = /^\d+(\.\d+)?$/; //非负浮点数
       var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
       if (regPos.test(val) || regNeg.test(val)) {
         return true;
       } else {
-        _this.Con_Projects = "";
+        _this.phoneNum = "";
         this.$message.error("请填写数字");
         // console.log(2222);
       }
@@ -259,82 +388,41 @@ export default {
 
     //后台传递数据
     addOrgan_fun() {
-      if (this.Con_Projects == "") {
-        this.$message.error("签约项目不能为空");
-        return false;
+      console.log(this.OList);
+      // if()
+      // this.phoneNum;//手机号
+      // this.username;//用户名
+      // this.comName;//公司名称
+      // this.selectJobId;//领域id
+      // this.time;//从业时间
+      // this.sfzNum;//身份证号码
+      // this.CList;//合作机构 []
+      // this.OList;//已合作机构 []
+      if (this.username == "") {
+        this.$toast.warn("请填写用户名");
+      } else if (this.sfzNum == "") {
+        this.$toast.warn("请填写身份证号码");
+      } else if (this.phoneNum == "") {
+        this.$toast.warn("请输入手机号码");
+      } else if (this.radioGroupVal1 == "a" && this.comName == "") {
+        this.$toast.warn("公司名称");
+      } else if (this.selectJobId == "") {
+        this.$toast.warn("请选择行业");
+      } else if (this.OList == []&&this.CList == []) {
+        this.$toast.warn("请添加合作机构");
+      }  else {
+        this.$post("/api/recordFaInformation", {
+          phone: this.phoneNum,
+          organ1: JSON.stringify(this.OList.concat(this.CList)),
+          name: this.username,
+          id_card: this.sfzNum,
+          hangye: this.selectJobId,
+          work_time: this.time,
+          company: this.comName
+        }).then(res => {
+          console.log(res);
+        });
       }
-      if (this.sfzNum == "") {
-        this.$message.error("累计不能为空");
-        return false;
-      }
-      if (this.editDescription == "") {
-        this.$message.error("描述不能为空");
-        return false;
-      }
-      if (this.description == "") {
-        this.$message.error("描述不能为空");
-        return false;
-      }
-      if (this.selectJobId == "") {
-        this.$message.error("投资行业不能为空");
-        return false;
-      }
-      if (this.User_ChossStage == "") {
-        this.$message.error("偏好轮次不能为空");
-        return false;
-      }
-      var basic = this.User_ChossStage;
-      basic = basic.substring(0, basic.lastIndexOf(","));
-      var basic1 = this.selectJobId;
-      basic1 = basic1.substring(0, basic1.lastIndexOf(","));
-      var sfzNum = this.sfzNum;
-      sfzNum = parseInt(sfzNum);
-      var Con_Projects = this.Con_Projects;
-      Con_Projects = parseInt(Con_Projects);
-      let form = "";
-      if (this.infoStatus) {
-        form = "true";
-      } else {
-        form = "";
-      }
-      this.$post("/api/saveUserDetail", {
-        infoStatus: form,
-        username: this.username,
-        financing_money: sfzNum, //身份证号码
-        project_num: Con_Projects,
-        description: this.description,
-        lingyu_id: basic1, //领域id
-        stage_id: basic //阶段
-      }).then(res => {
-        // console.log(res);
-        // for (let i = 0; i < res.data.length; i++) {
-        //   res.data[i].tjcode = false;
-        // }
-        // this.leftList = res.data;
-        // this.getRightList(3)
-        // this.$post('/api/addUserFa',{
-        // 	userId:this.userId,
-
-        // })
-        console.log(basic1);
-        console.log(basic);
-        if (res.status == "success") {
-          // console.log("成功")
-          this.$message({
-            message: "提交成功",
-            type: "success"
-          });
-          this.$router.push({ path: "/accelerate/Manage/o" });
-        }
-      });
-      console.log("--------------");
-      console.log(this.username);
-      console.log(this.sfzNum);
-      console.log(this.Con_Projects);
-      console.log(this.description);
-      console.log(this.selectJobId);
-      console.log(this.User_ChossStage);
-      console.log("--------------");
     },
     handleClose(tag) {
       this.tags.splice(this.tags.indexOf(tag), 1);
@@ -422,6 +510,7 @@ export default {
 
       // this.selectJobId.push(indexId);
       console.log(this.selectJobId);
+      console.log(this.city);
     },
     setChooseValue1(chooseData) {
       this.value1 = chooseData[0];
@@ -492,11 +581,25 @@ export default {
     closeUpdateChooseValue(self, chooseData) {
       this.updateLinkage(self, chooseData[0], 1, chooseData[1], chooseData);
     }
+  },
+  watch: {
+    radioGroupVal1(n, o) {
+      console.log(n, o);
+      if (n == "a") {
+        this.nameShow = true;
+      } else {
+        this.nameShow = false;
+      }
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+/deep/.nut-radio input:checked {
+  background-color: #ccc;
+  border-color: #ccc;
+}
 /deep/.nut-button.block {
   width: 80%;
 }
@@ -514,7 +617,7 @@ export default {
 }
 
 /deep/.nut-button {
-  background: #1cc6bb;
+  background: skyblue;
 }
 
 /deep/.nut-navbar {
@@ -574,11 +677,11 @@ export default {
 
 .add-icon {
   border-radius: 50%;
-  border: 1px solid #00aca0;
+  border: 1px solid skyblue;
   height: 2vh;
   line-height: 8vh;
   margin-left: 65vw;
-  color: #00aca0;
+  color: skyblue;
 }
 
 .projectJS {
@@ -645,6 +748,12 @@ export default {
   background: #fff;
 }
 
+/deep/.title3-box1 .nut-cell-box {
+  min-height: 8vh;
+  background: #fff;
+  margin-top: 3%;
+  padding-left: 3%;
+}
 .mechanism {
   background: #fff;
 }
@@ -718,11 +827,6 @@ export default {
   margin-left: 5%;
   padding-top: 5%;
 }
-
-.Lending_Rules {
-  height: 15vh;
-}
-
 .lightspotBox,
 .Project {
   height: 100%;
@@ -731,5 +835,25 @@ export default {
   input {
     width: 80%;
   }
+}
+.query {
+  margin-top: 10px;
+}
+.List {
+  // background: #ccc;
+  margin-top: 10px;
+  li {
+    border-bottom: 1px solid #ccc;
+    line-height: 6vh;
+    text-align: center;
+  }
+}
+.chuangjian {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 </style>

@@ -11,7 +11,7 @@
       class="query"
     />
     <ul v-if="dataList.length>0" class="List">
-      <li v-for="(item,ind) in dataList" :key="ind" @click="check(item)">{{item.name}}</li>
+      <li v-for="(item,ind) in dataList" :key="ind" @click="checkItem(item)">{{item.name}}</li>
     </ul>
     <ul v-else class="List">
       <li @click="addProject">创建机构</li>
@@ -23,7 +23,7 @@
       @cancel-btn-click="dialogShow=false"
       @close="dialogShow=false"
     >
-       <nut-textinput
+      <nut-textinput
         v-model="fzr"
         label="负责人"
         placeholder="请输入负责人姓名"
@@ -49,16 +49,17 @@ import { once } from "events";
 export default {
   data() {
     return {
-        jgName:null,//机构名称
-        fzr:null,//负责人
-        xmName:null,//项目名称
+      jgName: null, //机构名称
+      fzr: null, //负责人
+      xmName: null, //项目名称
       dialogShow: false,
       dataList: [],
       Jgname: null,
       Pid: null,
       UserId: null,
       Rtype: null,
-      UserInfo: {}
+      UserInfo: {},
+      Oid: null
     };
   },
   beforeMount() {
@@ -84,9 +85,23 @@ export default {
         console.log(res);
       });
     },
-    check(item) {
+    checkItem(item) {
+      this.Oid = item.id;
+
+      this.jgName = item.name;
       this.dialogShow = true;
-      this.jgName=item.name
+    },
+    check(item) {
+      this.dialogShow = false;
+      this.$router.push({
+        name: "fa_register",
+        params: {
+          Oid: this.Oid,
+          fzr: this.fzr,
+          xmName: this.xmName,
+          jgName: this.jgName
+        }
+      });
     },
     onCancelBtn(event) {
       //取消按钮点击事件，默认行为关闭对话框

@@ -52,7 +52,10 @@ import dimP from '@/components/project/dimQuery'
 import dimO from '@/components/organ/dimQueryO'
 import dimFA from '@/components/manage2/dimQueryFA'
 import faRegister from '@/components/FA/FA_register'
-import faAddO from '@/components/FA/addO'
+import faAddO from '@/components/FA/addO' 
+import FAmanage from '@/components/FA/FA_manage_home'   //FA登记
+import FA_auditList from '@/components/FA/FA_auditList' //未登记列表
+import FA_reviewed from '@/components/FA/FA_reviewed'   //已登记列表
 Vue.use(Router)
 
 const router = new Router({
@@ -146,6 +149,30 @@ const router = new Router({
 				name:'fa_add_o',
 				component:faAddO,
 			},
+			{
+				path:'/FAManage',
+				name:'FA_manage',
+				component:FAmanage,
+				redirect:'/FAManage/FARauditList',
+				children:[
+					{
+						path:'/FAManage/FARauditList',
+						name:'FA_auditList',
+						component:FA_auditList,
+						meta:{
+							keep:'showList'
+						}
+					},{
+						path:'/FAManage/FAReviewed',
+						name:'FA_reviewed',
+						component:FA_reviewed,
+						meta:{
+							keep:'showList1'
+						}
+					}
+				]
+			},
+			
 			{
 				path: '/userCenter',
 				name: 'userA',
