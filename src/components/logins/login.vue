@@ -95,15 +95,15 @@ export default {
           this.$post("/api/getUserDetail", {
             userId: this.UserId
           }).then(ress => {
-              
+
             this.$router.push("/");
             if (ress.data.role == 1) {
               //判断role
-              if (!ress.data.info.id) {  
+              if (!ress.data.info.id) {
                 this.$router.push({path:"/accelerate/Manage/p/add",query:{
                     infoStatus:true
                 }}); //role 1  添加FA
-              }else{ 
+              }else{
                   this.$router.push('/project')
               }
             } else if (ress.data.role == 2) {
@@ -117,6 +117,8 @@ export default {
               }else{
                    this.$router.push('/Manage2')
               }
+            } else if (ress.data.role == 4){
+                this.$router.push('/FAManage/FARauditList')
             }
           });
         }

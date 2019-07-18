@@ -52,7 +52,7 @@ import dimP from '@/components/project/dimQuery'
 import dimO from '@/components/organ/dimQueryO'
 import dimFA from '@/components/manage2/dimQueryFA'
 import faRegister from '@/components/FA/FA_register'
-import faAddO from '@/components/FA/addO' 
+import faAddO from '@/components/FA/addO'
 import FAmanage from '@/components/FA/FA_manage_home'   //FA登记
 import FA_auditList from '@/components/FA/FA_auditList' //未登记列表
 import FA_reviewed from '@/components/FA/FA_reviewed'   //已登记列表
@@ -70,7 +70,7 @@ const router = new Router({
 				name: 'demo',
 				component: Demo
 			},
-		
+
 			{
 				path: '/project',
 				name: 'project',
@@ -172,7 +172,7 @@ const router = new Router({
 					}
 				]
 			},
-			
+
 			{
 				path: '/userCenter',
 				name: 'userA',
@@ -203,7 +203,7 @@ const router = new Router({
 						meta: {
 							fshow: false
 						},
-						
+
 					},{
 						path:"/userCenter/User_message",
 						name: 'User_message',
@@ -211,7 +211,7 @@ const router = new Router({
 						meta: {
 							fshow: false
 						},
-						
+
 					},{
 						path:"/userCenter/User_details",
 						name: 'User_details',
@@ -219,10 +219,10 @@ const router = new Router({
 						meta: {
 							fshow: false
 						},
-						
+
 					},
 				],
-				
+
 
 			},
 
@@ -291,7 +291,7 @@ const router = new Router({
 					name: 'ManageP_add',
 					component: ManageP_add,
 					meta: {
-				
+
 					}
 				},
 				]
@@ -356,9 +356,9 @@ const router = new Router({
 							keep: 'FA',
 							fshow: true
 						},
-						
+
 					},
-				
+
 				]
 			},
 			{
@@ -383,7 +383,7 @@ router.beforeEach((to, from, next) => {
 	// console.log(to)
 	if (!JSON.parse(sessionStorage.getItem("userInfo"))) {
 		// console.log("未登录")
-		if (to.name == 'log' ||to.name=='SignIn') {
+		if (to.name == 'log' ||to.name=='SignIn' || to.name == 'fa_register') {
 			next()
 		} else {
 			next({
@@ -406,7 +406,7 @@ router.beforeEach((to, from, next) => {
 		else{
 			next()
 		}
-		
+
 		// console.log("已登录")
 	}
 })

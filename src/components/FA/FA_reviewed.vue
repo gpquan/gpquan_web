@@ -115,7 +115,7 @@ export default {
          this.textTips1="展开查看"
           this.textTips2="downIcon"
       }
-     
+
       console.log(item);
     }
   }

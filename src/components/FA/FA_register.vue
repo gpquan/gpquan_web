@@ -4,9 +4,9 @@
       @on-click-back="back"
       @on-click-title="title"
       @on-click-more="more"
-      :leftShow="true"
+      :leftShow="false"
       :rightShow="false"
-    >中国创投行业信息登记</nut-navbar>
+    >中国创投行业财务顾问登记</nut-navbar>
     <div class="list-body">
       <div class="list2">
         <div class="title2-box">
@@ -14,7 +14,7 @@
           <span class="title-text">基本信息</span>
         </div>
         <div class="mechanism title3-box">
-          <nut-textinput placeholder="请输入用户名称" label="用户名" suffix="aaa" v-model="username" />
+          <nut-textinput placeholder="请输入姓名" label="姓名" suffix="aaa" v-model="username" />
         </div>
         <div class="mechanism title3-box">
           <nut-textinput
@@ -35,25 +35,26 @@
             @blur="onBlur2"
             v-model="phoneNum"
           />
-          <nut-button shape="circle" @click="clickHandler" small style="position:absolute;right:5px;">获取验证码</nut-button>
+          <!-- <nut-button shape="circle" @click="clickHandler" small style="position:absolute;right:5px;">获取验证码</nut-button> -->
         </div>
-        <div class="mechanism title3-box">
+        <!-- <div class="mechanism title3-box">
           <nut-textinput placeholder="请输入验证码" label="验证码" suffix="aaa" v-model="yzm" />
-        </div>
-        <div class="mechanism title3-box" style="min-height:3vh;">
+        </div> -->
+        <!-- <div class="mechanism title3-box radioBox" style="min-height:6vh;line-height:6vh;">
+          <span>工作性质</span>
           <nut-radiogroup
             v-model="radioGroupVal1"
-            style="display: flex;justify-content: space-around;"
+            style="display: flex;justify-content: space-around;margin-left: 4rem;"
           >
-            <nut-radio label="a" size="large">全职</nut-radio>
+            <nut-radio label="a" size="large">全职</nut-radio>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <nut-radio label="b" size="large">兼职</nut-radio>
           </nut-radiogroup>
+        </div> -->
+        <div class="mechanism title3-box">
+          <nut-textinput placeholder="请输入单位名称" label="所在单位名称" suffix="aaa" v-model="comName" />
         </div>
-        <div class="mechanism title3-box" v-if="nameShow">
-          <nut-textinput placeholder="请输入公司名称" label="公司名称" suffix="aaa" v-model="comName" />
-        </div>
-        <div class="title3-box" @click="add_tag(1)">
-          <span class="title-text">投资行业</span>
+        <div class="title3-box  titleH-box" @click="add_tag(1)">
+          <span class="title-text">关注行业</span>
           <span class="add-icon" @click="()=>{isVisible=!isVisible}">&nbsp;+&nbsp;</span>
           <br />
           <template v-if="true">
@@ -68,22 +69,23 @@
           </template>
         </div>
         <div class="title3-box1" @click="addO">
-          <nut-cell :isLink="true" title="已合作机构" desc="添加机构"></nut-cell>
+          <nut-cell :isLink="true" title="合作机构" desc="添加机构"></nut-cell>
         </div>
         <div class="OList title3-box" v-for=" (ii,indd) in OList" :key="indd">
           <nut-cell title="机构名称" :desc="ii.organ"></nut-cell>
-          <nut-cell title="负责人" :desc="ii.organ_linkname"></nut-cell>
-          <nut-cell title="项目名称" :desc="ii.project"></nut-cell>
+          <nut-cell title="项目对接人" :desc="ii.organ_linkname"></nut-cell>
+          <nut-cell title="已服务项目" :desc="ii.project"></nut-cell>
         </div>
-        <div class="title3-box1" @click="addO1">
+        <!-- <div class="title3-box1" @click="addO1">
           <nut-cell :isLink="true" title="合作机构" desc="添加机构"></nut-cell>
-        </div>
-        <div class="OList title3-box" v-for="(itt,idd) in CList" :key="idd">
+        </div> -->
+        <!-- <div class="OList title3-box" v-for="(itt,idd) in CList" :key="idd">
           <nut-cell title="机构名称" :desc="itt.organ"></nut-cell>
           <nut-cell title="联系人" :desc="itt.organ_linkname"></nut-cell>
-        </div>
+        </div> -->
         <div class="mechanism title3-box" @click="checkTime()">
           <nut-cell title="从业时间" :desc="time" :showIcon="true"></nut-cell>
+
         </div>
       </div>
     </div>
@@ -91,9 +93,20 @@
       <nut-button block shape="circle">提交审核</nut-button>
     </div>
 
+    <nut-datepicker
+        :is-visible="timeShow"
+        title="请选择日期"
+        type="date"
+        startDate="1990-01-01"
+        defaultValue="2018-06-15"
+        @close="switchPicker('timeShow')"
+        @choose="setChooseValue2"
+    >
+    </nut-datepicker>
+
     <nut-picker
       :is-visible="isVisible"
-      title="请选择投资行业"
+      title="请选择关注行业"
       :list-data="listData"
       :default-value-data="defaultValueData"
       @close="switchPicker('isVisible')"
@@ -101,15 +114,18 @@
       @choose="updateChooseValue"
       @close-update="closeUpdateChooseValue"
     ></nut-picker>
-    <nut-calendar
+    <!-- <nut-calendar
       :is-visible="timeShow"
       :default-value="time"
-      :is-auto-back-fill="true"
+      type="one"
+
+      :start-date="null"
+
       @close="switchPicker('timeShow')"
       @choose="setChooseValue2"
-    ></nut-calendar>
+    ></nut-calendar> -->
     <div class="chuangjian" v-if="addOShow">
-      <nut-navbar   @on-click-back="addONoshow" :rightShow="false">快速创建</nut-navbar>
+      <nut-navbar   @on-click-back="addONoshow" :rightShow="false">添加机构</nut-navbar>
       <nut-textinput
         label
         placeholder="请输入内容"
@@ -123,7 +139,7 @@
         <li v-for="(item,ind) in dataList1" :key="ind" @click="checkItem(item)">{{item.name}}</li>
       </ul>
       <ul v-else class="List">
-        <li @click="addProject">创建机构</li>
+        <!-- <li @click="addProject">创建机构</li> -->
       </ul>
       <nut-dialog
         v-if="!hasCooperate"
@@ -135,15 +151,15 @@
       >
         <nut-textinput
           v-model="fzr"
-          label="负责人"
-          placeholder="请输入负责人姓名"
+          label="项目对接人"
+          placeholder="请输入项目对接人姓名"
           :clearBtn="false"
           :disabled="false"
           :hasBorder="false"
         />
         <nut-textinput
           v-model="xmName"
-          label="项目名称"
+          label="已对接项目"
           placeholder="请输入项目名称"
           :clearBtn="false"
           :disabled="false"
@@ -196,11 +212,13 @@ export default {
       city: null,
       isVisible: false,
       isVisible1: false,
+      isVisible2: false,
       tags: [], //第二个
       tags0: [], //第一个
       data: {
         //二级
       },
+      curData:'',
       listData: [],
       defaultValueData: null,
       isVisible1: false,
@@ -217,7 +235,7 @@ export default {
       rou_name: "ManageP_add",
       userId: null,
       infoStatus: false,
-      time: "请选择从业时间",
+      time: null,
       timeShow: false, //日历开关,
       nameShow: null,
       OList: [],
@@ -420,7 +438,8 @@ export default {
           work_time: this.time,
           company: this.comName
         }).then(res => {
-          console.log(res);
+            console.log(res);
+            this.$toast.text('操作成功');
         });
       }
     },
@@ -492,7 +511,7 @@ export default {
       this.city = `${chooseData[0]}-${chooseData[1]}${
         chooseData[2] ? "-" + chooseData[2] : ""
       }`;
-      $(".title3-box").css("height", "12vh");
+      $(".titleH-box").css("height", "12vh");
       this.tags0.push(this.city);
       // console.log(this.tags0);
 
@@ -511,20 +530,6 @@ export default {
       // this.selectJobId.push(indexId);
       console.log(this.selectJobId);
       console.log(this.city);
-    },
-    setChooseValue1(chooseData) {
-      this.value1 = chooseData[0];
-      // this.tag = true;
-      // alert(this.value);
-      $(".title4-box").css("height", "12vh");
-      // var aaa = this.value1.id
-      this.tags.push(this.value1);
-      // console.log(this.tags);
-      // console.log(this.tags);
-      // var aaa = this.value.indexOf(tags);
-      // console.log(aaa);
-      this.User_ChossStage += this.listData1[0].indexOf(this.value1) + ",";
-      console.log(this.User_ChossStage);
     },
     updateLinkage(self, value, index, chooseValue, cacheValueData, a, b) {
       // console.log(a),console.log(b)
@@ -740,7 +745,8 @@ export default {
 .title2-box,
 .title3-box,
 .title4-box,
-.title5-box {
+.title5-box,
+.titleH-box,{
   margin-top: 3%;
   padding-left: 3%;
   border-bottom: 1px solid #efefef;
@@ -855,5 +861,19 @@ export default {
   width: 100%;
   height: 100%;
   background: #fff;
+}
+.radioBox{
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+}
+.nut-navbar {
+    line-height: 58px;
+    background-color: #fff;
+    position: relative;
+}
+
+[data-v-aba8e23a] .nav-title{
+  font-size:15px !important;
 }
 </style>

@@ -1,5 +1,4 @@
 <template>
-  <!-- 未审核列表 -->
   <div class="FaAudBox">
     <nut-scroller
       :is-un-more="isUnMore1"
@@ -13,10 +12,10 @@
           <div class="Itemtitle nut-scroller-item-info">
             <img src="../../assets/image/line1.png" alt class="line" />
             &nbsp;
-            <span class="FAname">{{item.name}}</span>
+            <span class="FAname" @click="changeStatus(item,index,0,1)">{{item.name}}</span>
               &nbsp;
             <span>+</span>
-            <span class="xmfzr">项目联系人：{{item.organ_linkname}}</span>
+            <span class="xmfzr">项目联系人：{{item.fa_name}}</span>
           </div>
           <div class="center" v-if="!item.showall">
             <div
@@ -26,12 +25,12 @@
             >
               <div class="left">
                 <img src="../../assets/image/right-title-portrait.png" alt class="xmLogo" />
-                <span>{{item.p[ind].project}}</span>
+                <span>{{item.projects[ind].project}}</span>
               </div>
               <div class="right">
-                <span v-if="item.p[ind].auth==0" class="wsh" @click="changeStatus(item.p[ind],index,ind)">未审核</span>
-                <span v-if="item.p[ind].auth==1" class="sh" @click="changeStatus(item.p[ind],index,ind)">已通过</span>
-                <span v-if="item.p[ind].auth==2" class="sh" @click="changeStatus(item.p[ind],index,ind)">未通过</span>
+                <span v-if="item.projects[ind].auth==0" class="wsh" @click="changeStatus(item.projects[ind],index,ind,2)">未审核</span>
+                <span v-if="item.projects[ind].auth==1" class="sh" @click="changeStatus(item.projects[ind],index,ind,2)">已通过</span>
+                <span v-if="item.projects[ind].auth==2" class="sh" @click="changeStatus(item.projects[ind],index,ind,2)">未通过</span>
               </div>
             </div>
             <div class="btm" v-if="item.projects.length>3">
@@ -43,12 +42,12 @@
             <div v-for="(items,ind) in item.projects.length" :key="ind" class="items">
               <div class="left">
                 <img src="../../assets/image/right-title-portrait.png" alt class="xmLogo" />
-                <span>{{item.p[ind].project}}</span>
+                <span>{{item.projects[ind].project}}</span>
               </div>
               <div class="right">
-               <span v-if="item.p[ind].auth==0" class="wsh" @click="changeStatus(item.p[ind],index,ind)">未审核</span>
-                <span v-if="item.p[ind].auth==1" class="sh" @click="changeStatus(item.p[ind],index,ind)">已通过</span>
-                <span v-if="item.p[ind].auth==2" class="sh" @click="changeStatus(item.p[ind],index,ind)">未通过</span>
+               <span v-if="item.projects[ind].auth==0" class="wsh" @click="changeStatus(item.projects[ind],index,ind,2)">未审核</span>
+                <span v-if="item.projects[ind].auth==1" class="sh" @click="changeStatus(item.projects[ind],index,ind,2)">已通过</span>
+                <span v-if="item.projects[ind].auth==2" class="sh" @click="changeStatus(item.projects[ind],index,ind,2)">未通过</span>
               </div>
             </div>
             <div class="btm" v-if="item.projects.length>3">
@@ -65,6 +64,14 @@
       cancelTxt="取消"
       :menu-items="menuItems2"
       @choose="chooseItemAgeSpec"
+    ></nut-actionsheet>
+
+    <nut-actionsheet
+      :is-visible="isVisible"
+      @close="switchActionSheet1('isVisible')"
+      cancelTxt="取消"
+      :menu-items="menuItems"
+      @choose="chooseItemAgeSpec1"
     ></nut-actionsheet>
   </div>
 </template>
@@ -86,7 +93,18 @@ export default {
       timer: null,
       dataList: [],
       isVisible1: false,
+      isVisible: false,
       menuItems2: [
+        {
+          name: "通过",
+          value: 1
+        },
+        {
+          name: "不通过",
+          value: 2
+        }
+      ],
+      menuItems: [
         {
           name: "通过",
           value: 1
@@ -98,6 +116,7 @@ export default {
       ],
       agespec:null,
       Pid:null,
+      faRecordId:null,
       dataList1:[],
       ListIndex:null,
       ListInd:null,
@@ -108,29 +127,58 @@ export default {
     this.page = this.page + 1;
   },
   methods: {
-    changeStatus(item,index,ind) {
-      this.ListIndex=index
-      this.ListInd=ind
-      console.log(item)
-      //审核项目状态
-      this.Pid=item.fa_record_organ_ids
-      this.isVisible1 = !this.isVisible1;
+    changeStatus(item,index,ind,type) {
+      console.log('item:',item);
+      console.log('index:',index);
+      console.log('ind:',ind);
+      if (type == 2){
+          this.ListIndex=index
+          this.ListInd=ind
+          //审核项目状态
+          this.Pid=item.id;
+          this.isVisible1 = !this.isVisible1;
+      }else if (type == 1){
+          this.ListIndex=index;
+          console.log(item);
+          this.faRecordId = item.id;
+          this.isVisible = !this.isVisible;
+      }
+
     },
     switchActionSheet(param) {
+      //动作面板显隐
+      this[`${param}`] = !this[`${param}`];
+    },
+    switchActionSheet1(param) {
       //动作面板显隐
       this[`${param}`] = !this[`${param}`];
     },
     chooseItemAgeSpec(itemParams) {
       //动作面板选择
       let Pstatus = itemParams.value;
-   
+
       this.$post("/api/examineFaProject",{
         auth:Pstatus,
         faRecordOrganId:this.Pid
       }).then((res)=>{
         if(res.status=="success")
-          this.dataList[this.ListIndex].p[this.ListInd].auth=Pstatus
-        this.$toast.text('修改成功');
+          this.dataList[this.ListIndex].projects[this.ListInd].auth=Pstatus
+        this.$toast.text('操作成功');
+      })
+    },
+    chooseItemAgeSpec1(itemParams) {
+      //动作面板选择
+      let Pstatus = itemParams.value;
+      console.log('dataList:', this.dataList);
+      console.log('itemPa:', itemParams);
+      console.log('ListIndex:', this.ListIndex);
+      this.$post("/api/examineFa",{
+        auth:Pstatus,
+        faInformationId:this.faRecordId
+      }).then((res)=>{
+        if(res.status=="success")
+          this.dataList.splice(this.ListIndex, 1);
+          this.$toast.text('操作成功');
       })
     },
     getList() {
@@ -138,6 +186,7 @@ export default {
         organUserId: 31,
         page: this.page
       }).then(res => {
+        console.log('result:',res.data);
         if (res.data.length == 0) {
           console.log("为空");
           this.isLoading1 = false;
