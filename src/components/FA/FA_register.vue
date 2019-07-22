@@ -243,7 +243,7 @@ export default {
       lyIdList0: [],
       lyIdList1: [],
       st_2_list: "",
-      selectJobId: "", //领域id
+      selectJobId: [], //领域id
       rou_name: "ManageP_add",
       userId: null,
       infoStatus: false,
@@ -391,7 +391,11 @@ export default {
     },
 
     handleClose0(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      console.log(tag)
+      console.log(this.selectJobId,'11')
+      console.log(this.tags0,'22')
+      this.selectJobId.splice(this.selectJobId.indexOf(tag), 1);
+      this.tags0.splice(this.tags0.indexOf(tag), 1);
     },
 
     onBlur1() {
@@ -424,6 +428,7 @@ export default {
     //后台传递数据
     addOrgan_fun() {
       console.log(this.OList);
+       this.selectJobId= this.selectJobId.join(',')
       // if()
       // this.phoneNum;//手机号
       // this.username;//用户名
@@ -543,7 +548,7 @@ export default {
           break;
         }
       }
-      this.selectJobId += indexId + ","; //选的行业id
+      this.selectJobId.push(indexId); //选的行业id
 
       // this.selectJobId.push(indexId);
       console.log(this.selectJobId);
