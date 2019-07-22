@@ -182,6 +182,20 @@
         />
       </nut-dialog>
     </div>
+       <div class="mark" v-if="SuccessShow">
+      <div class="markBox">
+        <div class="top">
+          <img src="../../assets/image/success.png" alt />
+        </div>
+        <div class="btm">
+          <div class="btmTitle" >登记完成</div>
+          <br />
+          <div class="btnBox">
+            <nut-button type="default" shape="circle" small class="BtmBtn" @click="close">关闭</nut-button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -253,7 +267,8 @@ export default {
       hasCooperate: null,
       CId: null, //合作机构id
       lxr: null, //联系人
-      CList: [] //合作列表
+      CList: [], //合作列表
+      SuccessShow:false,
     };
   },
   computed: {},
@@ -293,6 +308,10 @@ export default {
   },
 
   methods: {
+    close() {
+      this.SuccessShow = false;
+      // this.$router.push("/");
+    },
     addProject() {},
     changeName() {
       //模糊查询 机构列表
@@ -379,7 +398,7 @@ export default {
       var val = this.sfzNum;
       var _this = this;
       var regPos = /^\d+(\.\d+)?$/; //非负浮点数
-      var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+      var regNeg =/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/; //负浮点数
       if (regPos.test(val) || regNeg.test(val)) {
         return true;
       } else {
@@ -438,6 +457,7 @@ export default {
         }).then(res => {
             console.log(res);
             this.$toast.text('操作成功');
+            this.SuccessShow=true
         });
       }
     },
@@ -873,5 +893,48 @@ export default {
 
 [data-v-aba8e23a] .nav-title{
   font-size:15px !important;
+}
+.mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.markBox {
+  width: 70%;
+  // height: 60%;
+  padding: 5% 3%;
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  img {
+    width: 100%;
+  }
+}
+.btmTitle {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.btnBox {
+  // position: absolute;
+  // bottom: 5%;
+  // width: 94%;
+  display: flex;
+  justify-content: center;
+  margin-top: 35px;
+  button {
+    width: 60%;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #4690ff, #2c72f8); /* 标准的语法 */
+    border: 0;
+    color: #fff;
+    padding: 5px 0;
+  }
 }
 </style>
