@@ -118,9 +118,7 @@
       :is-visible="timeShow"
       :default-value="time"
       type="one"
-
       :start-date="null"
-
       @close="switchPicker('timeShow')"
       @choose="setChooseValue2"
     ></nut-calendar> -->
