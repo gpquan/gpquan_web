@@ -529,7 +529,7 @@ export default {
       this.city = `${chooseData[0]}-${chooseData[1]}${
         chooseData[2] ? "-" + chooseData[2] : ""
       }`;
-      $(".titleH-box").css("height", "12vh");
+      $(".titleH-box").css("min-height", "12vh");
       this.tags0.push(this.city);
       // console.log(this.tags0);
 
@@ -764,14 +764,16 @@ export default {
 .title3-box,
 .title4-box,
 .title5-box,
-.titleH-box,{
+.titleH-box{
   margin-top: 3%;
   padding-left: 3%;
   border-bottom: 1px solid #efefef;
   min-height: 8vh;
   background: #fff;
 }
-
+// .titleH-box{
+//   min-height: 12vh;
+// }
 /deep/.title3-box1 .nut-cell-box {
   min-height: 8vh;
   background: #fff;
