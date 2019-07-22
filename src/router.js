@@ -56,6 +56,7 @@ import faAddO from '@/components/FA/addO'
 import FAmanage from '@/components/FA/FA_manage_home'   //FA登记
 import FA_auditList from '@/components/FA/FA_auditList' //未登记列表
 import FA_reviewed from '@/components/FA/FA_reviewed'   //已登记列表
+import searchFa from '@/components/FA/search_fa'   //搜索Fa
 Vue.use(Router)
 
 const router = new Router({
@@ -148,6 +149,11 @@ const router = new Router({
 				path:'/faAddO',
 				name:'fa_add_o',
 				component:faAddO,
+			},
+			{
+				path : '/searchFa',
+				name : 'searchFa',
+				component : searchFa,
 			},
 			{
 				path:'/FAManage',
@@ -383,7 +389,7 @@ router.beforeEach((to, from, next) => {
 	// console.log(to)
 	if (!JSON.parse(sessionStorage.getItem("userInfo"))) {
 		// console.log("未登录")
-		if (to.name == 'log' ||to.name=='SignIn' || to.name == 'fa_register') {
+		if (to.name == 'log' ||to.name=='SignIn' || to.name == 'fa_register' || to.name == 'searchFa') {
 			next()
 		} else {
 			next({
