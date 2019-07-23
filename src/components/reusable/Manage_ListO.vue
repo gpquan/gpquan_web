@@ -413,7 +413,7 @@ export default {
   padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 13px;    //父容器paddng13px
+    //top: 13px;    //父容器paddng13px
     width: 66px;
     height: 66px;
     display: flex;

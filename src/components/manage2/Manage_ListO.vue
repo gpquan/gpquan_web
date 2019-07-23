@@ -42,7 +42,7 @@
         </dl>
       </li>
     </ul>
-    <ul v-else  class="Max_list"> 
+    <ul v-else  class="Max_list">
     <li class="list_Item" style="margin-top:30px;justify-content:center;">
           <div class="errorBox">
                <img src="../../assets/image/error.png" alt="" class="errorImg">
@@ -50,7 +50,7 @@
     </li>
     </ul>
 		<!-- <div class="add_btn" @click="push_route">
-			<img src="../../assets/image/add_bth.png" alt=""> 
+			<img src="../../assets/image/add_bth.png" alt="">
 		</div> -->
   </div>
 </template>
@@ -165,7 +165,7 @@ export default {
    padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    top: 13px;
+    top: 20px;
     width: 80%;
     height: 66px;
     display: flex;
@@ -247,5 +247,9 @@ export default {
 .xmt {
   background: #e5eefe;
   color: #009cff;
+}
+.box1>div{
+  display:flex;
+  align-items:center;
 }
 </style>
