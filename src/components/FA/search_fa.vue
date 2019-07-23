@@ -98,6 +98,7 @@ export default {
 
     },
     check(item) {
+      return false;
       let _this = this;
       this.$dialog({
         title: "是否添加<b style='color:#f45551'>" + item.name + "</b>机构",
