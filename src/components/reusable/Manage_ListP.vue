@@ -4,7 +4,7 @@
     <nut-scroller
       :is-un-more="isUnMore1"
       :is-loading="isLoading1"
-      
+
       :stretch="600"
       :type="'vertical'"
       @loadMore="loadMoreVert"
@@ -30,7 +30,7 @@
                 <b class="noW" @click="pro_details(i)">{{i.name}}</b>
               </div>
             </div>
-            <div class="right">
+            <div class="right hidden">
               <img
                 src="../../assets/image/up.png"
                 alt
@@ -530,5 +530,8 @@ export default {
   -webkit-box-orient: vertical;
   width: 80%;
   height: 100%;
+}
+.hidden{
+    display: none;
 }
 </style>

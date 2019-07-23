@@ -24,11 +24,17 @@
           <span class="view-font-default">融资助手</span>
         </strong>
       </router-link>
-      <router-link to="/speed">
+      <!-- <router-link to="/speed">
         <strong :class=" !flag2?'view-li-xmjs':'xmjsActive'" @click="tagToggle(2)">
           <span class="view-font-default">项目加速</span>
         </strong>
-      </router-link>
+      </router-link> -->
+      <a @click="messageShow">
+        <strong :class=" !flag2?'view-li-xmjs':'view-li-xmjs'" @click="tagToggle(2)">
+          <span class="view-font-default">项目加速</span>
+        </strong>
+      </a>
+
 
       <router-link to="/userCenter">
         <strong :class=" !flag3?'view-li-userCenter':'userActive'" @click="tagToggle(3)">
@@ -74,6 +80,9 @@ export default {
     // console.log(this.Ind)
   },
   methods: {
+    messageShow(){
+  this.$toast.text('维护升级中...');
+    },
     tagToggle(num) {
       this.Ind = num;
 
@@ -83,12 +92,12 @@ export default {
         this.flag2 = false;
         this.flag3 = false;
       }
-      if (this.Ind == 2) {
-        // this.tab($(".view-li-accelerate"));
-        this.flag2 = true;
-        this.flag1 = false;
-        this.flag3 = false;
-      }
+      // if (this.Ind == 2) {
+      //   // this.tab($(".view-li-accelerate"));
+      //   this.flag2 = true;
+      //   this.flag1 = false;
+      //   this.flag3 = false;
+      // }
       if (this.Ind == 3) {
         // this.tab($(".view-li-userCenter"));
         this.flag3 = true;
