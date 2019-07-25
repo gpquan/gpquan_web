@@ -19,9 +19,9 @@
         <span></span>
       </div>-->
 
-      <!-- <nut-navbar 
-   
-    :leftShow="true" 
+      <!-- <nut-navbar
+
+    :leftShow="true"
     :rightShow="true"
       >title</nut-navbar>-->
       <div class="statusShow">
@@ -270,13 +270,10 @@ export default {
   },
   beforeMount() {
     this.NUrl=window.location.href
-    alert(this.NUrl)
 
-
-  
     this.$post('/wxApi/getWxjssdkConfig',{
       url:this.NUrl
-    }).then((res=>{ 
+    }).then((res=>{
       console.log(res)
     }))
     //  axios.defaults.baseURL = '/api';
@@ -292,7 +289,7 @@ export default {
     //     this.ProList = res.data;
     //   });
     // });
-    
+
     this.$post("/api/projectInvestHistory", {
       projectId: this.projectId
     }).then(res => {
