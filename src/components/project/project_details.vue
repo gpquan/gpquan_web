@@ -32,7 +32,7 @@
           <div class="box_text">独家签约</div>
         </div>
         <div class="statusBox2">
-          <div class="statusIMG statusIMG2">{{ListData.yongjin+"%"}}</div>
+          <div class="statusIMG statusIMG2"><span class='yongjin_style'>{{ListData.yongjin+"%"}}</span></div>
           <div class="box_text">佣金比例</div>
         </div>
         <div class="statusBox3">
@@ -726,5 +726,8 @@ b {
 }
 .line:last-child{
   opacity: 0;
+}
+.yongjin_style{
+    margin-top: -6px;
 }
 </style>
