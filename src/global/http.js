@@ -38,10 +38,10 @@ axios.interceptors.response.use(
   error => {
     console.log(error)
     if (error == 'Error: Network Error') {
-      alert("后台服务已宕机，请联系服务人员");
+      // alert("后台服务已宕机，请联系服务人员");
       return;
     } else if (error == 'Error: timeout of 50000ms exceeded') {
-      alert("服务器连接超时，请联系工作人员");
+      // alert("服务器连接超时，请联系工作人员");
     // } else if (
     //   error.response.data.message == 'token不存在,请重新登录-----------------浏览器中的token不存在' ||
     //   error.response.data.message == '登录状态过期，请重新登录' ||
