@@ -29,12 +29,6 @@
           <span class="view-font-default">项目加速</span>
         </strong>
       </router-link> -->
-      <a @click="messageShow">
-        <strong :class=" !flag2?'view-li-xmjs':'view-li-xmjs'" @click="tagToggle(2)">
-          <span class="view-font-default">项目加速</span>
-        </strong>
-      </a>
-
 
       <router-link to="/userCenter">
         <strong :class=" !flag3?'view-li-userCenter':'userActive'" @click="tagToggle(3)">
