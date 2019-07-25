@@ -415,7 +415,7 @@ export default {
     position: absolute;
     //top: 13px;    //父容器paddng13px
     width: 66px;
-    height: 66px;
+     height: 66px;
     display: flex;
     align-items: center;
     justify-content: center;

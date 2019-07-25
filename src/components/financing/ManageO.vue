@@ -78,7 +78,7 @@
 			push_route(){
 				this.$router.push({path:"/organ/dimO"})
 			},
-			pro_evolve(id) { 
+			pro_evolve(id) {
 			  //项目进展
 			  // var pro_evolve_id = this.MaxList[projects][id];
 			  this.$router.push({ name: "ManageA_details",params: {pro_evolve_id:id}});
