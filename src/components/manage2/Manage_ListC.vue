@@ -45,10 +45,10 @@
         </dl>
       </li>
     </ul>
-      <ul v-else  class="Max_list"> 
+      <ul v-else  class="Max_list">
     <li class="list_Item" style="margin-top:30px;justify-content:center;">
       <div class="errorBox">
-               <img src="../../assets/image/error.png" alt="" class="errorImg">
+               <img src="../../assets/image/error.png" alt="" class="errorImg">222
         </div>
     </li>
     </ul>
@@ -118,7 +118,7 @@ export default {
         this.Pid = res.data.info.project_id;
         this.getList()
         this.page=this.page+1
-        
+
       });
     },
     getList(){
@@ -154,8 +154,9 @@ export default {
           this.timer = setTimeout(() => {
               this.isUnMore1 = false;
             this.isLoading1 = false;
+            // console.log('竞品：', this.Ndata);
             this.ListData = this.ListData.concat(this.Ndata);
-            console.log(this.ListData);
+            // console.log(this.ListData);
             this.Ndata = [];
             this.page = this.page + 1;
           }, 300);

@@ -166,8 +166,8 @@ export default {
   span {
     position: absolute;
     top: 20px;
-    width: 80%;
-    height: 66px;
+    width: 84%;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
