@@ -85,7 +85,7 @@
 			</div>
 		</div>
 
-		<div class="Project_Lib" v-for="(itemP,key,index) in project_list">
+		<div class="Project_Lib hiden_style" v-for="(itemP,key,index) in project_list">
 			<div class="title1-box">
 				<img src="../../assets/image/line1.png" alt="" class="line">
 				<span class="title-text">项目库{{key+1}}</span>
@@ -117,7 +117,7 @@
 			</div>
 
 		</div>
-			<div class="btn">
+			<div class="btn hiden_style">
 				<nut-button block shape="circle">
 					发送项目(约谈)
 				</nut-button>
@@ -379,5 +379,9 @@
 				width: 90%;
 			}
 		}
+	}
+
+	.hiden_style{
+		display: none;
 	}
 </style>

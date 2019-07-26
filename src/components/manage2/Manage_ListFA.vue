@@ -307,7 +307,7 @@ export default {
 }
 .Max_list {
   margin-bottom: 60px;
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -356,9 +356,9 @@ export default {
   box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   position: relative;
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
-  padding: 10px;
+  padding: 5px 10px 10px 10px;
   flex-direction: column;
   //   border-radius: 10px;
   //   padding: 10px;
@@ -489,7 +489,7 @@ export default {
 }
 .noW {
   font-weight: 400;
-  text-indent: 10px;
+  // text-indent: 10px;
 }
 .lineEm {
   width: 3px;
@@ -526,7 +526,7 @@ export default {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-  width: 80%;
+  width: 95%;
   height: 100%;
 }
 </style>

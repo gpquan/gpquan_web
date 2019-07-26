@@ -287,7 +287,7 @@ export default {
 <style lang="scss" scoped>
 .Max_list {
   margin-bottom: 60px;
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -337,7 +337,7 @@ export default {
   position: relative;
   margin-top: 15px;
   display: flex;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   flex-direction: column;
   //   border-radius: 10px;
   //   padding: 10px;
@@ -413,7 +413,7 @@ export default {
   padding: 13px 10px 8px 10px;
   span {
     position: absolute;
-    //top: 13px;    //父容器paddng13px
+    top: 11px;    //父容器paddng13px
     width: 66px;
     //height: 66px;
     display: flex;

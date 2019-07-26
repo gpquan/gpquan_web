@@ -104,7 +104,8 @@ export default {
                     infoStatus:true
                 }}); //role 1  添加FA
               }else{
-                  this.$router.push('/project')
+                  // this.$router.push('/project')
+                  this.$router.push('/accelerate/Manage/o')
               }
             } else if (ress.data.role == 2) {
               if (!ress.data.info.id) {

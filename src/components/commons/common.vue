@@ -1,7 +1,7 @@
 <template>
   <div class="view-footer">
     <div class="view-footer" v-if="footerShow==1">
-      <router-link to="/project">
+      <router-link to="/project" v-if="1==2">
         <strong :class=" !flag1?'view-li-jztj':'jztjActive'" @click="tagToggle(1)">
           <span class="view-font-default">精准推荐</span>
         </strong>
@@ -24,11 +24,11 @@
           <span class="view-font-default">融资助手</span>
         </strong>
       </router-link>
-      <!-- <router-link to="/speed">
+      <router-link to="/speed" v-if="1==2">
         <strong :class=" !flag2?'view-li-xmjs':'xmjsActive'" @click="tagToggle(2)">
           <span class="view-font-default">项目加速</span>
         </strong>
-      </router-link> -->
+      </router-link>
 
       <router-link to="/userCenter">
         <strong :class=" !flag3?'view-li-userCenter':'userActive'" @click="tagToggle(3)">
@@ -86,12 +86,12 @@ export default {
         this.flag2 = false;
         this.flag3 = false;
       }
-      // if (this.Ind == 2) {
-      //   // this.tab($(".view-li-accelerate"));
-      //   this.flag2 = true;
-      //   this.flag1 = false;
-      //   this.flag3 = false;
-      // }
+      if (this.Ind == 2) {
+        // this.tab($(".view-li-accelerate"));
+        this.flag2 = true;
+        this.flag1 = false;
+        this.flag3 = false;
+      }
       if (this.Ind == 3) {
         // this.tab($(".view-li-userCenter"));
         this.flag3 = true;

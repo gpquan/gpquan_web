@@ -59,6 +59,10 @@ export default {
               projectId: item.id
             }).then(res => {
               console.log(res);
+              if (res.status == 'error') {
+                  this.$toast.text(res.error.message);
+                  return;
+              }
               _this.$router.go(-1);
             });
           } else {
@@ -67,6 +71,10 @@ export default {
               projectId: item.id
             }).then(res => {
               console.log(res);
+              if (res.status == 'error') {
+                  this.$toast.text(res.error.message);
+                  return;
+              }
               _this.$router.go(-1);
             });
           }
@@ -98,6 +106,10 @@ export default {
           projectId: item.id
         }).then(res => {
           console.log(res);
+          if (res.status == 'error') {
+              this.$toast.text(res.error.message);
+              return;
+          }
           this.$router.go(-1);
         });
       } else {
@@ -106,6 +118,10 @@ export default {
           projectId: item.id
         }).then(res => {
           console.log(res);
+          if (res.status == 'error') {
+              this.$toast.text(res.error.message);
+              return;
+          }
           this.$router.go(-1);
         });
       }

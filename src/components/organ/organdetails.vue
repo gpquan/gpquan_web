@@ -554,6 +554,9 @@ export default {
     height: 100%;
   }
 }
+.right{
+    display: none;
+}
 .Listhy {
   // border:1px solid #ccc;
   display: inline-block;

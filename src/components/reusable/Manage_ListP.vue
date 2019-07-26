@@ -309,7 +309,7 @@ export default {
 <style lang="scss" scoped>
 .Max_list {
   margin-bottom: 60px;
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -360,7 +360,7 @@ export default {
   position: relative;
   margin-top: 15px;
   display: flex;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   flex-direction: column;
   //   border-radius: 10px;
   //   padding: 10px;

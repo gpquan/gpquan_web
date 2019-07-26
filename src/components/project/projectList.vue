@@ -251,7 +251,7 @@ export default {
       page:1,
       userId:null,
     };
-  
+
   },
   beforeMount(){
     this.userId = JSON.parse(sessionStorage.getItem("userInfo")).id;
@@ -355,7 +355,7 @@ export default {
         }, 300);
       }
       })
-     
+
     },
 
     pulldown() {
@@ -373,7 +373,7 @@ export default {
         // this.page1 = 2;
       }, 300);
     }
-  } , 
+  } ,
   destroyed() {
     clearTimeout(this.timer);
   }

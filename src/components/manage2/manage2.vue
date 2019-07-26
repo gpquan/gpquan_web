@@ -32,7 +32,7 @@ export default {
       IND:0,
       tabLink:[
         {
-          name:"项目竞品",
+          name:"竞品管理",
           links:'/Manage2/C'
         },
          {
@@ -70,7 +70,7 @@ export default {
             this.IND = i;
           //  console.log(this.tabInd);
         }
-      
+
   }
     }
     }
@@ -110,11 +110,11 @@ export default {
   }
   .active{
     b{
-     
+
         opacity: 1;
           display: inline-block;
            background: #fff;
-        
+
     }
   }
 }

@@ -114,14 +114,14 @@ export default {
   box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   position: relative;
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   //   border-radius: 10px;
   //   padding: 10px;
 }
 .Max_list {
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;

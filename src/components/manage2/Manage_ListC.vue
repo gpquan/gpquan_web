@@ -105,7 +105,8 @@ export default {
       this.$router.push({
         path: "/project/details",
         query: {
-          id: item.id
+          id: item.id,
+          source:'hidden'
         }
       });
     },
@@ -189,7 +190,7 @@ export default {
   bottom: 10%;
 }
 .Max_list {
-  margin-top: 10px;
+  // margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -237,9 +238,9 @@ export default {
   box-shadow: 0px 1px 20px 0px rgba(250, 115, 97, 0.15);
   border-radius: 8px;
   position: relative;
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   //   border-radius: 10px;
   //   padding: 10px;
 }
@@ -394,6 +395,7 @@ export default {
 
 .List_item {
   display: flex;
+  margin-top: 5px;
   // padding: 23px 15px;
   dt {
     min-width: 75px;

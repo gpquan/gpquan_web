@@ -4,7 +4,7 @@
       <nut-navbar
         @on-click-back="back"
         :leftShow="true"
-        :rightShow="true"
+        :rightShow="false"
         style="background:rgba(255,255,255,0);color:#fff;z-index:9;"
       >{{ListData.name}}</nut-navbar>
       <div class="h_img">
@@ -99,6 +99,7 @@
               <div style="padding:10px 0">
                 <!-- <em v-for="(itt,idd) in  ListData.lingyu_name" :key="idd" :class="colorClass[idd]">{{itt.lingyu_name}}</em> -->
                 <em :class="colorClass[0]">{{ListData.lingyu_name}}</em>
+                <em :class="colorClass[0]">{{ListData.lingyu_sub_name}}</em>
               </div>
             </b>
           </div>
@@ -153,7 +154,7 @@
         </nut-scroller>
       </div>
     </div>
-    <div class="ProjectList">
+    <div class="ProjectList" v-if="source == hidden">
       <!-- <div class="teamBox_title"> -->
       <div class="title_top">
         <div class="left">
@@ -265,7 +266,8 @@ export default {
       ProList: {},
       id: null,
       unfoldAll1: true,
-      NUrl:null
+      NUrl:null,
+      source:null,
     };
   },
   beforeMount() {
@@ -301,6 +303,7 @@ export default {
     // organId
     console.log(this.$route.query.id);
     this.projectId = this.$route.query.id;
+    this.source = this.$route.query.source;
     // console.log(id);
     this.$fetch("/api/getProjectDetail/" + this.projectId).then(res => {
       if (res.status == "success") this.ListData = res.data;
@@ -492,6 +495,7 @@ b {
 }
 .intro {
   display: flex;
+  padding-bottom: 10px;
 }
 .intro p {
   // display: inline-block;
