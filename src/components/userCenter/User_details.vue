@@ -10,7 +10,8 @@
 				</div>
 				<!-- {{}} -->
 				<div class="Box_1 headIMG">
-					<img :src="web_www+this.ListData.info.header_img" alt class="header_img">
+					<img v-if="ListData.info.header_img" :src="web_www+this.ListData.info.header_img" alt class="header_img">
+					<img v-else src="/img/right-title-portrait.446c61c9.png" alt class="header_img">
 				</div>
 				<div class="Box_1" style="display:flex;flex-direction: column;">
 					<span v-text="this.ListData.info.project_num">21</span>
@@ -55,7 +56,7 @@
 					<span
 						v-for="(item_stage,index) in ListData.info.stage_name"
 					>{{item_stage.name}}</span>
-					
+
 				</div>
 				<!-- v-text="this.ListData.info.stage_name[0].name -->
 			</div>
@@ -65,7 +66,7 @@
 					<span class=""
 						v-for="itemL in ListData.info.lingyu_name"
 					>{{itemL.name}}      </span>
-					
+
 				</div>
 			</div>
 		</div>
@@ -83,7 +84,7 @@
 				<p style="text-align: right;" @click="UnShow_text()">收起 <i class="el-icon-caret-top"></i></p>
 			</div>
 		</div>
-		
+
 		<div class="Project_Lib" v-for="(itemP,key,index) in project_list">
 			<div class="title1-box">
 				<img src="../../assets/image/line1.png" alt="" class="line">
@@ -97,7 +98,7 @@
 				<div class="head_card_left">
 					<p v-text="itemP.name" style=""></p>
 					<p v-text="itemP.description" class="pro_msg hide">打死打死撒是啊打死按时撒撒旦</p>
-					
+
 					<p style=""
 						v-for="(items,index) in itemP.stage_name" :key="index"
 					>{{items}}</p>
@@ -112,9 +113,9 @@
 					>{{items}}</nut-button>
 					<!-- 					  v-for="(item,ind) in  (typeof(progressObj.lingyu_name) == 'string' ? [{name:progressObj.lingyu_name}] : progressObj.lingyu_name)  " :key="ind" v-if="ind < 3" -->
 				</div>
-				
+
 			</div>
-			
+
 		</div>
 			<div class="btn">
 				<nut-button block shape="circle">
@@ -331,7 +332,7 @@
 		left: 3vh;
 		top: 3vh;
 		display: inline-block;
-	
+
 	}
 	.title-text {
 		margin-left: 2%;
@@ -340,7 +341,7 @@
 
 	.topBox {
 		position: relative;
-		height: 30%;
+		min-height: 25%;
 		background-image: url("../../assets/image/bg.png");
 
 		.btm_BG {

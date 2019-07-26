@@ -381,7 +381,7 @@ export default {
 .title_top {
   display: flex;
   justify-content: space-between;
-  padding-top: 10px;
+  // padding-top: 10px;
   .left {
     display: flex;
     align-items: center;

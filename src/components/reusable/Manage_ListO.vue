@@ -415,7 +415,7 @@ export default {
     position: absolute;
     //top: 13px;    //父容器paddng13px
     width: 66px;
-     height: 66px;
+    //height: 66px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -438,7 +438,7 @@ export default {
   //   display: inline-block;
   //   line-height: 100px;
   em {
-    width: 80%;
+    //width: 80%;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -447,7 +447,7 @@ export default {
     // overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     text-align: center;
     color: #f37f6d;
   }
