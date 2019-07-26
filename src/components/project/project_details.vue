@@ -563,7 +563,7 @@ b {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  margin-top: 5%;
+  margin-top: 2%;
   color: #666;
 }
 .test_size {
@@ -719,7 +719,7 @@ b {
   border-radius: 50% 50%;
 }
 .m_t5 {
-  margin-top: 5%;
+  margin-top: 2%;
 }
 .lc {
   font-size: 12px;

@@ -222,21 +222,25 @@
 	}
 	.header_img{
 		position: absolute;
-    bottom: 50%;
-    min-width: 100px;
-    min-height: 100px;
-    max-width: 100px;
-    max-height: 100px;
-    border-radius: 50% 50%;
+	    bottom: 50%;
+	    min-width: 100px;
+	    min-height: 100px;
+	    max-width: 100px;
+	    max-height: 100px;
+	    border-radius: 50% 50%;
 	}
 	.text_contain{
 		width:100%;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 3;
-		text-align: center;
+		-webkit-line-clamp: 2;
+		//text-align: center;
 		overflow: hidden;
-		height: 8vh;
+		margin-left:15px
+		//height: 8vh;
+	}
+	.text_show{
+		margin-left:15px;
 	}
 	.btn {
 		text-align: center;
@@ -363,6 +367,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			margin-top: -10%;
 		}
 
 		.headIMG {
