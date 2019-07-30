@@ -48,7 +48,7 @@
       <ul v-else  class="Max_list">
     <li class="list_Item" style="margin-top:30px;justify-content:center;">
       <div class="errorBox">
-               <img src="../../assets/image/error.png" alt="" class="errorImg">222
+               <img src="../../assets/image/error.png" alt="" class="errorImg">
         </div>
     </li>
     </ul>
@@ -190,7 +190,7 @@ export default {
   bottom: 10%;
 }
 .Max_list {
-  // margin-top: 10px;
+  margin-top: -5px;
   display: flex;
   flex-direction: column;
   align-items: center;

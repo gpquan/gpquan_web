@@ -452,25 +452,31 @@ b {
     }
   }
   .statusBox1 .statusIMG {
-    background-image: url("../../assets/image/icon3.png") ;
+    // background-image: url("../../assets/image/icon3.png") ;
+    background:#ee797b;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+    border-radius:50%;
   }
   .statusBox2 .statusIMG {
-    background-image: url("../../assets/image/icon2.png");
+    //background-image: url("../../assets/image/icon2.png");
+    background:#ee797b;
     background-repeat: no-repeat;
     background-size:contain;
-     background-position: center;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius:50%;
   }
   .statusBox3 .statusIMG {
     background-image: url("../../assets/image/icon.png");
+    background:#ee797b;
     background-repeat: no-repeat;
     background-size: contain;
-     background-position: center;
+    background-position: center;
+    border-radius:50%;
   }
 }
 .statusIMG2 {
@@ -732,6 +738,6 @@ b {
   opacity: 0;
 }
 .yongjin_style{
-    margin-top: -6px;
+    // margin-top: -6px;
 }
 </style>

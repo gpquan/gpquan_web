@@ -307,7 +307,7 @@ export default {
 }
 .Max_list {
   margin-bottom: 60px;
-  // margin-top: 10px;
+  margin-top: -5px;
   display: flex;
   flex-direction: column;
   align-items: center;

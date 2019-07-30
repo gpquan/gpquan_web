@@ -562,7 +562,8 @@
 		width: 100vw;
 		overflow: scroll;
 		-webkit-overflow-scrolling: touch;
-		margin-top:25vh;
+		// margin-top:25vh;
+		margin-top:200px;
 	}
 
 	.block {
